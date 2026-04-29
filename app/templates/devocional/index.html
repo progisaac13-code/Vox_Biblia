@@ -28,42 +28,6 @@
                 <div>
                     <h3 class='songs-name'>Lo-Fi: Phasing</h3>
                     <p class="artist-name">Astronaut</p>
-                    <div class="dropdown">
-                        <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
-                            aria-expanded="false">
-                            Abrir Playlist
-                        </button>
-                        <ul class="dropdown-menu">
-                            <li class="dropdown-item" onclick="change_music('lo-fi-astronaut-phasing.mp3', 'Lo-Fi - Phasing', 'Astronaut', 'lo-fi')">
-                                Lo-fi - Phasing 
-                                <small>Astronaut</small>
-                            </li>
-                            <li class="dropdown-item" onclick="change_music('lo-fi-astronaut-design-for-dreaming.mp3', 'Lo-fi - Design For Dreaming', 'Astronaut', 'lo-fi')">
-                                Lo-fi - Design For Dreaming
-                                <small>Astronaut</small>
-                            </li>
-                            <li class="dropdown-item" onclick="change_music('vibedepot-lo-fi.mp3', 'Lo-fi', 'VibeDepot', 'lo-fi')">
-                                Lo-fi
-                                <small>VibeDepot</small>
-                            </li>
-                            <li class="dropdown-item" onclick="change_music('astronaut-autumn-in-the-air.mp3', 'Autumn In The Air', 'VibeDepot', 'lo-fi')">
-                                Lo-fi - Autumn in The Air
-                                <small>Astronaut</small>
-                            </li>
-                            <li class="dropdown-item" onclick="change_music('pulsar-the-grey-room.mp3', 'Pulsar', 'The Gray Room', 'ambiente')">
-                                Ambiente - Pulsar
-                                <small>The Gray Room</small>
-                            </li>
-                            <li class="dropdown-item" onclick="change_music('gospel-worship.mp3', 'Glorify Him', 'NO DATA', 'worship')">
-                                Worship - Glorify Him
-                                <small></small>
-                            </li>
-                            <li class="dropdown-item" onclick="change_music('gospel-worship-2.mp3', 'In His Name', 'NO DATA', 'worship')">
-                                Worship - In His Name
-                                <small>NO DATA</small>
-                            </li>
-                        </ul>
-                    </div>
                 </div>
             </div>
             <div class="bloco_controls w-25">
@@ -79,13 +43,81 @@
         </div>
     </header>
     <section id="devocional">
-        <div class="content">
+        <div class="content w-75">
             <h1>Devocional de Hoje</h1>
             <h3 id="livro"></h3>
             <div id="text">
             </div>
         </div>
+        <div class="btn-actions w-25">
+            <h2>Principais Ações</h2>
+            <div class="btn-playlist mt-5">
+                <button class="btn btn-playlist" type="button" data-bs-toggle="offcanvas" data-bs-target="#playlist"
+                    aria-controls="offcanvasBottom">
+                    Abrir Playlist ▶
+                </button>
+            </div>
+        </div>
     </section>
+    <div class="offcanvas offcanvas-end" tabindex="-1" id="playlist" aria-labelledby="offcanvasBottomLabel"
+        style="width: 550px;">
+        <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="offcanvasBottomLabel">Playlist Vox</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body small">
+            <ul class="lista">
+                <li class="dropdown-item"
+                    onclick="change_music('lo-fi-astronaut-phasing.mp3', 'Lo-Fi - Phasing', 'Astronaut', 'lo-fi')">
+                    Lo-fi - Phasing
+                    <small>Astronaut</small>
+                </li>
+                <li class="dropdown-item"
+                    onclick="change_music('lo-fi-astronaut-design-for-dreaming.mp3', 'Lo-fi - Design For Dreaming', 'Astronaut', 'lo-fi')">
+                    Lo-fi - Design For Dreaming
+                    <small>Astronaut</small>
+                </li>
+                <li class="dropdown-item" onclick="change_music('vibedepot-lo-fi.mp3', 'Lo-fi', 'VibeDepot', 'lo-fi')">
+                    Lo-fi
+                    <small>VibeDepot</small>
+                </li>
+                <li class="dropdown-item"
+                    onclick="change_music('astronaut-autumn-in-the-air.mp3', 'Autumn In The Air', 'VibeDepot', 'lo-fi')">
+                    Lo-fi - Autumn in The Air
+                    <small>Astronaut</small>
+                </li>
+                <li class="dropdown-item"
+                    onclick="change_music('pulsar-the-grey-room.mp3', 'Pulsar', 'The Gray Room', 'ambiente')">
+                    Ambiente - Pulsar
+                    <small>The Gray Room</small>
+                </li>
+                <li class="dropdown-item"
+                    onclick="change_music('gospel-worship.mp3', 'Glorify Him', 'NO DATA', 'worship')">
+                    Worship - Glorify Him
+                    <small></small>
+                </li>
+                <li class="dropdown-item"
+                    onclick="change_music('gospel-worship-2.mp3', 'In His Name', 'NO DATA', 'worship')">
+                    Worship - In His Name
+                    <small>NO DATA</small>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="toast-container position-fixed bottom-0 end-0 p-3">
+        <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="toast-header">
+                <img src="../static/imagens/favicon/favicon.ico" width="40" class="rounded me-2" alt="...">
+                <strong class="me-auto">VOX BÍBLIA</strong>
+                <small></small>
+                <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+            <div class="toast-body text-dark">
+                <p class="text-toast"></p>
+            </div>
+        </div>
+    </div>
+    <button type="button" class="btn btn-primary" id="liveToastBtn" hidden>Show live toast</button>
 </body>
 
 </html>

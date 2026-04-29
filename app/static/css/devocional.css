@@ -1,5 +1,18 @@
 @charset "UTF-8";
 
+
+.btn.btn-playlist {
+    background: var(--verde);
+    padding: 15px 70px;
+    border-radius: 0;
+    transition: 0.6s;
+}
+
+.btn.btn-playlist:hover {
+    background: #333;
+    color: black;
+}
+
 .player {
     position: sticky;
     top: 0;
@@ -8,7 +21,7 @@
     display: flex;
     justify-content: space-around;
     padding: 20px 40px;
-    color: var(--details);
+    color: var(--verde);
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
 }
 
@@ -33,7 +46,7 @@ div.bloco_controls {
 }
 
 button {
-    background: var(--details);
+    background: var(--verde);
     border: none;
     padding: 10px 15px;
     border-radius: 50%;
@@ -49,7 +62,7 @@ button {
 }
 
 .progress {
-    background: var(--details);
+    background: var(--verde);
     height: 100%;
     width: 0%;
     border-radius: 5px;
@@ -60,14 +73,11 @@ button {
 #devocional {
     display: flex;
     flex-wrap: wrap;
-    justify-content: center;
 }
 
 #devocional .content {
     padding: 40px;
     width: 1200px;
-    border-left: 2px dashed var(--details);
-    border-right: 2px dashed var(--details);
 }
 
 #devocional .content h1 {
@@ -79,7 +89,6 @@ button {
 #devocional .content h3 {
     font-family: 'Inter', sans-serif;
     font-size: 24px;
-    color: var(--details);
 }
 
 #devocional .content #text {
@@ -97,4 +106,31 @@ button {
 
 #devocional .content p#versiculo small {
     font-size: 12px;
+}
+
+.offcanvas {
+    background: linear-gradient(135deg, #29ff78, #22C55E)
+}
+
+.offcanvas-backdrop {
+    background: #22c55ebb;
+}
+
+ul.lista {
+    display: flex;
+    flex-wrap: wrap;
+    font-size: 16px;
+}
+
+ul.lista li {
+    padding: 20px 20px;
+}
+
+ul.lista li:hover {
+    background: var(--verde);
+    color: white;
+}
+
+ul.lista li:hover:before {
+    content: "▶";
 }

@@ -77,6 +77,8 @@ function change_music(name, song, artist, tipo) {
     audio.play().then(() => {
         isPlaying = true;
         playBtn.innerText = "⏸";
+        const toastTrigger = document.getElementById('liveToastBtn').click();
+        document.querySelector('.text-toast').textContent = 'Aperte ESC para sair do modo playlist!';
     });
 }
 
@@ -103,3 +105,12 @@ $(document).ready(function () {
             }
         })
 })
+
+const toastTrigger = document.getElementById('liveToastBtn')
+const toastLiveExample = document.getElementById('liveToast')
+if (toastTrigger) {
+    const toastBootstrap = bootstrap.Toast.getOrCreateInstance(toastLiveExample)
+    toastTrigger.addEventListener('click', () => {
+        toastBootstrap.show()
+    })
+}
