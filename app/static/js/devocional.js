@@ -43,7 +43,16 @@ $(document).ready(function () {
             clearInterval(interval);
         }
     }, 100);
-
+    fetch('/api/streak')
+        .then(res => res.json())
+        .then(data => {
+            const streakNumberElement = document.querySelector('.streak-number');
+            if (data.streak == 0) {
+                streakNumberElement.innerHTML = 'Começe hoje a caminhar com o Senhor 🙏';
+            } else {
+                streakNumberElement.innerHTML = 'Há ' + data.streak + ' dia(s) com Deus! Continue Firme! 🙌'
+            }
+        })
 })
 
 function change_music(name, song, artist, tipo) {
