@@ -1,0 +1,142 @@
+@charset "UTF-8";
+
+.player {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    background: #181818;
+    display: flex;
+    justify-content: space-around;
+    padding: 20px 40px;
+    color: var(--details);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+.info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.info img {
+    width: 60px;
+    border-radius: 8px;
+}
+
+.controls {
+    text-align: center;
+    margin: 15px 0;
+}
+
+div.bloco_controls {
+    display: block;
+}
+
+button {
+    background: var(--details);
+    border: none;
+    padding: 10px 15px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.progress-container {
+    background: #333;
+    height: 5px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.progress {
+    background: var(--details);
+    height: 100%;
+    width: 0%;
+    border-radius: 5px;
+}
+
+/* DEVOCIONAL */
+
+#devocional {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+#devocional .playlist {
+    background: linear-gradient(135deg, black, #292929);
+    box-shadow: 0 10px 10px #292929;
+    border-radius: 10px 10px 50px 10px;
+}
+
+#devocional .playlist h5 {
+    font-family: 'Inter', sans-serif;
+    padding: 20px 20px 0 20px;
+    font-size: 24px;
+}
+
+#devocional .playlist .songs {
+    padding: 20px;
+}
+
+#devocional .playlist .songs ul {
+    padding: 10px;
+}
+
+#devocional .playlist .songs ul li {
+    display: flex;
+    list-style: none;
+    padding: 10px;
+}
+
+#devocional .playlist .songs ul li .content-play {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+}
+
+#devocional .playlist .songs ul li .content-play .name-songs::after {
+    content: "|";
+}
+
+#devocional .playlist .songs ul li:hover {
+    background: white;
+    color: rgb(26, 26, 26);
+}
+
+#devocional .playlist .songs ul li:hover::before {
+    content: "▶";
+}
+
+#devocional .content {
+    padding: 20px;
+    border-left: 5px solid var(--details);
+}
+
+#devocional .content h1 {
+    font-size: 80px;
+    font-style: italic;
+    letter-spacing: 2px;
+}
+
+#devocional .content h3 {
+    font-family: 'Inter', sans-serif;
+    font-size: 24px;
+    color: var(--details);
+}
+
+#devocional .content #text {
+    width: 850px;
+    margin-top: 40px;
+}
+
+#devocional .content p#versiculo {
+    font-size: 20px;
+    font-family: 'Inter', serif;
+    font-weight: 400;
+    margin-left: 20px;
+    line-height: 27px;
+}
+
+#devocional .content p#versiculo small {
+    font-size: 12px;
+}

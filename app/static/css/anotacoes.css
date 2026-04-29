@@ -1,0 +1,245 @@
+@charset "utf-8";
+
+* {
+    padding: 0;
+    margin: 0;
+}
+
+#entrada {
+    background: linear-gradient(rgba(0, 0, 0, .3), rgba(0, 0, 0, .8)), url('../imagens/anotacoes/notes.webp');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+#entrada section#welcome {
+    padding: 180px 20px;
+}
+
+#entrada section#welcome h1 {
+    font-size: 70px;
+    color: var(--details);
+    font-weight: bold;
+}
+
+#content-main {
+    padding: 50px 20px;
+}
+
+#widgets {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 50px;
+    padding: 50px 20px;
+}
+
+#widgets .card_notes {
+    position: relative;
+    background-color: #FFF9C4;
+    width: 530px;
+    border-radius: 6px 20px 30px 8px;
+    color: black;
+    margin: 20px 0;
+}
+
+#widgets .card_notes::after {
+    content: "";
+    position: absolute;
+    bottom: 15px;
+    right: 15px;
+
+    width: 0;
+    height: 0;
+
+    border-width: 20px;
+    border-style: solid;
+
+    border-color: transparent transparent #ffffff transparent;
+
+    transform: rotate(-35deg);
+    transition: all 0.3s;
+
+}
+
+#widgets .card_notes:hover::after {
+    transform: rotate(-90deg);
+}
+
+.card_notes i {
+    font-size: 18px;
+    cursor: pointer;
+}
+
+.card_notes .card_footer {
+    margin-top: 0;
+    margin-bottom: 5%;
+}
+
+.card_notes .card_footer div {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: left;
+    gap: 10px;
+}
+
+
+#modal-post_it.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+
+    background: rgba(0, 0, 0, 0.815);
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+#modal-post_it.hidden {
+    display: none;
+}
+
+#modal-post_it .modal-content {
+    background: black;
+    padding: 50px 40px;
+    color: rgb(31, 31, 31);
+    width: 1200px;
+    text-align: left;
+    border-radius: 0;
+    animation: fadeIn 0.3s ease;
+}
+
+#modal-post_it .modal-content #card_notes {
+    padding: 40px 10px;
+}
+
+
+#modal-post_it .modal-content .modal-header {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+#modal-post_it .modal-content .modal-header h3 {
+    font-family: 'Inter', sans-serif;
+    font-size: 25px;
+}
+
+#modal-post_it .modal-content #card_notes h2 {
+    font-size: 40px;
+    font-weight: bold;
+}
+
+#modal-post_it .modal-content #card_notes p {
+    font-size: 16px;
+}
+
+#modal-post_it .modal-content #card_notes .card_text {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 10px 20px;
+}
+
+#modal-post_it .modal-content #card_notes .card_text p {
+    font-size: 20px;
+    line-height: 35px;
+}
+
+#modal-post_it .danger {
+    background: #ff4d4d;
+    color: white;
+    padding: 9px 30px;
+}
+
+#modal-post_it .cancel {
+    background-color: transparent;
+    color: black;
+    padding: 9px 30px;
+    border: none;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
+/* MODO DE VISUALÇÃO: LINHAS */
+#linhas {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    padding: 0 30px;
+}
+
+#linhas .linhas_note {
+    position: relative;
+    background-color: #FFF9C4;
+    border-radius: 0px 0px 40px 0px;
+    color: black;
+    padding: 40px 30px;
+    margin: 20px 0;
+}
+
+#linhas .linhas_note::after {
+    content: "";
+    position: absolute;
+    bottom: 18px;
+    right: 15px;
+
+    width: 0;
+    height: 0;
+
+    border-width: 20px;
+    border-style: solid;
+
+    border-color: transparent transparent #33333346 transparent;
+
+    transform: rotate(-35deg);
+    transition: all 0.3s;
+
+}
+
+#linhas .linhas_note:hover::after {
+    transform: rotate(-90deg);
+}
+
+#linhas .options {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+#linhas .options small {
+    text-decoration: underline;
+}
+
+#linhas .content h3 {
+    font-size: 40px;
+    font-weight: bold;
+    font-style: italic;
+}
+
+#linhas .content p.ref {
+    font-size: 20px;
+    margin-bottom: 40px;
+}
+
+#linhas .content p.anotacao {
+    margin: 0 20px;
+    font-style: italic;
+    line-height: 34px;
+    font-size: 18px;
+    font-weight: 500;
+}

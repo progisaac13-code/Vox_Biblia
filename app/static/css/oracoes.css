@@ -1,0 +1,168 @@
+#Praycontent {
+    background-color: var(--fundo);
+    padding: 100px 20px;
+    margin: 40px 20px;
+    box-shadow: 0 0 24px var(--text);
+    border: 4px solid var(--text);    
+}
+
+ul.tabs-oracoes .btn-primary.active {
+    background-color: var(--text);
+    color: black;
+    text-decoration: underline;
+    transform: translateY(-8px) scale(1.05);
+    z-index: 10;
+    box-shadow: 0 10px 25px var(--text);
+}
+
+ul.tabs-oracoes .btn-primary:hover {
+    transform: translateY(-3px) scale(1);
+    background: var(--text);
+}
+
+ul.tabs-oracoes .btn-primary {
+    padding: 20px 30px;
+    transition: all 0.3s ease;
+    transform: translateY(0) scale(0.95);
+    z-index: 1;
+}
+
+
+/* Area Suas Orações */
+#myPray .header {
+    text-align: center;
+    padding: 40px 0px;
+}
+
+#myPray .header h2 {
+    font-size: 50px;
+    text-transform: uppercase;
+}
+
+
+#area-oracao .oracao-create {
+    padding: 50px 150px;
+}
+
+#area-oracao .oracao-create input,
+#area-oracao .oracao-create textarea,
+#area-oracao .oracao-create select {
+    border-radius: 0;
+    outline: none;
+}
+
+#area-oracao .oracao-create input:focus,
+#area-oracao .oracao-create textarea:focus,
+#area-oracao .oracao-create select:focus {
+    border: 3px solid var(--details);
+    box-shadow: 2px 2px 20px var(--details);
+    transition: all 0.3s ease;
+    outline: none;
+}
+
+#area-oracao .header h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 50px;
+    text-align: center;
+    text-transform: uppercase;
+}
+
+#area-oracao .go-pray {
+    padding: 15px 50px !important;
+}
+
+/*  tabela de oraçoes */
+
+.table thead tr th {
+    font-family: 'Playfair Display', serif;
+    background-color: var(--fundo);
+    color: var(--details);
+    font-weight: 800;
+    text-align: center;
+}
+
+.table tbody tr td.obj {
+    max-width: 200px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;    
+}
+
+.table tbody tr td.desc {
+    max-width: 200px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+
+.table tbody tr td {
+    background-color: var(--text);
+    border: none;
+    text-align: center;
+    cursor: pointer;
+}
+
+.table tbody tr.linha:hover td {
+    background-color: var(--cards);
+    color: var(--text);
+}
+
+.table tbody tr.linha td.opcoes {
+    display: flex;
+    justify-content: center;
+}
+
+.table tbody tr.linha td.opcoes li {
+    list-style: none;
+    margin: 0 5px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.table tbody tr.linha td.opcoes li a {
+    color: unset;
+}
+
+
+/* CSS DO EXCLUIR */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+
+    background: rgba(0, 0, 0, 0.6);
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.hidden {
+    display: none;
+}
+
+.modal-content {
+    background: #1e1e1e;
+    padding: 40px;
+    border-radius: 12px;
+    color: white;
+    width: 500px;
+    text-align: center;
+
+    animation: fadeIn 0.3s ease;
+}
+
+.danger {
+    background: #ff4d4d;
+    color: white;
+    padding: 9px 30px;
+}
+
+.cancel {
+    background-color: var(--text);
+    color: black;
+    padding: 9px 30px;
+}

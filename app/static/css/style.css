@@ -1,0 +1,625 @@
+@charset "utf-8";
+:root {
+    --fundo: #0F172A;
+    --cards: #1E293B;
+    --text: #F8FAFC;
+    --details: #FACC15;
+    --verde: #22C55E;
+}
+
+* {
+    padding: 0;
+    margin: 0;
+}
+
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+
+    background: rgba(0, 0, 0, 0.815);
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.modal-content {
+    background: linear-gradient(to top, rgba(0, 0, 0, .2), rgb(0, 0, 0, .8));
+    padding: 120px 40px;
+    color: white;
+    width: 1200px;
+    text-align: center;
+
+    animation: fadeIn 0.3s ease;
+}
+
+.danger {
+    background: #ff4d4d;
+    color: white;
+    padding: 9px 30px;
+}
+
+.cancel {
+    background-color: var(--text);
+    color: black;
+    padding: 9px 30px;
+}
+
+
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: var(--fundo);
+    color: var(--text);
+}
+
+#modal-oracao_personalizada.hidden {
+    display: none;
+}
+
+.details-back {
+    background-color: var(--details) !important;
+    color: #0F172A;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: 'Playfair Display', serif;
+}
+
+p {
+    font-family: 'Inter', sans-serif;
+}
+
+.streak-number {
+    font-size: 24px;
+    color: var(--details);
+    font-family: 'Playfair Display', serif;
+    font-weight: bold;
+}
+
+.btn.btn-details {
+    background-color: var(--details);
+}
+
+.btn.btn-details:hover {
+    color: #f8f8f8;
+}
+
+.btn.btn-primary {
+    background-color: var(--fundo);
+    border: none;
+    border-radius: 0;
+    padding: 10px 20px;
+}
+
+.btn.btn-primary:hover {
+    background-color: var(--details);
+    color: black;
+}
+
+
+.toast-header {
+    background-color: var(--details);
+    color: black
+}
+
+/**
+    Cabeçalho
+ */
+
+header .icon-header {
+    font-size: 26px;
+}
+
+header a.active {
+    background: linear-gradient(rgba(0, 0, 0, .5), rgba(0, 0, 0, .5));
+    text-decoration: underline;
+    color: white !important;
+    padding: 10px 50px;
+    text-transform: uppercase;
+}
+
+header a:hover {
+    background: linear-gradient(rgba(0, 0, 0, .5), rgba(0, 0, 0, .5));
+    text-decoration: underline;
+    color: white !important;
+}
+
+header a.active i {
+    color: var(--details) !important;
+}
+
+header.home {
+    background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6));
+    padding: 0 30px;
+}
+
+header.otherpage {
+    background: var(--cards);
+    padding: 0 30px;
+    margin-bottom: 30px;
+}
+
+header i {
+    color: var(--text)
+}
+
+/**
+    Conteúdo Principal
+ */
+
+.boasvindas {
+    font-size: 18px;
+    color: var(--text);
+    display: flex;
+    flex-wrap: wrap;
+    margin: auto 0;
+}
+
+#versiculo_dia {
+    background: linear-gradient(to top, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0)), url('../imagens/index.webp') no-repeat fixed;
+    background-size: cover;
+}
+
+main .versiculo_dia {
+    padding: 10px 50px 250px 50px;
+    height: 100%;
+    border-bottom: 5px solid var(--details);
+}
+
+main .versiculo_dia h1 {
+    font-family: 'Playfair Display', serif;
+    font-weight: 900;
+    font-size: 90px;
+    color: var(--details);
+}
+
+main .versiculo_dia .versiculo_box {
+    margin: 280px 0px 0px 0px;
+    animation: fadeIn 1.5s ease-in;
+}
+
+/* animação h1 do header */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
+main .versiculo_dia .versiculo_texto {
+    font-family: 'Inter', serif;
+    font-size: 22px;
+    font-weight: 500;
+}
+
+main .versiculo_dia div.extras_btns {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    font-size: 20px;
+    margin-top: 20px;
+}
+
+main .versiculo_dia div.extras_btns div a {
+    color: var(--details);
+
+}
+
+main .versiculo_dia span {
+    font-family: 'Inter', serif;
+    font-size: 19px;
+}
+
+main .versiculo_dia span.tema_referencia {
+    font-size: 15px;
+    text-decoration: underline;
+    color: var(--details);
+}
+
+.share_whabtn {
+    color: var(--verde);
+}
+
+/**
+SESSÃO CADASTRO
+ */
+main#section-singup div.form-cad {
+    padding: 50px 150px 50px 150px;
+    border-radius: 10px;
+    border: 3px solid var(--details);
+    background-color: var(--text);
+    box-shadow: 4px 0px 4px var(--details);
+}
+
+main#section-singup div.form-header {
+    color: black;
+}
+
+main#section-singup div.form-header h2 {
+    text-decoration: underline;
+    font-size: 40px;
+}
+
+/* Sessão Widgets */
+
+#widgets {
+    padding: 150px 20px;
+}
+
+
+
+#widgets #vers_fav .card-header {
+    background-color: var(--details);
+    color: black;
+    font-family: 'Playfair Display', serif;
+    font-size: 20px;
+}
+
+#widgets #vers_fav .card-header h3 {
+    font-size: 36px;
+    text-decoration: underline;
+}
+
+#widgets #vers_fav .card {
+    font-family: 'Inter', serif;
+    padding: 0px 0px 20px 0px;
+}
+
+#area-oracao {
+    background-color: var(--fundo);
+    border-radius: 10px;
+    padding: 20px;
+}
+
+#column_welcome {
+    background: linear-gradient(to top, rgba(0, 0, 0, .2), rgba(0, 0, 0, .9)), url('../imagens/colunas/colunas_boas_vindas.webp');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-attachment: scroll;
+    background-size: cover;
+    color: var(--text);
+    font-family: 'Playfair Display', serif;
+    padding: 100px 50px;
+}
+
+
+#column_welcome h2 {
+    font-size: 40px;
+}
+
+#widgets .title_widgets {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-weight: bold;
+    font-size: 70px;
+    text-transform: capitalize;
+    color: var(--details);
+}
+
+
+/* DESAFIO DO DIA */
+
+#desafio-dia {
+    background: linear-gradient(to top, rgb(0, 0, 0, .8), rgba(0, 0, 0, .2)), url('../imagens/desafio-do-dia.webp');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-attachment: scroll;
+    background-size: cover;
+    padding: 130px 150px;
+}
+
+#desafio-dia div.content {
+    background-color: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(4px);
+    padding: 80px 40px;
+    text-align: center;
+}
+
+#desafio-dia div.texts-header i.icon {
+    font-size: 40px;
+    color: var(--text);
+    margin: 40px 0px 20px 0px;
+}
+
+#desafio-dia div.texts-header h2 {
+    font-size: 65px;
+    color: #FACC15;
+    font-weight: bolder;
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+}
+
+#desafio-dia div.texts-header h2::after {
+    content: '|';
+    margin-left: 5px;
+    animation: blink 1s infinite;
+}
+
+@keyframes blink {
+    50% {
+        opacity: 0;
+    }
+}
+
+
+#desafio-dia .border-dd {
+    width: 200px;
+    height: 3px;
+    border: 3px solid var(--details);
+    color: var(--details);
+    margin-top: 20px;
+}
+
+#desafio-dia div.texts-body {
+    padding: 20px 30px;
+    margin: 30px auto 0px auto;
+}
+
+#desafio-dia div.texts-header h4 {
+    font-size: 20px;
+    font-weight: 800;
+    color: var(--text);
+    margin-top: 30px;
+}
+
+#desafio-dia div.texts-body h3 {
+    font-family: 'Inter', serif;
+    font-size: 43px;
+    font-weight: bold;
+    color: var(--details);
+    margin-top: 10px;
+    text-decoration: underline;
+}
+
+#desafio-dia div.texts-body p {
+    font-size: 22px;
+    color: var(--text);
+    margin-top: 15px;
+    opacity: 0.9;
+}
+
+.oracao-desafio_create {
+    color: var(--fundo);
+    margin-top: 20px;
+    margin-left: 20px;
+    text-decoration: underline;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn.conclusao-def {
+    background: linear-gradient(45deg, #d4af37, #f1d27a);
+    color: #1e1e1e;
+    padding: 10px 20px;
+    border-radius: 0;
+    margin-top: 30px;
+    transition: all 0.6s ease;
+}
+
+.btn.feedback-up,
+.btn.feedback-down {
+    background-color: transparent;
+    color: var(--details);
+    padding: 10px 15px;
+    border: 2px solid var(--details);
+    border-radius: 0;
+    margin-top: 30px;
+    margin-left: 10px;
+    font-weight: bold;
+    transition: all 0.3s ease;
+}
+
+.btn.feedback-up:hover,
+.btn.feedback-down:hover {
+    background-color: var(--details);
+    color: black;
+}
+
+.btn.feedback-up:active,
+.btn.feedback-down:active {
+    transform: translateY(2px);
+}
+
+.btn.feedback-up.active,
+.btn.feedback-down.active {
+    background-color: var(--details);
+    color: black;
+}
+
+.btn.conclusao-def:hover {
+    background-color: var(--details);
+    color: black;
+    transform: translateY(-2px);
+    box-shadow: 0px 4px 8px var(--details);
+}
+
+.show {
+    display: block;
+    animation: aparecer 0.5s ease-in forwards;
+}
+
+@keyframes aparecer {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes subir {
+    to {
+        transform: translateY(-100px);
+    }
+}
+
+section#after-desafio {
+    padding: 100px 20px;
+}
+
+section#after-desafio .anotacoes {
+    padding: 80px 30px;
+    border-radius: 10px;
+    border: 4px solid var(--details);
+    box-shadow: 4px 4px 10px var(--details);
+}
+
+section#after-desafio .anotacoes h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 40px;
+    color: var(--details);
+}
+
+section#after-desafio .anotacoes p {
+    font-family: 'Inter', serif;
+    font-size: 18px;
+}
+
+section#after-desafio .anotacoes .header {
+    border-bottom: 3px solid var(--details);
+
+}
+
+section#after-desafio .anotacoes button {
+    transition: all 0.6s;
+}
+
+section#after-desafio .anotacoes .submits button:hover {
+    background-color: var(--text) !important;
+    box-shadow: 0 0 10px var(--text);
+}
+
+.card_notes {
+    position: relative;
+    background-color: #FFF9C4;
+    padding: 50px;
+    width: 750px;
+    border-radius: 6px 20px 30px 8px;
+    color: black;
+    margin: 0 auto;
+    transition: all 0.4s ease
+}
+
+.card_notes::after {
+    content: "";
+    position: absolute;
+    bottom: 15px;
+    right: 15px;
+
+    width: 0;
+    height: 0;
+
+    border-width: 20px;
+    border-style: solid;
+
+    border-color: transparent transparent #ffffff transparent;
+
+    transform: rotate(-35deg);
+    transition: all 0.3s;
+
+}
+
+.card_notes:hover::after {
+    transform: rotate(-90deg);
+}
+
+.card_notes h4 {
+    font-family: 'Inter', serif;
+    font-size: 39px;
+    margin-bottom: 50px;
+    text-decoration: underline;
+}
+
+.card_notes .card_text {
+    font-family: 'Inter', serif;
+    letter-spacing: 1px;
+}
+
+.card_notes .card_footer {
+    margin-top: 150px;
+    font-size: 14px;
+}
+
+/* MODO DEVOCIONAL */
+
+#devocional {
+    padding: 40px 20px;
+}
+
+#devocional .two-columns {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+}
+
+#devocional .img {
+    background: linear-gradient(rgba(0, 0, 0, .5), rgba(0, 0, 0, .5)), url('../imagens/modo-devocional.webp');
+    background-size: cover;
+    background-repeat: no-repeat;    
+    background-position: center;
+    padding: 700px 0 0 0;
+    text-align: center;
+    border: 5px solid #facc1565;
+    border-radius: 10px;
+    box-shadow: -10px 10px 20px #facc1565;
+}
+
+#devocional .img p {
+    background: linear-gradient(135deg, #facc1565, #facc15d5);
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    font-size: 24px;
+    padding: 30px 0;
+    margin: auto 0;
+    width: 100%;
+    height: 100%;
+    font-style: italic;
+}
+
+#devocional .call-to-action {
+    padding: 20px 100px 20px 100px;
+    margin: auto 0;
+}
+
+#devocional .call-to-action h2 {
+    font-size: 50px;
+    color: var(--details);
+    font-weight: 700;
+}
+
+#devocional .call-to-action p {
+    font-size: 22px;
+    font-weight: 400;
+}
+
+#devocional .call-to-action .btn.btn-devocional {
+    background: var(--details);
+    padding: 15px 30px;
+    margin-top: 20px;
+    animation: pulse 2s infinite;
+}
+
+#devocional .call-to-action .btn.btn-devocional:hover {
+    transform: translateY(-3px);
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.06); }
+    100% { transform: scale(1); }
+}
+

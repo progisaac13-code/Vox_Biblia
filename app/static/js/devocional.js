@@ -1,0 +1,96 @@
+const audio = document.getElementById("audio");
+const playBtn = document.getElementById("play");
+const progress = document.querySelector(".progress");
+const progressContainer = document.querySelector(".progress-container");
+
+let isPlaying = false;
+
+playBtn.addEventListener("click", () => {
+    if (isPlaying) {
+        audio.pause();
+        playBtn.innerText = "▶";
+    } else {
+        audio.volume = 0.3;
+        audio.play();
+        playBtn.innerText = "⏸";
+    }
+    isPlaying = !isPlaying;
+});
+
+audio.addEventListener("timeupdate", () => {
+    const percent = (audio.currentTime / audio.duration) * 100;
+    progress.style.width = percent + "%";
+});
+
+progressContainer.addEventListener("click", (e) => {
+    const width = progressContainer.clientWidth;
+    const clickX = e.offsetX;
+    audio.currentTime = (clickX / width) * audio.duration;
+});
+
+$(document).ready(function () {
+    audio.volume = 0;
+    audio.play();
+    isPlaying = !isPlaying;
+    playBtn.innerText = "⏸";
+
+    let vol = 0;
+    let interval = setInterval(() => {
+        if (vol < 0.3) {
+            vol += 0.01;
+            audio.volume = vol;
+        } else {
+            clearInterval(interval);
+        }
+    }, 100);
+
+})
+
+function change_music(name, song, artist, tipo) {
+    pasta = ''
+    switch (tipo) {
+        case 'lo-fi':
+            pasta = 'lo-fi'
+            break;
+        case 'ambiente':
+            pasta = 'ambiente'
+            break;
+        case 'worship':
+            pasta = 'worship'
+            break;
+    }
+    audio.src = `../../static/audio/devocional/${pasta}/${name}`;
+    audio.load()
+
+    $('.songs-name').text(song);
+    $('.artist-name').text(artist);
+
+    audio.play().then(() => {
+        isPlaying = true;
+        playBtn.innerText = "⏸";
+    });
+}
+
+$(document).ready(function () {
+    fetch('/api/devocional')
+        .then(res => res.json())
+        .then(data => {
+            if (data.status == 1) {
+
+                const source = data.source[0]
+                const v = source.text
+
+                $('#livro').text(`${source.nome_livro} ${source.capitulo}`)
+
+                const p = document.getElementById('text');
+                v.forEach(v => {
+                    let d = v.split('.')
+                    p.innerHTML += `
+                        <p id='versiculo'><small>${d[0]}</small>${d[1]}</p>
+                        `
+                });
+
+                console.log(data.source[0])
+            }
+        })
+})

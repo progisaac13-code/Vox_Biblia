@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ context.title_site }}</title>
+    <link rel="shortcut icon" href="../static/imagens/favicon/favicon.ico" type="image/x-icon">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <link rel="stylesheet" href="../static/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header class="otherpage">
+        <div class="">
+            <div class="d-flex flex-wrap align-items-center justify-content-between py-3">
+                <div class="text-end">
+                    {% if context['Status'] == 'Logado!' %}
+                    <p class="boasvindas"><strong>Que Seu Dia Seja Abençoado e Repleto de Paz e Properidade, {{
+                            context['nome_usuario'] }}!</strong></p>
+                    {% else %}
+                    <a href="{{ url_for('login') }}" class="btn btn-primary me-2"><strong>Login/Cadastro</strong></a>
+                    {% endif %}
+                </div>
+                <ul class="nav col-12 col-lg-auto my-2 justify-content-center my-md-0 text-small gap-2">
+                    <li>
+                        <a href="{{ url_for('index') }}" class="nav-link text-white">
+                            <span class="bi d-block mx-auto mb-1 text-center" aria-hidden="true">
+                                <i class="fa-regular fa-house icon-header"></i>
+                            </span>
+                            Home
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="nav-link text-white">
+                            <span class="bi d-block mx-auto mb-1 text-center" aria-hidden="true">
+                                <i class="fa-solid fa-magnifying-glass icon-header"></i>
+                            </span>
+                            Buscar
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ url_for('versiculos_tema', tema='todos') }}" class="nav-link text-white">
+                            <span class="bi d-block mx-auto mb-1 text-center" aria-hidden="true">
+                                <i class="fa-solid fa-book-bible icon-header"></i>
+                            </span>
+                            Versículos
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ url_for('oracoes') }}" class="{{ context['btn_sair-class'] }} nav-link text-white">
+                            <span class="bi d-block mx-auto mb-1 text-center" aria-hidden="true">
+                                <i class="fa-solid fa-hands-praying icon-header"></i>
+                            </span>
+                            Diário de Orações
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ url_for('logout') }}" class="{{ context['btn_sair-class'] }} nav-link text-white">
+                            <span class="bi d-block mx-auto mb-1 text-center" aria-hidden="true">
+                                <i class="fa-solid fa-arrow-right-from-bracket icon-header"></i>
+                            </span>
+                            Sair
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </header>
+    <main class="container" id="section-singup">
+        <div>
+            <div class="container form-cad">
+                <div class="form-header">
+                    <div class="d-flex flex-wrap gap-3">
+                        <div class="mb-5">
+                            <img src="../static/imagens/logo/logo-vox-biblia.webp" alt="Logo VOX BIBLIA" width="250" height="250" class="rounded-4">
+                        </div>
+                        <div class="">
+                            <h2>SESSÃO <mark>CADASTRO</mark></h2>
+                            <hr>
+                            <p>Preencha corretamente os dados e desfrute de todos os recursos do <strong>VOX BÍBLIA</strong></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mb-4">
+                    <div class="col">
+                        <div class="form-floating">
+                            <input type="text" name="nome" id="nome" class="form-control" placeholder="Informe seu nome..." required>
+                            <label for="nome">NOME:</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mb-4">
+                    <div class="col">
+                        <div  class="form-floating">
+                            <input type="email" name="email" id="email" class="form-control" placeholder="Email..." required>
+                            <label for="email">E-MAIL:</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mb-4">
+                    <div class="col-md-8">
+                        <div class="form-floating">
+                            <input type="password" name="senha" id="senha" placeholder="Senha" class="form-control" required>
+                            <label for="senha">CRIE UMA SENHA:</label>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-floating">
+                            <input type="text" name="cpf" id="cpf" class="form-control" class="form-control" required>
+                            <label for="cpf">CPF:</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="mb-4">
+                    <button type="button" onclick="cadastrar()" class="btn btn-primary">Cadastrar</button>
+                </div>
+                <div class="alert alert-success d-none" role="alert"></div>
+            </div>
+        </div>
+    </main>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+</body>
+</html>
+<script>
+    function cadastrar() {
+        var nome = document.getElementById("nome").value;
+        var email = document.getElementById("email").value;
+        var senha = document.getElementById("senha").value;
+        var cpf = document.getElementById("cpf").value;
+
+        fetch('/api/cadastrar', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                nome: nome,
+                email: email,
+                senha: senha,
+                cpf: cpf
+            })
+        })
+        .then(res => res.json())
+        .then(data => {
+            switch (data.status) {
+                case 'usuario_existe':
+                    var alertBox = document.querySelector('.alert');
+                    alertBox.textContent = 'Usuário já existe!';
+                    alertBox.classList.remove('d-none');
+                    alertBox.classList.remove('alert-success');
+                    alertBox.classList.add('alert-danger');
+                    setTimeout(function() {
+                        alertBox.classList.add('d-none');
+                    }, 3000);
+                    break;
+                case 'adicionado':
+                    var alertBox = document.querySelector('.alert');
+                    alertBox.textContent = 'Cadastro realizado com sucesso!';
+                    alertBox.classList.remove('d-none');
+                    alertBox.classList.remove('alert-danger');
+                    alertBox.classList.add('alert-success');
+                    setTimeout(function() {
+                        alertBox.classList.add('d-none');
+                        document.location.href = "{{ url_for('login') }}";
+                    }, 3000);
+                    break;
+                case "CPF Não Válido":
+                    var alertBox = document.querySelector('.alert');
+                    alertBox.textContent = 'Informe um CPF válido para continuar!';
+                    alertBox.classList.remove('d-none');
+                    alertBox.classList.remove('alert-success');
+                    alertBox.classList.add('alert-danger');
+                    setTimeout(function() {
+                        alertBox.classList.add('d-none');
+                    }, 3000);
+                    break;
+                case 'Email Inválido':
+                    var alertBox = document.querySelector('.alert');
+                    alertBox.textContent = 'Informe um email válido para continuar!';
+                    alertBox.classList.remove('d-none');
+                    alertBox.classList.remove('alert-success');
+                    alertBox.classList.add('alert-danger');
+                    setTimeout(function() {
+                        alertBox.classList.add('d-none');
+                    }, 3000);
+                    break;
+            }
+        })
+    }
+</script>

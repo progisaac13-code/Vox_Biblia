@@ -1,0 +1,837 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ context.title_site }} - {{ context.slogan_site }}</title>
+    <link rel="shortcut icon" href="../static/imagens/favicon/favicon.ico" type="image/x-icon">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <link rel="stylesheet" href="../static/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+        integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+
+    <main>
+        <section id="versiculo_dia">
+            <header class="home">
+                <div class="">
+                    <div class="d-flex flex-wrap align-items-center justify-content-between py-3">
+                        <div class="text-end">
+                            {% if context['Status'] == 'Logado!' %}
+                            <span class="streak-number"></span>
+                            {% else %}
+                            <a href="{{ url_for('login') }}"
+                                class="btn btn-primary me-2"><strong>Login/Cadastro</strong></a>
+                            {% endif %}
+                        </div>
+                        <ul class="nav col-12 col-lg-auto my-2 justify-content-center my-md-0 text-small gap-2">
+                            <li>
+                                <a href="{{ url_for('index') }}" class="nav-link active">
+                                    <span class="bi d-block mx-auto mb-1 text-center" aria-hidden="true">
+                                        <i class="fa-regular fa-house icon-header"></i>
+                                    </span>
+                                    Home
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#" class="nav-link text-white">
+                                    <span class="bi d-block mx-auto mb-1 text-center" aria-hidden="true">
+                                        <i class="fa-solid fa-magnifying-glass icon-header"></i>
+                                    </span>
+                                    Buscar
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{ url_for('versiculos_tema', tema='todos') }}" class="nav-link text-white">
+                                    <span class="bi d-block mx-auto mb-1 text-center" aria-hidden="true">
+                                        <i class="fa-solid fa-book-bible icon-header"></i>
+                                    </span>
+                                    Versículos
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{ url_for('oracoes') }}" class="nav-link text-white">
+                                    <span class="bi d-block mx-auto mb-1 text-center" aria-hidden="true">
+                                        <i class="fa-solid fa-hands-praying icon-header"></i>
+                                    </span>
+                                    Orações
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{ url_for('notes') }}" class="nav-link text-white">
+                                    <span class="bi d-block mx-auto mb-1 text-center" aria-hidden="true">
+                                        <i class="fa-solid fa-note-sticky icon-header"></i>
+                                    </span>
+                                    Anotações
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{ url_for('logout') }}"
+                                    class="{{ context['btn_sair-class'] }} nav-link text-white">
+                                    <span class="bi d-block mx-auto mb-1 text-center" aria-hidden="true">
+                                        <i class="fa-solid fa-arrow-right-from-bracket icon-header"></i>
+                                    </span>
+                                    Sair
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </header>
+            <div class="versiculo_dia">
+                <div class="versiculo_box">
+                    <div class="d-flex flex-wrap justify-content-between">
+                        <div>
+                            <a href="{{ url_for('index') }}"
+                                class="d-flex align-items-center my-2 my-lg-0 me-lg-auto text-white text-decoration-none">
+                                <img src="../static/imagens/logo/logo-vox-biblia.webp" alt="Logo VOX BIBLIA" width="100"
+                                    height="100" class="d-inline-block align-text-top">
+                            </a>
+                            <h1>Versículo do Dia</h1>
+                            <span class="versiculo_texto mt-5"><i></i></span><br>
+                            <span class="tema_referencia"><u>{{ versiculo.tema }} - {{ versiculo.referencia
+                                    }}</u></span>
+                            <div class="extras_btns">
+                                <div>
+                                    <a href="{{ url_for('index') }}"><i class="fa-solid fa-arrows-rotate"
+                                            title="Novo Versículo"></i></a>
+                                </div>
+                                <div>
+                                    <button onclick="favoritar({{ versiculo.id_v }}, {{ context.id_usuario }})"
+                                        id="btn-fav" style="border: none; background: transparent">
+                                        <i id="icone-fav" class="fa-{{ favoritos.icon }} fa-heart"
+                                            style="color: {{ favoritos.color }};"></i>
+                                    </button>
+                                </div>
+                                <div>
+                                    <button class="share_whabtn" style="border: none; background: transparent"
+                                        onclick="compartilhar('{{ versiculo.texto }} - {{ versiculo.referencia }}')">
+                                        <i class="fa-brands fa-whatsapp"></i>
+                                    </button>
+                                </div>
+                                <div>
+                                    <button onclick="gerarAudio('{{ versiculo.texto }}', '{{ versiculo.id_v }}')"
+                                        style="border: none; background: transparent; color: white;">
+                                        <i class="fa-regular fa-circle-play"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section id="widgets">
+
+            <div class="row">
+                <!-- VERSÍCULOS FAVORITOS -->
+                <div id="vers_fav" class="col-md-4">
+                    <div class="card mb-4">
+                        <div class="card-header">
+                            <h3>Versículos Favoritos</h3>
+                        </div>
+                        <div class="card-body">
+                            {% if versiculos_favoritos %}
+                            <ul class="list-group list-group-flush">
+                                {% for fav in versiculos_favoritos %}
+                                <li class="list-group list-group-item">
+                                    <button onclick="gerarAudio('{{ fav.texto }}', '{{ fav.id_v }}')"
+                                        style="background-color: transparent; border: none; color: #007bff;">
+                                        <i class="fa-solid fa-play"></i>
+                                    </button>
+                                    <audio id="player" controls class="d-none"></audio>
+                                    {{ fav.texto }} - {{ fav.referencia }}
+                                </li>
+                                {% endfor %}
+                            </ul>
+                            {% else %}
+                            <p class="text-muted
+                                    fst-italic">Nenhum versículo favorito encontrado.</p>
+                            {% endif %}
+                            {% if versiculos_favoritos|length > 5 %}
+                            <a href="{{ url_for('versiculos_tema', tema='todos') }}" class="btn btn-primary mt-3">Mais
+                                {{ versiculos_favoritos|length }} versiculos...</a>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <!-- ORAÇÕES FEITAS E CRIADAS -->
+                    <div class="card mb-4">
+                        <div class="card-header">
+                            <div class="d-flex flex-wrap justify-content-between">
+                                <div>
+                                    <h3>Orações Salvas</h3>
+                                </div>
+                                <div>
+                                    {% if oracoes_usuario|length >= 3 %}
+                                    <a href="{{ url_for('oracoes') }}" class="btn btn-primary">Mais {{
+                                        oracoes_usuario|length }} orações...</a>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            {% if oracoes_usuario %}
+                            <ul class="list-group list-group-flush">
+                                {% for oracao in oracoes_usuario %}
+                                <li class="list-group list-group-item">
+                                    <strong>{{ oracao.objetivo }}</strong><br>
+                                    {{ oracao.descricao }}<br>
+                                    <small class="text-muted">Status: {{ oracao.status }}</small>
+                                    <small class="text-muted">Categoria: {{ oracao.categoria }}</small>
+                                </li>
+                                {% endfor %}
+                            </ul>
+                            {% else %}
+                            <p class="text-muted fst-italic">Nenhuma oração salva encontrada.</p>
+                            {% endif %}
+
+                        </div>
+                        <a class="oracao-desafio_create" onclick="base_desafio()">Se sente travado para criar uma
+                            oração? Clique aqui!</a>
+                    </div>
+                </div>
+                <div class="col-md-8" id="column_welcome">
+                    <div class="content">
+                        <h4 class="title_widgets">
+                            "<span class="desafiododia-text"></span>"
+                        </h4>
+                        {% if context['Status'] == 'Logado!' %}
+                        <h2>Boas Vindas, {{ session['nome_usuario'].capitalize() }}!</h2>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- DESAFIO DO DIA -->
+        <section id="desafio-dia">
+            <div class="content">
+                <div class="texts-header">
+                    <h2 class="desafiododia-text-body"></h2>
+                </div>
+                <div class="texts-body">
+                    <h3 class="desafio-titulo"></h3>
+                    <p class="desafio-descricao"></p>
+                    <div class="texts-btn">
+                        <button class="btn conclusao-def" id="btn-concluir"
+                            onclick="concluirDesafio('{{ session[id_usuario] }}')">Concluir Desafio 🙌</button>
+                        <button class="btn feedback-up" onclick="enviarFeedback('Gostou', {{ context.id_usuario }})"><i
+                                class="fa-solid fa-thumbs-up"></i></button>
+                        <button class="btn feedback-down"
+                            onclick="enviarFeedback('Não gostou', {{ context.id_usuario }})"><i
+                                class="fa-solid fa-thumbs-down"></i></button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- MODO DEVOCIONAL (CALL TO ACTION) -->
+        <section id="devocional">
+            <div class="two-columns">
+                <div class="call-to-action w-50">
+                    <h2>Reserve um Momento com Deus Hoje 🙏</h2>
+                    <hr style="width: 40%; margin: 40px 0;">
+                    <p>Um espaço silencioso para ler, refletir e escrever o que o Espírito ministrou ao seu coração.</p>
+                    <a href="{{ url_for('devocional') }}" class="btn btn-devocional">Fazer Devocional agora</a>
+                </div>
+                <div class="w-50 img">
+                    <p>Comece seu devocional e registre o que Ele falou ao seu coração hoje.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ANOTAÇÕES -->
+        <section class="d-flex flex-wrap" id="after-desafio">
+            <div class="col-md-5 anotacoes" id="criar_anotacao">
+                <div class="header">
+                    <h3>Anotações <i class="fa-solid fa-book-bible"></i></h3>
+                    <p>Leu alguma passagem bíblica hoje? Anote suas reflexões aqui!</p>
+                </div>
+                <div class="content">
+                    <div class="row my-4">
+                        <div class="">
+                            <div class="cores">
+                                <button data-cor="#FFF9C4" style="background:#FFF9C4; padding: 25px;" title="Clássico"></button>
+                                <button data-cor="#C8E6C9" style="background:#C8E6C9; padding: 25px;" title="Paz"></button>
+                                <button data-cor="#BBDEFB" style="background:#BBDEFB; padding: 25px;" title="Reflexão"></button>
+                                <button data-cor="#F8BBD0" style="background:#F8BBD0; padding: 25px;" title="Amor"></button>
+                                <button data-cor="#E1BEE7" style="background:#E1BEE7; padding: 25px;" title="Profundidade"></button>
+                                <button data-cor="#FFE0B2" style="background:#FFE0B2; padding: 25px;" title="Energia"></button>
+                                <input type="hidden" name="cor" id="corEscolhida" value="#FFF9C4">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row my-4">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <div class="form-floating" id="campo_referencia">
+                                    <input type="text" name="titulo_anotacao" id="titulo_anotacao"
+                                    placeholder="Título..." class="form-control">
+                                    <label for="titulo_anotacao">Título</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <div class="form-floating" id="campo_titulo">
+                                    <input type="text" name="referencia_anotacao" id="referencia_anotacao"
+                                        placeholder="Referência..." class="form-control">
+                                    <label for="referencia_anotacao">Referência</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <div class="form-floating">
+                                    <textarea name="anotacao_texto" id="anotacao_texto" style="height: 200px;"
+                                        placeholder="Sua Anotação" class="form-control"></textarea>
+                                    <label for="">Descreva a sua anotação aqui</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mt-4 submits">
+                        <div class="col-md-12">
+                            <button class="btn btn-primary details-back py-3 w-100" onclick="salvar_anotacao()">Salvar Anotação <i class="fa-regular fa-floppy-disk"></i></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-7 my-auto">
+                <div class='card_notes'>
+                    <h4>Pre-visualização da sua nota</h4>
+                    <div class='card_body'>
+                        <h3 id="card_note-title">Insira seu título</h3>
+                        <p><u id="card_note-describe">Insira sua referência bibilca</u></p>
+                        <div class="card_text">
+                            <p id="card_note-text">Coloque sua anotação aqui</p>
+                        </div>
+                    </div>
+                    <div class="card_footer">
+                        <small>Criado(a) por {{ session['nome_usuario'] }} via VOX BÍBLIA</small>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Toast -->
+    <div class="toast-container position-fixed bottom-0 end-0 p-3">
+        <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="toast-header">
+                <img src="../static/imagens/favicon/favicon.ico" width="40" class="rounded me-2" alt="...">
+                <strong class="me-auto">VOX BÍBLIA</strong>
+                <small></small>
+                <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+            <div class="toast-body text-dark">
+                <p class="text-toast"></p>
+            </div>
+        </div>
+    </div>
+    <button type="button" class="btn btn-primary" id="liveToastBtn" hidden>Show live toast</button>
+
+
+    <!-- Modal Oração -->
+    <div id="modal-oracao_personalizada" class="modal hidden">
+        <div class="modal-content">
+            <h3 style="font-size: 35px;">Oração Criada!</h3>
+
+            <div class="row mb-4">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <div class="form-floating">
+                            <input type="text" class="form-control" placeholder="Nome..." name="nome" id="nome" disabled
+                                value="{{ session['nome_usuario'] }}">
+                            <label for="nome">Nome</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-8">
+                    <div class="form-group">
+                        <div class="form-floating">
+                            <input type="text" class="form-control" placeholder="Objetivo..." name="objetivo"
+                                id="objetivo">
+                            <label for="objetivo">Objetivo</label>
+                            <p><small>EX: Pedir por saúde para minha família</small></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row mb-4">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <div class="form-floating">
+                            <input type="date" class="form-control" name="dataTermino" id="dataTermino" required>
+                            <label for="dataTermino">Data de Término</label>
+                            <p><small>(OBS) Sua oração terá início imediato</small></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <div class="form-floating">
+                            <select name="status" id="status" disabled="disabled" class="form-select">
+
+                                <option value="1">{{ status_oracao[0].status }}</option>
+                                <option value="2">{{ status_oracao[1].status }}</option>
+                            </select>
+                            <label for="status">Status para a Oração</label>
+                            <p><small>(OBS) Sua oração começa nesse status, podendo ser alterado
+                                    posteriormente</small></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <div class="form-floating">
+                            <select name="categoria" id="categoria" class="form-select">
+                                {% for categoria in categoria_oracao %}
+                                <option value="{{ categoria.id_cat }}">{{ categoria.categoria }}
+                                </option>
+                                {% endfor %}
+                            </select>
+                            <label for="categoria">Categoria</label>
+                            <p><small>(OBS) Selecione a categoria para a sua oração</small></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row mb-4">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <div class="form-floating">
+                            <select name="privacidade" id="privacidade" class="form-select">
+                                <option value="Privada">Privada</option>
+                                <option value="Publica">Pública</option>
+                            </select>
+                            <label for="privacidade">Privacidade</label>
+                            <p><small>(OBS) Se for pública, ela será visível para outros
+                                    usuários</small></p>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="col-md-8">
+                    <div class="form-group">
+                        <div class="form-floating">
+                            <textarea class="form-control" placeholder="Deixe aqui sua oração..." name="descricao"
+                                id="descricao" style="height: 120px"></textarea>
+                            <label for="descricao">Descrição</label>
+                        </div>
+                        <p><small>Deixe sua oração aqui...</small></p>
+                    </div>
+                </div>
+            </div>
+            <div class="actions">
+                <button onclick="fecharModal('modal-oracao_personalizada')" class="cancel">Fechar</button>
+                <button onclick="salvar_oracao()" class="btn btn-primary go-pray">Enviar Oração</button>
+            </div>
+        </div>
+    </div>
+</body>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+    crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
+    integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="../static/js/script.js"></script>
+
+</html>
+
+<script>
+    let id_desafio = null;
+    FraseDoDia();
+    carregarDesafio()
+    carregarVersiculoTexto("{{ versiculo.texto }}");
+    Streak();
+
+    document.querySelectorAll(".cores button").forEach(btn => {
+        btn.addEventListener("click", () => {
+            document.getElementById("corEscolhida").value = btn.dataset.cor;
+        });
+    });
+
+    document.querySelectorAll(".cores button").forEach(btn => {
+        btn.addEventListener("click", () => {
+            const cor = btn.dataset.cor;
+    
+            const card = document.querySelector(".card_notes");
+            card.animate([
+                { transform: "scale(1)" },
+                { transform: "scale(1.05)" },
+                { transform: "scale(1)" }
+            ], {
+                duration: 600,
+                easing: "ease"
+            });
+
+            card.style.backgroundColor = cor;
+        });
+    });
+
+    $(document).ready(function() {
+        $('#titulo_anotacao').keyup(function() {
+            let titulo = $('#titulo_anotacao').val();
+
+            $('#card_note-title').text(titulo)
+        })
+        $('#referencia_anotacao').keyup(function() {
+            let ref = $('#referencia_anotacao').val();
+
+            $('#card_note-describe').text(ref)
+        })
+        $('#anotacao_texto').keyup(function() {
+            let text = $('#anotacao_texto').val();
+
+            $('#card_note-text').text(text)
+        })
+    })
+
+    function salvar_anotacao() {
+        let referencia = document.getElementById('referencia_anotacao').value;
+        let titulo = document.getElementById('titulo_anotacao').value;
+        let descricao = document.getElementById('anotacao_texto').value;
+        let background = document.getElementById('corEscolhida').value;
+
+        const box = document.getElementsByClassName('anotacoes');
+
+        fetch('/api/anotacao', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                referencia: referencia,
+                titulo: titulo,
+                cor_escolhida: background,
+                anotacao: descricao
+            })
+        })
+            .then(res => res.json())
+            .then(data => {
+                if (data.status === 'Salvo!') {
+                    document.querySelector('.text-toast').textContent = 'Anotação Criada com Sucesso! Pode ser visualizada na página de Anotações 🙌';
+                    document.getElementById('liveToastBtn').click();
+                } else {
+                    document.querySelector('.text-toast').textContent = 'Faça Login Para Poder Salvar Suas Anotações 🙌';
+                    document.getElementById('liveToastBtn').click();
+                }
+            })
+    }
+
+
+    function base_desafio() {
+        fetch('/api/oracao_personalizada')
+            .then(res => res.json())
+            .then(data => {
+                const oracaoLink = document.querySelector('.oracao-desafio_create');
+                const objetivoInput = document.getElementById('objetivo');
+                const descricaoInput = document.getElementById('descricao');
+                if (data.status === 'Oração Criada!') {
+
+                    objetivoInput.value = data.objetivo;
+                    descricaoInput.value = data.descricao;
+                    document.getElementById('modal-oracao_personalizada').classList.remove("hidden");
+                } else {
+                    document.querySelector('.text-toast').textContent = 'Faça Login para criar uma oração 🙌';
+                    document.getElementById('liveToastBtn').click();
+                }
+            })
+    }
+
+    function salvar_oracao() {
+        fetch('/api/salvar_oracao_personalizada', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                objetivo: document.getElementById('objetivo').value,
+                descricao: document.getElementById('descricao').value,
+                id_categoria: document.getElementById('categoria').value,
+                privacidade: document.getElementById('privacidade').value,
+                data_termino: document.getElementById('dataTermino').value,
+                status: document.getElementById('status').value
+            })
+        })
+            .then(res => res.json())
+            .then(data => {
+                if (data.status === 'Oração Criada!') {
+                    document.querySelector('.text-toast').innerHTML = '<p>Oração criada com sucesso! 🙌<a href="{{ url_for("oracoes") }}"> Clique aqui para ver sua oração!</a></p>';
+                    document.getElementById('liveToastBtn').click();
+
+                    fecharModal('modal-oracao_personalizada');
+                } else if (data.status === 'Data de término é obrigatória para orações!') {
+                    document.querySelector('.text-toast').textContent = 'Data de término é obrigatória para orações! 🙌';
+                    document.getElementById('liveToastBtn').click();
+                } else {
+                    document.querySelector('.text-toast').textContent = 'Erro ao criar oração! 🙌';
+                    document.getElementById('liveToastBtn').click();
+                }
+            })
+    }
+
+    function Streak() {
+        fetch('/api/streak')
+            .then(res => res.json())
+            .then(data => {
+                const streakNumberElement = document.querySelector('.streak-number');
+                if (data.streak == 0) {
+                    typingEffect(streakNumberElement, 'Hoje é um novo começo 🙏');
+                } else {
+                    typingEffect(streakNumberElement, 'Há ' + data.streak + ' dia(s) com Deus! Continue Firme! 🙌');
+                }
+            })
+    }
+    function carregarVersiculoTexto(versiculo_texto) {
+        const versiculoTextoElement = document.querySelector('.versiculo_texto');
+        typingEffect(versiculoTextoElement, '"' + versiculo_texto + '"');
+    }
+    function FraseDoDia() {
+        fetch('/api/frasedodia')
+            .then(res => res.json())
+            .then(data => {
+                const desafioElement = document.querySelector('.desafiododia-text');
+                typingEffect(desafioElement, data.texto + ' ✨');
+            })
+    }
+    function carregarDesafio() {
+        fetch('/api/desafiodia')
+            .then(res => res.json())
+            .then(data => {
+                const tituloElement = document.querySelector('.desafio-titulo');
+                const descricaoElement = document.querySelector('.desafio-descricao');
+                const desafioDiaText = document.querySelector('.desafiododia-text-body');
+                const desafio = data.id_desafio;
+                const concluido = data.concluido;
+                const feedback = data.feedback;
+
+                typingEffect(desafioDiaText, 'Desafio do Dia 🎯');
+                if (concluido) {
+                    document.getElementById('btn-concluir').disabled = true;
+                    document.getElementById('btn-concluir').innerText = 'Desafio Concluído! 🙌';
+
+                    typingEffect(tituloElement, "Parabéns! Desafio Concluído! 🙌");
+                    typingEffect(descricaoElement, "Volte amanhã para mais desafios e continue crescendo na sua jornada espiritual! ✨");
+
+                    id_desafio = desafio;
+
+                    if (feedback == 'Gostou') {
+                        feedback_desafiodiario('Gostou');
+                    } else if (feedback == 'Não gostou') {
+                        feedback_desafiodiario('Não gostou');
+                    }
+                } else {
+                    if (data.titulo == "Não Logado!") {
+                        typingEffect(tituloElement, "Faça Login para acessar o Desafio do Dia! 🙌");
+                        typingEffect(descricaoElement, "Volte amanhã para mais desafios e continue crescendo na sua jornada espiritual! ✨");
+                        document.getElementById('btn-concluir').disabled = true;
+                        document.getElementById('btn-concluir').innerText = 'Faça Login para Concluir 🙌';
+                        document.getElementsByClassName('feedback-down')[0].disabled = true;
+                        document.getElementsByClassName('feedback-up')[0].disabled = true;
+                        return;
+                    }
+                    document.getElementById('btn-concluir').disabled = false;
+                    document.getElementById('btn-concluir').innerText = 'Concluir Desafio 🙌';
+                    if (tituloElement && descricaoElement && desafioDiaText) {
+                        typingEffect(tituloElement, data.titulo);
+                        typingEffect(descricaoElement, data.descricao);
+                        id_desafio = desafio;
+
+                        if (feedback == 'Gostou') {
+                            feedback_desafiodiario('Gostou');
+                        } else if (feedback == 'Não gostou') {
+                            feedback_desafiodiario('Não gostou');
+                        }
+                    }
+                }
+
+
+            })
+            .catch(error => console.error('Erro ao carregar desafio:', error));
+    }
+
+    function criarParticulas() {
+        const el = document.createElement("div");
+        el.innerText = "✨";
+        el.style.position = "fixed";
+        el.style.left = Math.random() * window.innerWidth + "px";
+        el.style.top = "50%";
+        el.style.fontSize = "20px";
+        el.style.animation = "subir 1s ease forwards";
+
+        document.body.appendChild(el);
+
+        setTimeout(() => el.remove(), 1000);
+    }
+
+
+
+    function concluirDesafio(id_usuario) {
+        const tituloElement = document.querySelector('.desafio-titulo');
+        const descricaoElement = document.querySelector('.desafio-descricao');
+        fetch('/api/concluir_desafio', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                id_usuario: id_usuario,
+                id_desafio: id_desafio
+            })
+        })
+            .then(res => res.json())
+            .then(data => {
+                const btnConclusao = document.querySelector('#btn-concluir');
+                const box = document.querySelector('.texts-body');
+
+                if (data.status == 'concluido') {
+
+                    // Botão Muda
+                    btnConclusao.innerText = 'Desafio Concluído! 🙌';
+                    btnConclusao.disabled = true;
+
+                    // Animação Leve
+                    box.style.transition = 'all 0.3s ease';
+                    box.style.transform = 'scale(1.05)';
+
+                    setTimeout(() => {
+                        box.style.transform = 'scale(1)';
+                    }, 300);
+
+                    for (let i = 0; i < 5; i++) {
+                        criarParticulas();
+                    }
+
+                    typingEffect(tituloElement, "Parabéns! Desafio Concluído! 🙌");
+                    typingEffect(descricaoElement, "Volte amanhã para mais desafios e continue crescendo na sua jornada espiritual! ✨");
+                    Streak();
+
+                    document.querySelector('.text-toast').textContent = 'Você está cada vez mais próximo de Deus! 🙌'
+                    document.getElementById('liveToastBtn').click();
+
+                } else {
+                    document.querySelector('.text-toast').textContent = 'Desafio já concluído! 🙌';
+                    document.getElementById('liveToastBtn').click();
+                }
+            })
+
+    }
+
+    function enviarFeedback(gostou, id_usuario) {
+        fetch('/api/feedback_desafio', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                id_usuario: id_usuario,
+                id_desafio: id_desafio,
+                feedback: gostou
+            })
+        })
+            .then(res => res.json())
+            .then(data => {
+                if (data.status === 'Gostou') {
+                    document.querySelector('.text-toast').textContent = 'Feedback positivo registrado! 🙌'
+                    document.getElementById('liveToastBtn').click();
+                    feedback_desafiodiario(gostou);
+                } else if (data.status === 'Não gostou') {
+                    document.querySelector('.text-toast').textContent = 'Feedback negativo registrado! 🙌';
+                    document.getElementById('liveToastBtn').click();
+                    feedback_desafiodiario(gostou);
+                } else if (data.status === 'Feedback Removido') {
+                    document.querySelector('.text-toast').textContent = 'Feedback removido! 🙌';
+                    document.getElementById('liveToastBtn').click();
+                    feedback_desafiodiario(gostou);
+                } else {
+                    document.querySelector('.text-toast').textContent = 'Conclua para enviar feedback! 🙌';
+                    document.getElementById('liveToastBtn').click();
+                }
+            })
+    }
+
+    function feedback_desafiodiario(gostou) {
+
+        var feedbackUp = document.querySelector('#desafio-dia .feedback-up');
+        var feedbackDown = document.querySelector('#desafio-dia .feedback-down');
+
+        if (gostou == 'Gostou') {
+            if (feedbackUp.classList.contains('active')) {
+                feedbackUp.classList.remove('active');
+                return;
+            }
+            if (feedbackDown.classList.contains('active')) {
+                feedbackDown.classList.remove('active');
+            }
+            $(feedbackUp).addClass('active');
+        } else {
+            if (feedbackDown.classList.contains('active')) {
+                feedbackDown.classList.remove('active');
+                return;
+            }
+            if (feedbackUp.classList.contains('active')) {
+                feedbackUp.classList.remove('active');
+            }
+            $(feedbackDown).addClass('active');
+        }
+    }
+
+
+    function favoritar(id, id_usuario) {
+        fetch('/api/favoritar', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                id_usuario: id_usuario,
+                id_v: id
+            })
+        })
+            .then(res => res.json())
+            .then(data => {
+                icone = document.getElementById('icone-fav')
+
+
+                if (data.status === 'adicionado') {
+                    icone.classList.remove('fa-regular');
+                    icone.classList.add('fa-solid');
+                    icone.style.color = '#ff0000';
+                } else if (data.status === 'removido') {
+                    icone.classList.remove('fa-solid');
+                    icone.classList.add('fa-regular');
+                    icone.style.color = '#f8fafc';
+                } else if (data.status === 'Não Logado!') {
+                    const toastTrigger = document.getElementById('liveToastBtn').click();
+                    document.querySelector('.text-toast').textContent = 'Faça login para salvar versículos!';
+                }
+            })
+    }
+</script>
+
+<script>
+    const toastTrigger = document.getElementById('liveToastBtn')
+    const toastLiveExample = document.getElementById('liveToast')
+    if (toastTrigger) {
+        const toastBootstrap = bootstrap.Toast.getOrCreateInstance(toastLiveExample)
+        toastTrigger.addEventListener('click', () => {
+            toastBootstrap.show()
+        })
+    }
+</script>

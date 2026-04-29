@@ -1,0 +1,782 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ context.title_site }} - {{ context.slogan_site }}</title>
+    <link rel="shortcut icon" href="../static/imagens/favicon/favicon.ico" type="image/x-icon">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <link rel="stylesheet" href="../../static/css/style.css">
+    <link rel="stylesheet" href="../../static/css/anotacoes.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+        integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+    <section id="entrada">
+        <header class="home">
+            <div class="">
+                <div class="d-flex flex-wrap align-items-center justify-content-between py-3">
+                    <div class="text-end">
+                        {% if context['Status'] == 'Logado!' %}
+                        <span class="streak-number"></span>
+                        {% else %}
+                        <a href="{{ url_for('login') }}"
+                            class="btn btn-primary me-2"><strong>Login/Cadastro</strong></a>
+                        {% endif %}
+                    </div>
+                    <ul class="nav col-12 col-lg-auto my-2 justify-content-center my-md-0 text-small gap-2">
+                        <li>
+                            <a href="{{ url_for('index') }}" class="nav-link text-white">
+                                <span class="bi d-block mx-auto mb-1 text-center" aria-hidden="true">
+                                    <i class="fa-regular fa-house icon-header"></i>
+                                </span>
+                                Home
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" class="nav-link text-white">
+                                <span class="bi d-block mx-auto mb-1 text-center" aria-hidden="true">
+                                    <i class="fa-solid fa-magnifying-glass icon-header"></i>
+                                </span>
+                                Buscar
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ url_for('versiculos_tema', tema='todos') }}" class="nav-link text-white">
+                                <span class="bi d-block mx-auto mb-1 text-center" aria-hidden="true">
+                                    <i class="fa-solid fa-book-bible icon-header"></i>
+                                </span>
+                                Versículos
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ url_for('oracoes') }}"
+                                class="{{ context['btn_sair-class'] }} nav-link text-white">
+                                <span class="bi d-block mx-auto mb-1 text-center" aria-hidden="true">
+                                    <i class="fa-solid fa-hands-praying icon-header"></i>
+                                </span>
+                                Orações
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ url_for('notes') }}"
+                                class="{{ context['btn_sair-class'] }} nav-link text-white active">
+                                <span class="bi d-block mx-auto mb-1 text-center" aria-hidden="true">
+                                    <i class="fa-solid fa-note-sticky icon-header"></i>
+                                </span>
+                                Anotações
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ url_for('logout') }}"
+                                class="{{ context['btn_sair-class'] }} nav-link text-white">
+                                <span class="bi d-block mx-auto mb-1 text-center" aria-hidden="true">
+                                    <i class="fa-solid fa-arrow-right-from-bracket icon-header"></i>
+                                </span>
+                                Sair
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </header>
+        <section id="welcome">
+            <h1>Anotações</h1>
+            <a href="/#criar_anotacao" style="color: white;">Deixe Deus falar com você, anote tudo. Crie uma anotação para não se esquecer</a>
+        </section>
+    </section>
+    <main id="content-main">
+        <div class="row">
+            <div class="col-md-2">
+                <div class="form-group">
+                    <div class="form-floating">
+                        <input type="text" name="search_title" id="search_title" class="form-control" placeholder="Pesquise..." oninput="search_title()">
+                        <label for="">Procure uma anotação...</label>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <div class="form-floating">
+                        <select name="antiguidade" id="antiguidade" class="form-select" onchange="mudarOrder()">
+                            <option value="desc">Mais Novo -> Mais Antigo</option>
+                            <option value="asc">Mais Antigo -> Mais Novo</option>
+                        </select>
+                        <label for="">Filtro de Seleção</label>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <div class="form-floating">
+                        <select name="view" id="view" class="form-select" onchange="mudarOrder()">
+                            <option value="linhas">Em Linhas</option>
+                            <option value="widgets">Em Colunas</option>
+                        </select>
+                        <label for="">Modo de Visualização</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <section id="widgets">
+        </section>
+        <section id="linhas"></section>
+        <div class="d-flex flex-wrap justify-content-center mb-5">
+            <button id="btn-carregar" class="btn btn-primary py-3 px-5">Ver mais <i
+                    class="fa-solid fa-angles-down"></i></button>
+        </div>
+    </main>
+</body>
+
+<!-- Modals -->
+<div id="modal-post_it" class="modal hidden">
+    <div class="modal-content">
+        <div class="modal-header">
+            <div>
+                <h3>Sua Anotação</h3>
+                <small class="footer_text"></small>
+            </div>
+            <div>
+                <button onclick="closeingModal()" class="cancel"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+        </div>
+        <div id="card_notes">
+            <div class="d-flex flex-wrap gap-2">
+                <h2 class="titulo_anotacao"></h2>
+                <input type="text" name="anotacao_title-edit" id="anotacao_title-edit" class="form-control"
+                    style="width: 350px;">
+                <div id="editar_title">
+                    <span
+                        style="cursor: pointer; font-size: 22px; padding: 5px; color: rgb(121, 121, 121); border-radius: 10px; margin: 0 10px;"
+                        title="Editar Descrição" onclick="edit_title()">
+                        <i class="fa-solid fa-file-pen" id="icon_title-edit"></i>
+                    </span>
+                </div>
+            </div>
+            <div class="d-flex flex-wrap gap-2">
+                <p>
+                    <u class="referencia_anotacao"></u>
+                </p>
+                <input type="text" name="anotacao_ref-edit" id="anotacao_ref-edit" class="form-control"
+                    style="width:450px;">
+                <div>
+                    <div id="editar-ref">
+                        <span
+                            style="cursor: pointer; font-size: 22px; padding: 5px; color: rgb(121, 121, 121); border-radius: 10px; margin: 0 10px;"
+                            title="Editar Descrição" onclick="edit_ref()">
+                            <i class="fa-solid fa-file-pen" id="icon_ref-edit"></i>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="card_text">
+                <textarea name="anotacao_text-edit" id="anotacao_text-edit" class="form-control"
+                    style="height: 130px;"></textarea>
+                <p class="card_text_p"></p>
+                <div id="editar-desc">
+                    <span
+                        style="cursor: pointer; font-size: 22px; padding: 5px; color: rgb(121, 121, 121); border-radius: 10px; margin: 0 10px;"
+                        title="Editar Descrição" onclick="edit_desc()">
+                        <i class="fa-solid fa-file-pen" id="icon_desc-edit"></i>
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <div id="pick_color" class="d-flex flex-wrap gap-5 w-100">
+                <div class="form-group">
+                    <label for="cor_escolhida">Cor de Fundo</label><br>
+                    <input type="color" name="cor_escolhida" id="cor_escolhida" style="width: 150px;">
+                </div>
+                <div class="form-group">
+                    <label for="cor_escolhida-lyrics">Cor das Letras</label><br>
+                    <input type="color" name="cor_escolhida-lyrics" id="cor_escolhida-lyrics" style="width: 150px;">
+                </div>
+                <div>
+                    <button class="btn btn-actions" onclick="disable_background()">Voltar as Opções <i class="fa-solid fa-right-long"></i></button>
+                </div>
+            </div>
+            <div class="actions d-flex flex-wrap gap-3" id="notes_actions">
+                <div class="">
+                    <input type="hidden" name="id_anotacao" id="id_anotacao">
+                    <button class="btn btn-actions eye-disable" onclick="disible_able_Eye()">Desabilitar Visibilidade <i class="fa-regular fa-eye-slash"></i></button>
+                    <button class="btn btn-actions eye-able" onclick="disible_able_Eye()">Habilitar Visibilidade <i class="fa-regular fa-eye"></i></button>
+                </div>
+                <div>
+                    <button class="btn btn-actions" id="hab_edit" onclick="hab_edit_all()">Habilitar Edição <i class="fa-solid fa-file-pen"></i></button>
+                    <button class="btn btn-actions" id="desa_edit" onclick="hab_edit_all()">Desabilitar Edição <i class="fa-solid fa-file-pen"></i></button>
+                </div>
+                <div>
+                    <button class="btn btn-actions" onclick="del()">Excluir <i class="fa-regular fa-trash-can"></i></button>
+                </div>
+                <div>
+                    <button class="btn btn-actions" onclick="background()">Alterar Cor <i class="fa-solid fa-brush"></i></button>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</div>
+
+</html>
+<!-- Toast -->
+<div class="toast-container position-fixed bottom-0 end-0 p-3">
+    <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="toast-header">
+            <img src="../static/imagens/favicon/favicon.ico" width="40" class="rounded me-2" alt="...">
+            <strong class="me-auto">VOX BÍBLIA</strong>
+            <small></small>
+            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+        <div class="toast-body text-dark">
+            <p class="text-toast"></p>
+        </div>
+    </div>
+</div>
+<button type="button" class="btn btn-primary" id="liveToastBtn" hidden>Show live toast</button>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+    crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
+    integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="../../static/js/script.js"></script>
+
+<script>
+    let page = 1;
+    let order = 'desc';
+    let view = 'widgets';
+    let search = '';
+
+    notes();
+
+    function mudarOrder() {
+        const lista = document.getElementById('widgets')
+        lista.innerHTML = '';
+        const linhas = document.getElementById('linhas')
+        linhas.innerHTML = '';
+        notes()
+    }
+
+    function search_title() {
+        search = $('#search_title').val();
+        const lista = document.getElementById('widgets')
+        lista.innerHTML = '';
+        const linhas = document.getElementById('linhas')
+        linhas.innerHTML = '';
+        notes()
+    }
+
+    $(document).ready(function () {
+
+        $('#editar-desc').addClass('d-none')
+        $('#desa_edit').addClass('d-none')
+        $('#editar_title').addClass('d-none')
+        $('#editar-ref').addClass('d-none');
+        $('#pick_color').addClass('d-none')
+        const picker = document.getElementById('cor_escolhida')
+        const picker_lyrics = document.getElementById('cor_escolhida-lyrics')
+
+        fetch('/api/streak')
+            .then(res => res.json())
+            .then(data => {
+                const streakNumberElement = document.querySelector('.streak-number');
+                if (data.streak == 0) {
+                    typingEffect(streakNumberElement, 'Hoje é um novo começo 🙏');
+                } else {
+                    typingEffect(streakNumberElement, 'Há ' + data.streak + ' dia(s) com Deus! Continue Firme! 🙌');
+                }
+            })
+
+        picker.addEventListener("input", (event) => {
+            let cor = $('#cor_escolhida').val()
+            let id_anotacao = $("#id_anotacao").val();
+            const backModal = document.querySelector('.modal');
+            const modalContent = document.querySelector('.modal-content');
+
+
+            backModal.style.backgroundColor = cor + '7a'
+            modalContent.style.backgroundColor = cor;
+
+            fetch('/api/editNote_colors', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    id_anotacao: id_anotacao,
+                    cor_escolhida: cor,
+                    tipo: 'bg'
+                })
+            })
+        })
+
+        picker.addEventListener('change', (event) => {
+            document.querySelector('.text-toast').textContent = 'Cor de Fundo da Anotação Alterado Com Sucesso! 🙌';
+            document.getElementById('liveToastBtn').click();
+            const lista = document.getElementById("widgets");
+            lista.innerHTML = '';
+            const linhas = document.getElementById('linhas')
+            linhas.innerHTML = '';
+            notes()
+        })
+
+        picker_lyrics.addEventListener('change', (event) => {
+            document.querySelector('.text-toast').textContent = 'Cor dos Textos da Anotação Alterado Com Sucesso! 🙌';
+            document.getElementById('liveToastBtn').click();
+            const lista = document.getElementById("widgets");
+            lista.innerHTML = '';
+            const linhas = document.getElementById('linhas')
+            linhas.innerHTML = '';
+            notes()
+        })
+
+        picker_lyrics.addEventListener('input', (event) => {
+            let id_anotacao = $("#id_anotacao").val();
+            let cor_ly = $('#cor_escolhida-lyrics').val()
+            const modalContent = document.querySelector('.modal-content');
+
+            modalContent.style.color = cor_ly
+
+            fetch('/api/editNote_colors', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    id_anotacao: id_anotacao,
+                    cor_escolhida: cor_ly,
+                    tipo: 'lyrics'
+                })
+            })
+
+        })
+    })
+
+
+    function background() {
+        $(document).ready(function () {
+            $("#pick_color").removeClass('d-none');
+            $('#notes_actions').addClass('d-none')
+        })
+    }
+
+    function disable_background() {
+        $(document).ready(function () {
+            $('#notes_actions').removeClass('d-none')
+            $("#pick_color").addClass('d-none');
+        })
+    }
+
+    function hab_edit_all() {
+        $(document).ready(function () {
+            let classe = document.getElementById('hab_edit').className;
+
+            if (classe == 'btn btn-actions') {
+                // Descrição
+                $('#editar-desc').removeClass('d-none')
+
+                // Título
+                $('#editar_title').removeClass('d-none')
+                $('#editar_title').addClass('my-auto')
+
+                // Botões Habilitar e Desabilitar Edição
+                $('#hab_edit').addClass('d-none')
+                $('#desa_edit').removeClass('d-none')
+
+                $('#editar-ref').removeClass('d-none')
+            } else {
+                // Descrição
+                $('#editar-desc').addClass('d-none')
+
+                // Título
+                $('#editar_title').addClass('d-none')
+
+                $('#editar-ref').addClass('d-none')
+
+                // Botões Habilitar e Desabilitar Edição
+                $('#hab_edit').removeClass('d-none')
+                $('#desa_edit').addClass('d-none')
+            }
+        })
+    }
+
+    function edit_ref() {
+        $(document).ready(function () {
+            let classe_icon = document.getElementById('icon_ref-edit').className
+
+            if (classe_icon == 'fa-solid fa-file-pen') {
+                // Removendo a Classe do Icone 
+                $('#icon_ref-edit').removeClass('fa-file-pen')
+
+                // Adicionando Nova Classe de Ícone
+                $('#icon_ref-edit').addClass('fa-check text-success');
+
+                // Dando display no bloco onde fará a edição do título
+                $('#anotacao_ref-edit').removeClass('d-none');
+                // Escondendo o título para não poluíção visual
+                $('.referencia_anotacao').addClass('d-none')
+            } else {
+                if (classe_icon == 'fa-solid fa-check text-success') {
+                    let titulo = $('#anotacao_title-edit').val();
+                    let anotacao = $('#anotacao_text-edit').val();
+                    let ref = $('#anotacao_ref-edit').val();
+                    let id_anotacao = $('#id_anotacao').val();
+
+                    fetch(`/api/editar_nota`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            id_anotacao: id_anotacao,
+                            titulo: titulo,
+                            referencia: ref,
+                            anotacao: anotacao
+                        })
+                    })
+                        .then(res => res.json())
+                        .then(data => {
+                            if (data.status == 'Editado!') {
+                                $('#anotacao_ref-edit').addClass('d-none')
+                                $('.referencia_anotacao').removeClass('d-none')
+                                $('.referencia_anotacao').text(ref);
+
+                                $('#icon_ref-edit').removeClass('fa-check text-success')
+                                $('#icon_ref-edit').addClass('fa-file-pen');
+
+                                const lista = document.getElementById("widgets");
+                                lista.innerHTML = '';
+                                const linhas = document.getElementById("linhas");
+                                linhas.innerHTML = '';
+                                notes()
+                            } else {
+                                if (data.status == 'Não Logado!') {
+                                    document.querySelector('.text-toast').textContent = 'Faça Login para Edição de Dados 🙌';
+                                    document.getElementById('liveToastBtn').click();
+                                } else {
+                                    document.querySelector('.text-toast').textContent = 'Erro ao Editar os Dados! 🙌';
+                                    document.getElementById('liveToastBtn').click();
+                                }
+                            }
+                        })
+
+                }
+            }
+        })
+    }
+
+    function edit_title() {
+        $(document).ready(function () {
+            let classe_icon = document.getElementById('icon_title-edit').className;
+
+            if (classe_icon == 'fa-solid fa-file-pen') {
+                // Removendo a Classe do Icone 
+                $('#icon_title-edit').removeClass('fa-file-pen')
+
+                // Adicionando Nova Classe de Ícone
+                $('#icon_title-edit').addClass('fa-check text-success');
+
+                // Dando display no bloco onde fará a edição do título
+                $('#anotacao_title-edit').removeClass('d-none');
+                // Escondendo o título para não poluíção visual
+                $('.titulo_anotacao').addClass('d-none')
+            } else {
+                if (classe_icon == 'fa-solid fa-check text-success') {
+                    let titulo = $('#anotacao_title-edit').val();
+                    let ref = $('#anotacao_ref-edit').val();
+                    let anotacao = $('#anotacao_text-edit').val()
+                    let id_anotacao = $('#id_anotacao').val();
+
+                    fetch(`/api/editar_nota`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            id_anotacao: id_anotacao,
+                            titulo: titulo,
+                            referencia: ref,
+                            anotacao: anotacao
+                        })
+                    })
+                        .then(res => res.json())
+                        .then(data => {
+                            if (data.status == 'Editado!') {
+                                $('#anotacao_title-edit').addClass('d-none')
+                                $('.titulo_anotacao').removeClass('d-none')
+                                $('.titulo_anotacao').text(titulo);
+
+                                $('#icon_title-edit').removeClass('fa-check text-success')
+                                $('#icon_title-edit').addClass('fa-file-pen');
+
+                                const lista = document.getElementById("widgets");
+                                lista.innerHTML = '';
+                                const linhas = document.getElementById("linhas");
+                                linhas.innerHTML = '';  
+                                notes()
+                            } else {
+                                if (data.status == 'Não Logado!') {
+                                    document.querySelector('.text-toast').textContent = 'Faça Login para Edição de Dados 🙌';
+                                    document.getElementById('liveToastBtn').click();
+                                } else {
+                                    document.querySelector('.text-toast').textContent = 'Erro ao Editar os Dados! 🙌';
+                                    document.getElementById('liveToastBtn').click();
+                                }
+                            }
+                        })
+                }
+            }
+        })
+    }
+
+    function edit_desc() {
+        $(document).ready(function () {
+            let classe_icon = document.getElementById('icon_desc-edit').className;
+
+            if (classe_icon == 'fa-solid fa-file-pen') {
+                $('#anotacao_text-edit').removeClass('d-none')
+                $('.card_text_p').addClass('d-none')
+
+                $('#icon_desc-edit').removeClass('fa-file-pen')
+                $('#icon_desc-edit').addClass('fa-check text-success');
+            } else {
+                if (classe_icon == 'fa-solid fa-check text-success') {
+                    const anotacao = $('#anotacao_text-edit').val()
+                    const titulo = $('#anotacao_title-edit').val();
+                    const ref = $('#anotacao_ref-edit').val()
+                    const id_anotacao = $('#id_anotacao').val();
+
+                    fetch(`/api/editar_nota`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            id_anotacao: id_anotacao,
+                            titulo: titulo,
+                            referencia: ref,
+                            anotacao: anotacao
+                        })
+                    })
+                        .then(res => res.json())
+                        .then(data => {
+                            if (data.status == 'Editado!') {
+                                $('#anotacao_text-edit').addClass('d-none')
+                                $('.card_text_p').removeClass('d-none')
+                                $('.card_text_p').text(anotacao);
+
+                                $('#icon_desc-edit').removeClass('fa-check text-success')
+                                $('#icon_desc-edit').addClass('fa-file-pen');
+
+                                const lista = document.getElementById("widgets");
+                                lista.innerHTML = '';
+                                const linhas = document.getElementById("linhas");
+                                linhas.innerHTML = '';
+                                notes()
+                            }
+                        })
+                }
+            }
+        })
+    }
+
+    function del() {
+        let resp = confirm('Deseja Realmente excluir esta anotação?')
+        if (resp) {
+            let id_anotacao = $('#id_anotacao').val()
+            fetch(`/api/note-del`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    id_anotacao: id_anotacao
+                })
+            })
+                .then(res => res.json())
+                .then(data => {
+                    if (data.status == 'Exclusão') {
+                        const lista = document.querySelector('#widgets');
+                        lista.innerHTML = '';
+                        const linhas = document.getElementById("linhas");
+                        linhas.innerHTML = '';
+                        closeingModal()
+                        notes()
+                    } else {
+                        alert(data.status)
+                    }
+                })
+        }
+    }
+
+    function disible_able_Eye() {
+        let id_anotacao = $('#id_anotacao').val();
+        fetch(`/api/note-visibilidade`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                id_anotacao: id_anotacao
+            })
+        })
+            .then(res => res.json())
+            .then(data => {
+                if (data.status == 0) {
+                    $('.eye-disable').removeClass('d-block')
+                    $('.eye-disable').addClass('d-none');
+
+                    $('.eye-able').removeClass('d-none');
+                    $('.eye-able').addClass('d-block');
+                } else {
+                    if (data.status == 1) {
+                        $('.eye-disable').removeClass('d-none')
+                        $('.eye-disable').addClass('d-block');
+
+                        $('.eye-able').removeClass('d-block');
+                        $('.eye-able').addClass('d-none');
+                    }
+                }
+            })
+    }
+
+    function notes() {
+
+        order = document.getElementById('antiguidade').value;
+        view = document.getElementById('view').value;
+        search = document.getElementById('search_title').value;
+
+        fetch(`/api/anotacoes?page=${page}&order=${order}&search=${search}`)
+            .then(res => res.json())
+            .then(data => {
+                if (view == 'widgets') {
+                    const lista = document.getElementById("widgets");
+                    data.anotacoes.forEach(a => {
+                        lista.innerHTML += `
+                        <div class='card_notes' style='background: ${a.cor_escolhida}; box-shadow: 0px 0px 10px ${a.cor_escolhida}; color: ${a.cor_escolhida_lyrics}'>
+                            <div class="card_footer">
+                                <small>Criado(a) por {{ session['nome_usuario'] }} via VOX BÍBLIA no dia ${a.data_anotacao}</small>
+                                <div class='mt-3' style='cursor: pointer'>
+                                    <p title="Abrir Nota" onclick='modalPostIt("${a.id_anotacao}")'><i class="fa-regular fa-folder-open"></i> Abrir Nota</p>
+                                </div>
+                            </div>
+                            <div class='card_body'>
+                                <h3 id="card_note-title">${a.titulo}</h3>
+                                <p><u id="card_note-describe">${a.referencia}</u></p>
+                                <div class="card_text">
+                                    <p id="card_note-text">${a.anotacao}</p>
+                                </div>
+                            </div>
+                        </div>
+                        `
+                        });
+                } else {
+                    const linhas = document.getElementById('linhas');
+                    data.anotacoes.forEach(a => {
+                    linhas.innerHTML += `
+                        <div class='linhas_note' style='background: ${a.cor_escolhida}; box-shadow: 10px 10px 10px ${a.cor_escolhida}; color: ${a.cor_escolhida_lyrics}'>
+                            <div class="options">
+                                <small>Criado(a) por {{ session['nome_usuario'] }} via VOX BÍBLIA no dia ${a.data_anotacao}</small>
+                                <div class='' style='cursor: pointer'>
+                                    <p title="Abrir Nota" onclick='modalPostIt("${a.id_anotacao}")'><i class="fa-regular fa-folder-open"></i> Abrir Nota</p>
+                                </div>
+                            </div>
+                            <div class='content'>
+                                <h3 id="">${a.titulo}</h3>
+                                <p class='ref'>${a.referencia}</p>
+                                <div class="">
+                                    <p class="anotacao">${a.anotacao}</p>
+                                </div>
+                            </div>
+                        </div>
+                        `
+                    });
+                }
+
+                if (data.has_next) {
+                    page = data.next_page;
+                } else {
+                    document.getElementById("btn-carregar").style.display = "none";
+                }
+            });
+    }
+    document.getElementById("btn-carregar").addEventListener("click", notes);
+
+    function modalPostIt(id_anotacao) {
+        fetch(`/api/open_notes`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                id_anotacao: id_anotacao
+            })
+        })
+            .then(res => res.json())
+            .then(data => {
+                if (data.status == 'tudo certo!') {
+                    const box = document.querySelector('.modal-content');
+                    const modal = document.querySelector('.modal');
+
+                    const a = data.dados[0];
+
+                    modal.style.backgroundColor = a.cor_escolhida + '7a';
+                    box.style.backgroundColor = a.cor_escolhida;
+                    box.style.border = '5px solid #FACC15';
+                    box.style.boxShadow = '10px 10px 10px #FACC157A'
+                    box.style.color = a.cor_escolhida_lyrics;
+
+
+                    $('.titulo_anotacao').text(a.titulo)
+                    $('.referencia_anotacao').text(a.referencia)
+                    $('.footer_text').text("Criado(a) por {{ session['nome_usuario'] }} via VOX BÍBLIA no dia " + a.data_anotacao)
+                    $('#id_anotacao').val(a.id_anotacao)
+                    $('#cor_escolhida').val(a.cor_escolhida)
+
+                    $('.card_text_p').text(a.anotacao)
+                    // Inserindo e Escondendo os campos de edição para o carregamento de Descrição
+                    $('#anotacao_text-edit').val(a.anotacao)
+                    $('#anotacao_text-edit').addClass('d-none');
+                    // Inserindo e Escondendo os campos de edição para o carregamento de Título
+                    $('#anotacao_title-edit').val(a.titulo);
+                    $('#anotacao_title-edit').addClass('d-none');
+                    // Inserindo e Escondendo os campos de edição para o carregamento de Descrição
+                    $('#anotacao_ref-edit').val(a.referencia)
+                    $('#anotacao_ref-edit').addClass('d-none')
+
+                    if (a.visibilidade == 1) {
+                        $('.eye-able').addClass('d-none');
+                    } else {
+                        $('.eye-disable').addClass('d-none')
+                    }
+
+
+                    openModal()
+                }
+
+            });
+    }
+
+    function openModal() {
+        const modal = document.getElementById('modal-post_it')
+
+        modal.classList.remove("hidden");
+    }
+
+    function closeingModal() {
+        const modal = document.getElementById('modal-post_it')
+
+        modal.classList.add("hidden");
+    }
+</script>

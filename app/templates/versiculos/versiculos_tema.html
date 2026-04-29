@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <title>{{ context.title_site }}</title>
+    <link rel="shortcut icon" href="../../static/imagens/favicon/favicon.ico" type="image/x-icon">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+        integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="../../static/css/versiculos_tema.css">
+    <link rel="stylesheet" href="../../static/css/style.css">
+</head>
+
+<body>
+    <header class="otherpage">
+        <div class="">
+            <div class="d-flex flex-wrap align-items-center justify-content-between py-3">
+                <div class="text-end">
+                    {% if context['Status'] == 'Logado!' %}
+                    <p class="boasvindas"><strong>Que Seu Dia Seja Abençoado e Repleto de Paz e Properidade, {{
+                            context['nome_usuario'] }}!</strong></p>
+                    {% else %}
+                    <a href="{{ url_for('login') }}" class="btn btn-primary me-2"><strong>Login/Cadastro</strong></a>
+                    {% endif %}
+                </div>
+                <ul class="nav col-12 col-lg-auto my-2 justify-content-center my-md-0 text-small gap-2">
+                    <li>
+                        <a href="{{ url_for('index') }}" class="nav-link text-white">
+                            <span class="bi d-block mx-auto mb-1 text-center" aria-hidden="true">
+                                <i class="fa-regular fa-house icon-header"></i>
+                            </span>
+                            Home
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="nav-link text-white">
+                            <span class="bi d-block mx-auto mb-1 text-center" aria-hidden="true">
+                                <i class="fa-solid fa-magnifying-glass icon-header"></i>
+                            </span>
+                            Buscar
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ url_for('versiculos_tema', tema='todos') }}" class="nav-link text-white active">
+                            <span class="bi d-block mx-auto mb-1 text-center" aria-hidden="true">
+                                <i class="fa-solid fa-book-bible icon-header"></i>
+                            </span>
+                            Versículos
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ url_for('oracoes') }}" class="{{ context['btn_sair-class'] }} nav-link text-white">
+                            <span class="bi d-block mx-auto mb-1 text-center" aria-hidden="true">
+                                <i class="fa-solid fa-hands-praying icon-header"></i>
+                            </span>
+                            Diário de Orações
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ url_for('logout') }}" class="{{ context['btn_sair-class'] }} nav-link text-white">
+                            <span class="bi d-block mx-auto mb-1 text-center" aria-hidden="true">
+                                <i class="fa-solid fa-arrow-right-from-bracket icon-header"></i>
+                            </span>
+                            Sair
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </header>
+    <main>
+        <div>
+            
+            <p class="contador_v"><strong><u>Mais de <span id="contador"></span> versículos encontrados {{ tema
+                        }}</u></strong></p>
+        </div>
+        <div class="row">
+            {% for versiculo in versiculos %}
+            <div class="col-md-4">
+                <div class="card text-center">
+                    <div class="card-header">
+                        {{ versiculo.referencia }}
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">{{ versiculo.tema.upper() }}</h5>
+                        <p class="card-text">{{ versiculo.texto}}</p>
+                    </div>
+                    <div class="card-footer">
+                        <div>
+                            {{ versiculo.data_inclusao.strftime('%d/%m/%Y %H:%M') }}
+                        </div>
+                        <div>
+                            <div class="d-flex flex-wrap justify-content-center btns_cards-versiculo">
+                                <div>
+                                    {% for f in class_fav %}
+                                    {% if versiculo.id_v == f['id_v'] %}
+                                    <button onclick="favoritar({{ versiculo.id_v }}, {{ session['id_usuario'] }})"
+                                        id="btn-fav" style="border: none; background: transparent">
+                                        <i id="icone-fav{{ versiculo.id_v }}" class="fa-{{ f['icone'] }} fa-heart"
+                                            style="color: {{ f['color'] }};"></i>
+                                    </button>
+                                    {% endif %}
+                                    {% endfor %}
+                                </div>
+                                <div>
+                                    <button class="share_whabtn" style="border: none; background: transparent"
+                                        onclick="compartilhar('{{ versiculo.texto }} - {{ versiculo.referencia }}')">
+                                        <i class="fa-brands fa-whatsapp"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </main>
+    <div class="toast-container position-fixed bottom-0 end-0 p-3">
+        <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="toast-header">
+                <img src="../../static/imagens/favicon/favicon.ico" width="40" class="rounded me-2" alt="...">
+                <strong class="me-auto">VOX BÍBLIA</strong>
+                <small></small>
+                <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+            <div class="toast-body text-dark">
+                <p class="text-toast"></p>
+            </div>
+        </div>
+    </div>
+    <button type="button" class="btn btn-primary" id="liveToastBtn" hidden>Show live toast</button>
+    <div class="modal fade" id="ModalDeusFalar" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" style="max-width: 600px;">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title" id="exampleModalLabel">VOX BIBLIA</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    Para garantir a presença do Espírito Santo em sua vida, é fundamental buscar a Deus de todo o
+                    coração, confiar em Sua palavra e viver de acordo com Seus ensinamentos. A oração, a leitura da
+                    Bíblia e a comunhão com outros crentes são formas importantes de fortalecer sua fé e manter uma
+                    conexão constante com o Espírito Santo. Lembre-se de que Ele é um guia fiel, pronto para ajudar e
+                    confortar em todas as circunstâncias.
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+        crossorigin="anonymous"></script>
+</body>
+<script src="../../static/js/script.js"></script>
+
+</html>
+<script>
+    let count = 0;
+    let contador = "{{ quantidade_versiculos }}"
+    let interval = setInterval(() => {
+        count++;
+        document.getElementById('contador').innerText = count;
+        if (count >= (contador - 10)) {
+            clearInterval(interval);
+        }
+    }, 20);
+</script>

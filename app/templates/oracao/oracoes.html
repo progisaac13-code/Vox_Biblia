@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ context.title_site }} - {{ context.slogan_site }}</title>
+    <link rel="shortcut icon" href="../static/imagens/favicon/favicon.ico" type="image/x-icon">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.datatables.net/2.3.7/css/dataTables.dataTables.css" />
+    <link rel="stylesheet" href="../static/css/style.css">
+    <link rel="stylesheet" href="../static/css/oracoes.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+        integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+    <header class="otherpage">
+        <div class="">
+            <div class="d-flex flex-wrap align-items-center justify-content-between py-3">
+                <div class="text-end">
+                    {% if context['Status'] == 'Logado!' %}
+                    <p class="boasvindas"><strong>Que Seu Dia Seja Abençoado e Repleto de Paz e Properidade, {{
+                            context['nome_usuario'] }}!</strong></p>
+                    {% else %}
+                    <a href="{{ url_for('login') }}" class="btn btn-primary me-2"><strong>Login/Cadastro</strong></a>
+                    {% endif %}
+                </div>
+                <ul class="nav col-12 col-lg-auto my-2 justify-content-center my-md-0 text-small gap-2">
+                    <li>
+                        <a href="{{ url_for('index') }}" class="nav-link text-white">
+                            <span class="bi d-block mx-auto mb-1 text-center" aria-hidden="true">
+                                <i class="fa-regular fa-house icon-header"></i>
+                            </span>
+                            Home
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="nav-link text-white">
+                            <span class="bi d-block mx-auto mb-1 text-center" aria-hidden="true">
+                                <i class="fa-solid fa-magnifying-glass icon-header"></i>
+                            </span>
+                            Buscar
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ url_for('versiculos_tema', tema='todos') }}" class="nav-link text-white">
+                            <span class="bi d-block mx-auto mb-1 text-center" aria-hidden="true">
+                                <i class="fa-solid fa-book-bible icon-header"></i>
+                            </span>
+                            Versículos
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ url_for('oracoes') }}" class="{{ context['btn_sair-class'] }} nav-link text-white active">
+                            <span class="bi d-block mx-auto mb-1 text-center" aria-hidden="true">
+                                <i class="fa-solid fa-hands-praying icon-header"></i>
+                            </span>
+                            Diário de Orações
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ url_for('logout') }}" class="{{ context['btn_sair-class'] }} nav-link text-white">
+                            <span class="bi d-block mx-auto mb-1 text-center" aria-hidden="true">
+                                <i class="fa-solid fa-arrow-right-from-bracket icon-header"></i>
+                            </span>
+                            Sair
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </header>
+    <section>
+        <ul class="d-flex flex-wrap justify-content-center gap-3 tabs-oracoes">
+            <button class="btn btn-primary active" onclick="mudarTabs('myPray')" id="btnMyPray">Suas Orações</button>
+            <button class="btn btn-primary" onclick="mudarTabs('newPray')" id="btnNewPray">Nova Oração <i
+                    class="fa-solid fa-plus"></i></button>
+        </ul>
+    </section>
+    <section id="Praycontent">
+        <div id="myPray" class="tab-content">
+            <div class="header">
+                <h2>Suas Orações <i class="fa-solid fa-person-praying"></i></h2>
+
+
+            </div>
+            {% if 'id_usuario' in session %}
+            <table class="table" id="tabela_de_oracoes">
+                <thead>
+                    <tr>
+                        <th scope="col" width="20"><i class="fa-regular fa-eye"></i></th>
+                        <th scope="col">Objetivo</th>
+                        <th scope="col">Descrição</th>
+                        <th scope="col">Categoria</th>
+                        <th scope="col">Status</th>
+                        <th scope="col">Data Inicio/Fim</th>
+                        <th scope="col">Funções</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for linha in lista %}
+                    <tr class="linha" id="oracao-{{linha.id_oracao}}"
+                        onclick="confirmarEdicao('{{ linha.id_oracao }}')">
+                        <td>
+                            {{linha.id_oracao}}
+                        </td>
+                        <td class="obj" title="{{ linha.objetivo_title }}">
+                            {{linha.objetivo}}
+                        </td>
+                        <td class="desc" title="{{ linha.descricao_title }}">
+                            {{ linha.descricao }}
+                        </td>
+                        <td>
+                            {{ linha.categoria }}
+                        </td>
+                        <td>
+                            {{ linha.status }}
+                        </td>
+                        <td>
+                            {{ linha.data_inicio.strftime('%d/%m/%Y') }} / {{ linha.data_termino.strftime('%d/%m/%Y') }}
+                        </td>
+                        <td class="opcoes">
+                            <li>
+                                <a onclick="confimarExclusao({{ linha.id_oracao }})" title="Excluir"
+                                    style="color: red; font-size: 19px;"><i class="fa-regular fa-trash-can"></i></a>
+                            </li>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            {% else %}
+            <p class="text-center" style="font-size: 24px;"><strong>SESSÃO EXCLUSIVA</strong> - Faça login e
+                crie e gerencie sua oração.</p>
+            {% endif %}
+        </div>
+        <div id="area-oracao">
+            <div class="header">
+                <h2>Criar nova Oração <i class="fa-solid fa-person-praying"></i></h2>
+            </div>
+            <div class="oracao-create">
+                <div class="row mb-4">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <div class="form-floating">
+                                <input type="text" class="form-control" placeholder="Nome..." name="nome" id="nome"
+                                    disabled value="{{ session['nome_usuario'] }}">
+                                <label for="nome">Nome</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-8">
+                        <div class="form-group">
+                            <div class="form-floating">
+                                <input type="text" class="form-control" placeholder="Objetivo..." name="objetivo"
+                                    id="objetivo">
+                                <label for="objetivo">Objetivo</label>
+                                <p><small>EX: Pedir por saúde para minha família</small></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mb-4">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <div class="form-floating">
+                                <input type="date" class="form-control" name="dataTermino" id="dataTermino">
+                                <label for="dataTermino">Data de Término</label>
+                                <p><small>(OBS) Sua oração terá início imediato</small></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <div class="form-floating">
+                                <select name="status" id="status" disabled="disabled" class="form-select">
+
+                                    <option value="1">{{ status_oracao[0].status }}</option>
+                                    <option value="2">{{ status_oracao[1].status }}</option>
+                                </select>
+                                <label for="status">Status para a Oração</label>
+                                <p><small>(OBS) Sua oração começa nesse status, podendo ser alterado
+                                        posteriormente</small></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <div class="form-floating">
+                                <select name="categoria" id="categoria" class="form-select">
+                                    {% for categoria in categoria_oracao %}
+                                    <option value="{{ categoria.id_cat }}">{{ categoria.categoria }}
+                                    </option>
+                                    {% endfor %}
+                                </select>
+                                <label for="categoria">Categoria</label>
+                                <p><small>(OBS) Selecione a categoria para a sua oração</small></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mb-4">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <div class="form-floating">
+                                <select name="privacidade" id="privacidade" class="form-select">
+                                    <option value="Publica">Pública</option>
+                                    <option value="Privada">Privada</option>
+                                </select>
+                                <label for="privacidade">Privacidade</label>
+                                <p><small>(OBS) Se for pública, ela será visível para outros
+                                        usuários</small></p>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="col-md-8">
+                        <div class="form-group">
+                            <div class="form-floating">
+                                <textarea class="form-control" placeholder="Deixe aqui sua oração..." name="descricao"
+                                    id="descricao" style="height: 120px"></textarea>
+                                <label for="descricao">Descrição</label>
+                            </div>
+                            <p><small>Deixe sua oração aqui...</small></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="row text-center">
+                    <div>
+                        <button onclick="criar_oracao()" class="btn btn-primary go-pray">Enviar Oração</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+
+</html>
+
+
+<!-- Toast -->
+<div class="toast-container position-fixed bottom-0 end-0 p-3">
+    <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="toast-header">
+            <img src="../static/imagens/favicon/favicon.ico" width="40" class="rounded me-2" alt="...">
+            <strong class="me-auto">VOX BÍBLIA</strong>
+            <small></small>
+            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+        <div class="toast-body text-dark">
+            <p class="text-toast"></p>
+        </div>
+    </div>
+</div>
+
+
+
+<!-- Modal de Exclusão -->
+<div id="modal-delete" class="modal hidden">
+    <div class="modal-content">
+        <h3 style="font-size: 35px;">Excluir oração?</h3>
+        <p>Essa ação não pode ser desfeita 🙏</p>
+
+        <div class="actions">
+            <button onclick="fecharModal('modal-delete')" class="cancel">Cancelar</button>
+            <button class="danger" onclick="excluir_oracao()">Excluir</button>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Confirmação de Oração Criada! -->
+<div id="modal-created" class="modal hidden">
+    <div class="modal-content">
+        <h3 style="font-size: 35px;">Oração Criada!</h3>
+        <p>Oração Criada com Sucesso e pode ser já pode ser visualizada na Aba "Suas Orações"</p>
+
+        <div class="actions">
+            <button onclick="javascript:location.reload()" class="cancel">Fechar</button>
+        </div>
+    </div>
+</div>
+
+
+
+<!-- Modal para a Confirmação de Edição de Dados -->
+<div id="modal-editar" class="modal hidden">
+    <div class="modal-content" style="width: 70%;">
+        <h3 style="font-size: 35px;">Edição Habilitada para: <p id="titlePray-edit"></p>
+        </h3>
+
+        <div class="oracao-create">
+            <div class="row mb-4">
+                <div class="col-md-4">
+                    <div class="form-group mb-4">
+                        <div class="form-floating">
+                            <input type="text" class="form-control" placeholder="Nome..." name="nome" id="nome" disabled
+                                value="{{ session['nome_usuario'] }}">
+                            <label for="nome">Nome</label>
+                        </div>
+                    </div>
+                    <div class="form-group mb-4">
+                        <div class="form-floating">
+                            <select name="categoria-edit" id="categoria-edit" class="form-select">
+                                <option value="" selected>Selecione uma categoria</option>
+                                {% for categoria in categoria_oracao %}
+                                <option value="{{ categoria.id_cat }}">{{ categoria.categoria }}
+                                </option>
+                                {% endfor %}
+                            </select>
+                            <label for="categoria">Categoria</label>
+                        </div>
+                    </div>
+                    <div class="form-group mb-4">
+                        <div class="form-floating">
+                            <select name="status-edit" id="status-edit" class="form-select">
+                                <option value="" selected>Selecione um Status</option>
+                                <option value="1">{{ status_oracao[0].status }}</option>
+                                <option value="2">{{ status_oracao[1].status }}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group mb-4">
+                        <div class="form-floating">
+                            <select name="privacidade-edit" id="privacidade-edit" class="form-select">
+                                <option value="" selected>Selecione uma Visibilidade</option>
+                                <option value="Publica">Pública</option>
+                                <option value="Privada">Privada</option>
+                            </select>
+                            <label for="privacidade">Privacidade</label>
+                            <p><small>(OBS) Se for pública, ela será visível para outros
+                                    usuários</small></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-8">
+                    <div class="form-group">
+                        <div class="form-floating">
+                            <textarea class="form-control" placeholder="Deixe aqui sua oração..." name="descricao-edit"
+                                id="descricao-edit" style="height: 350px"></textarea>
+                            <label for="descricao-edit">Descrição</label>
+                        </div>
+                        <p><small>Pode Alterar a descrição, se desejar</small></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="actions text-left">
+            <button onclick="fecharModal('modal-editar')" class="btn btn-primary" style="padding: 20px;"><i
+                    class="fa-solid fa-xmark"></i></button>
+            <button onclick="editar_oracao()" class="btn btn-primary" style="padding: 20px;"><i
+                    class="fa-regular fa-pen-to-square"></i></button>
+        </div>
+    </div>
+</div>
+<div id="modal-edited" class="modal hidden">
+    <div class="modal-content">
+        <h3 style="font-size: 35px;">Oração Editada!</h3>
+        <p>Oração Editada com Sucesso e pode ser já pode ser visualizada na Aba "Suas Orações"</p>
+
+        <div class="actions">
+            <button onclick="javascript:location.reload()" class="cancel">Fechar</button>
+        </div>
+    </div>
+</div>
+
+
+<!-- FIM -->
+
+<button type="button" class="btn btn-primary" id="liveToastBtn" hidden>Show live toast</button>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+    crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
+    integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="../../static/js/script.js"></script>
+<script src="../../static/js/oracoes.js"></script>
+<script src="https://cdn.datatables.net/2.3.7/js/dataTables.js"></script>
