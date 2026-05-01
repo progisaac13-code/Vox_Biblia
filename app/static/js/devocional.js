@@ -140,7 +140,33 @@ document.querySelectorAll(".cores button").forEach(btn => {
             easing: "ease"
         });
 
+        if ((cor === '#343A40') || (cor === '#3C096C') || (cor === '#1B4332') || (cor === '#2C2C54')) {
+            card.style.color = 'white';
+        }else {
+            card.style.color = '#2c2c2c';
+        }
         card.style.backgroundColor = cor;
         modalContent.style.backgroundColor = cor + '79';
     });
 }); 
+
+$(document).ready(function () {
+    $('#anotacaoTitulo').on('input', function() {
+        const titulo = $("#anotacaoTitulo").val();
+
+        if (titulo != "") {
+            $('#anotacaoTitle_preview').text(titulo)
+        } else {
+            $('#anotacaoTitle_preview').text("Insira seu Título")
+        }
+    })
+    $('#anotacaoText').on('input', function() {
+        const text = $('#anotacaoText').val();
+
+        if (text != "") {
+            $('#anotacaoText_preview').text(text)
+        } else {
+            $('#anotacaoText_preview').text("Coloque sua anotação aqui")
+        }
+    })
+})
