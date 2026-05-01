@@ -114,3 +114,7 @@ if (toastTrigger) {
         toastBootstrap.show()
     })
 }
+
+function fecharModal(cl) {
+    document.getElementById(cl).classList.add('hidden');
+}

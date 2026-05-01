@@ -713,13 +713,17 @@ def get_devocionar():
         }).fetchall()
         
         textos = []
+        numeros_vers = []
         for linha in versiculos:
             textos.append(f'{linha.numero_vers}. {linha.texto}')
+            numeros_vers.append(f'{linha.numero_vers}')
         
         dados.append({
             'nome_livro': capitulo.livro,
             'capitulo': capitulo.capitulo,
-            'text': textos
+            'text': textos,
+            'versciulos_inicio': numeros_vers[0],
+            'versciulos_fim': numeros_vers[-1]
         })        
         
         return jsonify({'status': 1, 'source': dados})
