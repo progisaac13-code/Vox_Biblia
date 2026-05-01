@@ -722,8 +722,8 @@ def get_devocionar():
             'nome_livro': capitulo.livro,
             'capitulo': capitulo.capitulo,
             'text': textos,
-            'versciulos_inicio': numeros_vers[0],
-            'versciulos_fim': numeros_vers[-1]
+            'versiculos_inicio': numeros_vers[0],
+            'versiculos_fim': numeros_vers[-1]
         })        
         
         return jsonify({'status': 1, 'source': dados})

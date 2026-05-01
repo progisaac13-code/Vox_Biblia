@@ -526,7 +526,7 @@ section#after-desafio .anotacoes .submits button:hover {
     border-width: 20px;
     border-style: solid;
 
-    border-color: transparent transparent #ffffff transparent;
+    border-color: transparent transparent #5a5a5a6c transparent;
 
     transform: rotate(-35deg);
     transition: all 0.3s;

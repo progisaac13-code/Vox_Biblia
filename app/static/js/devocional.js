@@ -101,7 +101,7 @@ $(document).ready(function () {
                         `
                 });
 
-                console.log(data.source[0])
+                $('#anotacao_ref').text(`${source.nome_livro} ${source.capitulo} - ${source.versiculos_inicio}:${source.versiculos_fim}`)
             }
         })
 })
@@ -118,3 +118,29 @@ if (toastTrigger) {
 function fecharModal(cl) {
     document.getElementById(cl).classList.add('hidden');
 }
+
+document.querySelectorAll(".cores button").forEach(btn => {
+    btn.addEventListener("click", () => {
+        document.getElementById("corEscolhida").value = btn.dataset.cor;
+    });
+});
+
+document.querySelectorAll(".cores button").forEach(btn => {
+    btn.addEventListener("click", () => {
+        const cor = btn.dataset.cor;
+
+        const card = document.querySelector(".card_notes");
+        const modalContent = document.querySelector('.modal-content')
+        modalContent.animate([
+            { transform: "scale(1)" },
+            { transform: "scale(1.05)" },
+            { transform: "scale(1)" }
+        ], {
+            duration: 600,
+            easing: "ease"
+        });
+
+        card.style.backgroundColor = cor;
+        modalContent.style.backgroundColor = cor + '79';
+    });
+}); 

@@ -56,7 +56,8 @@
                     data-bs-target="#playlist" aria-controls="offcanvasBottom">
                     Abrir Playlist ▶
                 </button>
-                <button class="btn btn-playlist mt-3 w-100" type="button" onclick="$('#modalAnotacaoDevocional').removeClass('hidden')">
+                <button class="btn btn-playlist mt-3 w-100" type="button"
+                    onclick="$('#modalAnotacaoDevocional').removeClass('hidden')">
                     Fazer Anotações <i class="fa-solid fa-book"></i>
                 </button>
             </div>
@@ -125,78 +126,84 @@
 
     <div id="modalAnotacaoDevocional" class="modal hidden">
         <div class="modal-content">
-            <div class="header">
-                <h3>Anotações <i class="fa-solid fa-book-bible"></i></h3>
-                <p>Leu alguma passagem bíblica hoje? Anote suas reflexões aqui!</p>
-            </div>
-            <div class="content">
-                <div class="row my-4">
-                    <div class="">
-                        <div class="cores">
-                            <button data-cor="#FFF9C4" style="background:#FFF9C4; padding: 25px;"
+            <div class="row">
+                <div class="w-50">
+                    <div class="content">
+                        <div class="row">
+                            <div class="col-md-12 mb-2">
+                                <div class="form-group">
+                                    <div class="form-floating" id="campo_referencia">
+                                        <input type="text" name="titulo_anotacao" id="titulo_anotacao"
+                                            placeholder="Título..." class="form-control">
+                                        <label for="titulo_anotacao">Título</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <div class="form-floating">
+                                        <textarea name="anotacao_texto" id="anotacao_texto" style="height: 200px;"
+                                            placeholder="Sua Anotação" class="form-control"></textarea>
+                                        <label for="">Descreva a sua anotação aqui</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="d-flex flex-wrap cores">
+                            <button class="picker-color-btn" data-cor="#FFF9C4" style="background:#FFF9C4"
                                 title="Clássico"></button>
-                            <button data-cor="#C8E6C9" style="background:#C8E6C9; padding: 25px;" title="Paz"></button>
-                            <button data-cor="#BBDEFB" style="background:#BBDEFB; padding: 25px;"
+                            <button class="picker-color-btn" data-cor="#C8E6C9" style="background:#C8E6C9"
+                                title="Paz"></button>
+                            <button class="picker-color-btn" data-cor="#BBDEFB" style="background:#BBDEFB"
                                 title="Reflexão"></button>
-                            <button data-cor="#F8BBD0" style="background:#F8BBD0; padding: 25px;" title="Amor"></button>
-                            <button data-cor="#E1BEE7" style="background:#E1BEE7; padding: 25px;"
+                            <button class="picker-color-btn" data-cor="#F8BBD0" style="background:#F8BBD0"
+                                title="Amor"></button>
+                            <button class="picker-color-btn" data-cor="#E1BEE7" style="background:#E1BEE7"
                                 title="Profundidade"></button>
-                            <button data-cor="#FFE0B2" style="background:#FFE0B2; padding: 25px;"
+                            <button class="picker-color-btn" data-cor="#FFE0B2" style="background:#FFE0B2"
                                 title="Energia"></button>
-                            <input type="hidden" name="cor" id="corEscolhida" value="#FFF9C4">
+                            <button class="picker-color-btn" data-cor="#EFE7FD" style="background:#EFE7FD"
+                                title="Energia"></button>
+                            <button class="picker-color-btn" data-cor="#E3F2FD" style="background:#E3F2FD"
+                                title="Energia"></button>
+                            <button class="picker-color-btn" data-cor="#FFF8E7" style="background:#FFF8E7"
+                                title="Energia"></button>
+                            <button class="picker-color-btn" data-cor="#FFD93D" style="background:#FFD93D"
+                                title="Energia"></button>
+                            <button class="picker-color-btn" data-cor="#6BCB77" style="background:#6BCB77"
+                                title="Energia"></button>
+                            <button class="picker-color-btn" data-cor="#9D4EDD" style="background:#9D4EDD"
+                                title="Energia"></button>
+                            <input type="hidden" name="cor" id="corEscolhida" value="#E3F2FD">
                         </div>
                     </div>
                 </div>
-                <div class="row my-4">
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <div class="form-floating" id="campo_referencia">
-                                <input type="text" name="titulo_anotacao" id="titulo_anotacao" placeholder="Título..."
-                                    class="form-control">
-                                <label for="titulo_anotacao">Título</label>
+                <div class="w-50">
+                    <div class='card_notes'>
+                        <div class='card_body'>
+                            <h3 id="card_note-title">Insira seu título</h3>
+                            <p><u id="anotacao_ref">Insira sua referência bibilca</u></p>
+                            <div class="card_text">
+                                <p id="card_note-text">Coloque sua anotação aqui</p>
                             </div>
                         </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <div class="form-floating" id="campo_titulo">
-                                <input type="text" name="referencia_anotacao" id="referencia_anotacao"
-                                    placeholder="Referência..." class="form-control">
-                                <label for="referencia_anotacao">Referência</label>
-                            </div>
+                        <div class="card_footer">
+                            <small>Criado(a) por {{ session['nome_usuario'] }} via VOX BÍBLIA</small>
                         </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="form-group">
-                            <div class="form-floating">
-                                <textarea name="anotacao_texto" id="anotacao_texto" style="height: 200px;"
-                                    placeholder="Sua Anotação" class="form-control"></textarea>
-                                <label for="">Descreva a sua anotação aqui</label>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row mt-4 submits">
-                    <div class="col-md-12">
-                        <button class="btn btn-primary details-back py-3 w-100" onclick="salvar_anotacao()">Salvar
-                            Anotação <i class="fa-regular fa-floppy-disk"></i></button>
                     </div>
                 </div>
             </div>
-            <div class="col-md-7 my-auto">
-                <div class='card_notes'>
-                    <h4>Pre-visualização da sua nota</h4>
-                    <div class='card_body'>
-                        <h3 id="card_note-title">Insira seu título</h3>
-                        <p><u id="card_note-describe">Insira sua referência bibilca</u></p>
-                        <div class="card_text">
-                            <p id="card_note-text">Coloque sua anotação aqui</p>
-                        </div>
+            <div class="modal-footer">
+                <div class="row submits">
+                    <div class="col-md-6">
+                        <button class="btn btn-playlist w-100" onclick="salvar_anotacao()">Salvar Anotação <i
+                                class="fa-regular fa-floppy-disk"></i></button>
                     </div>
-                    <div class="card_footer">
-                        <small>Criado(a) por {{ session['nome_usuario'] }} via VOX BÍBLIA</small>
+                    <div class="col-md-6">
+                        <button class="btn btn-playlist w-100"
+                            onclick="fecharModal('modalAnotacaoDevocional')">Fechar</button>
                     </div>
                 </div>
             </div>
