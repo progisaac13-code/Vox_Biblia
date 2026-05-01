@@ -462,12 +462,19 @@ def anotacao_salvar():
         
         hoje = date.today();
         
+        
+        if (cor_escolhida == '#2C2C54') or (cor_escolhida == '#1B4332') or (cor_escolhida == '#3C096C') or (cor_escolhida == '#343A40'):
+            cor_escolhida_lyrics = '#ffffff'
+        else:
+            cor_escolhida_lyrics = '#000000'
+        
         nova_anotacao = Anotacoes(
             id_usuario = id_usuario,
             referencia = referencia,
             titulo = titulo,
             anotacao = anotacao,
             cor_escolhida = cor_escolhida,
+            cor_escolhida_lyrics = cor_escolhida_lyrics,
             data_anotacao = hoje       
         )
         

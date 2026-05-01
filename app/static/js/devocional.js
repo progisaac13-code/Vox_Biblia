@@ -2,6 +2,7 @@ const audio = document.getElementById("audio");
 const playBtn = document.getElementById("play");
 const progress = document.querySelector(".progress");
 const progressContainer = document.querySelector(".progress-container");
+const reflexao_ref = '';
 
 let isPlaying = false;
 
@@ -102,6 +103,7 @@ $(document).ready(function () {
                 });
 
                 $('#anotacao_ref').text(`${source.nome_livro} ${source.capitulo} - ${source.versiculos_inicio}:${source.versiculos_fim}`)
+                reflexao_ref = `${source.nome_livro} ${source.capitulo} - ${source.versiculos_inicio}:${source.versiculos_fim}`
             }
         })
 })
@@ -142,16 +144,16 @@ document.querySelectorAll(".cores button").forEach(btn => {
 
         if ((cor === '#343A40') || (cor === '#3C096C') || (cor === '#1B4332') || (cor === '#2C2C54')) {
             card.style.color = 'white';
-        }else {
+        } else {
             card.style.color = '#2c2c2c';
         }
         card.style.backgroundColor = cor;
         modalContent.style.backgroundColor = cor + '79';
     });
-}); 
+});
 
 $(document).ready(function () {
-    $('#anotacaoTitulo').on('input', function() {
+    $('#anotacaoTitulo').on('input', function () {
         const titulo = $("#anotacaoTitulo").val();
 
         if (titulo != "") {
@@ -160,7 +162,7 @@ $(document).ready(function () {
             $('#anotacaoTitle_preview').text("Insira seu Título")
         }
     })
-    $('#anotacaoText').on('input', function() {
+    $('#anotacaoText').on('input', function () {
         const text = $('#anotacaoText').val();
 
         if (text != "") {
@@ -170,3 +172,34 @@ $(document).ready(function () {
         }
     })
 })
+
+function salvarReflexao() {
+    let titulo = document.getElementById('anotacaoTitulo').value;
+    let descricao = document.getElementById('anotacaoText').value;
+    let background = document.getElementById('corEscolhida').value;
+
+    const box = document.getElementsByClassName('anotacoes');
+
+    fetch('/api/anotacao', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            referencia: reflexao_ref,
+            titulo: titulo,
+            cor_escolhida: background,
+            anotacao: descricao
+        })
+    })
+        .then(res => res.json())
+        .then(data => {
+            if (data.status === 'Salvo!') {
+                document.querySelector('.text-toast').textContent = 'Anotação Criada com Sucesso! Pode ser visualizada na página de Anotações 🙌';
+                document.getElementById('liveToastBtn').click();
+            } else {
+                document.querySelector('.text-toast').textContent = 'Faça Login Para Poder Salvar Suas Anotações 🙌';
+                document.getElementById('liveToastBtn').click();
+            }
+        })
+}
