@@ -678,7 +678,7 @@ def bgNote():
             return jsonify(['OK'])
         
         
-@app.route("/api/devocional")
+@app.route("/api/devocional", methods=['POST'])
 def get_devocionar():
     if 'id_usuario' in session:
         # sql_versiculos = text("SELECT * FROM versiculos limit 2;")
@@ -700,11 +700,20 @@ def get_devocionar():
         #     'versiculo': versiculo.numero_vers,
         #     'text': versiculo.texto
         # })
+        
+        data = request.get_json()
+        
+        livro = data['livro']
+        cap = data['capitulo']
+        
         dados = []
         
         
-        sql_capitulo = text(f"SELECT c.id, c.numero AS capitulo, l.nome AS livro FROM capitulo c JOIN livro l ON c.livro_id = l.id WHERE l.nome = 'Provérbios' AND c.numero = 31 ORDER BY RAND() LIMIT 1")
-        capitulo = db.session.execute(sql_capitulo).fetchone()
+        sql_capitulo = text(f"SELECT c.id, c.numero AS capitulo, l.nome AS livro FROM capitulo c JOIN livro l ON c.livro_id = l.id WHERE l.nome = :livro AND c.numero = :cap ORDER BY RAND() LIMIT 1")
+        capitulo = db.session.execute(sql_capitulo, {
+            "livro": livro,
+            "cap": cap   
+        }).fetchone()
         
         sql_quant = text(f"SELECT * FROM versiculos WHERE capitulo_id = {capitulo.id} order by numero_vers desc limit 1")
         total = db.session.execute(sql_quant).fetchone()

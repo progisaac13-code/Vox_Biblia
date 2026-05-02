@@ -1,10 +1,17 @@
+$(document).ready(function() {
+    devocional()
+})
+
 const audio = document.getElementById("audio");
 const playBtn = document.getElementById("play");
 const progress = document.querySelector(".progress");
 const progressContainer = document.querySelector(".progress-container");
 const reflexao_ref = '';
+let livro = 'Gênesis';
+let capitulo = 1;
 
 let isPlaying = false;
+
 
 playBtn.addEventListener("click", () => {
     if (isPlaying) {
@@ -83,30 +90,40 @@ function change_music(name, song, artist, tipo) {
     });
 }
 
-$(document).ready(function () {
-    fetch('/api/devocional')
-        .then(res => res.json())
-        .then(data => {
-            if (data.status == 1) {
+function devocional() {
+    fetch('/api/devocional', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            livro: livro,
+            capitulo: capitulo
+        })
+    })
+    .then(res => res.json())
+    .then(data => {
+        if (data.status == 1) {
 
-                const source = data.source[0]
-                const v = source.text
+            const source = data.source[0]
+            const v = source.text
 
-                $('#livro').text(`${source.nome_livro} ${source.capitulo}`)
+            $('#livro').text(`${source.nome_livro} ${source.capitulo}`)
 
-                const p = document.getElementById('text');
-                v.forEach(v => {
-                    let d = v.split('.')
-                    p.innerHTML += `
+            const p = document.getElementById('text');
+            p.innerHTML = '';
+            v.forEach(v => {
+                let d = v.split('.')
+                p.innerHTML += `
                         <p id='versiculo'><small>${d[0]}</small>${d[1]}</p>
                         `
-                });
+            });
 
-                $('#anotacao_ref').text(`${source.nome_livro} ${source.capitulo} - ${source.versiculos_inicio}:${source.versiculos_fim}`)
-                reflexao_ref = `${source.nome_livro} ${source.capitulo} - ${source.versiculos_inicio}:${source.versiculos_fim}`
-            }
-        })
-})
+            $('#anotacao_ref').text(`${source.nome_livro} ${source.capitulo} - ${source.versiculos_inicio}:${source.versiculos_fim}`)
+            reflexao_ref = `${source.nome_livro} ${source.capitulo} - ${source.versiculos_inicio}:${source.versiculos_fim}`
+        }
+    })
+}
 
 const toastTrigger = document.getElementById('liveToastBtn')
 const toastLiveExample = document.getElementById('liveToast')
@@ -188,7 +205,11 @@ $(document).ready(function () {
 })
 
 function carregarCapitulo() {
-    let livro = $('#carregarLivros').val();
+    let livro_nome = $('#carregarLivros').val();
+
+    livro = livro_nome;
+
+    devocional()
 
     fetch('/api/carregar_capitulo', {
         method: 'POST',
@@ -196,22 +217,27 @@ function carregarCapitulo() {
             'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-            nome: livro
+            nome: livro_nome
         })
     })
         .then(res => res.json())
         .then(data => {
             let element = document.getElementById('mostrar_caps');
-            let total = data.dados;
+            let total = data.dados[0].cap;
 
-            for (var i = 0; i <= total; i+=1) {
+            element.innerHTML = '';
+            for (var i = 1; i <= total; i += 1) {
                 element.innerHTML += `
-                    <p>${i}</p>
+                    <div class='square_cap'>
+                        ${i}
+                    </div>
                 `
             }
 
+            console.log(total)
 
-        })    
+
+        })
 }
 function salvarReflexao() {
     let titulo = document.getElementById('anotacaoTitulo').value;
