@@ -190,7 +190,28 @@ $(document).ready(function () {
 function carregarCapitulo() {
     let livro = $('#carregarLivros').val();
 
-    console.log(livro)
+    fetch('/api/carregar_capitulo', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            nome: livro
+        })
+    })
+        .then(res => res.json())
+        .then(data => {
+            let element = document.getElementById('mostrar_caps');
+            let total = data.dados;
+
+            for (var i = 0; i <= total; i+=1) {
+                element.innerHTML += `
+                    <p>${i}</p>
+                `
+            }
+
+
+        })    
 }
 function salvarReflexao() {
     let titulo = document.getElementById('anotacaoTitulo').value;

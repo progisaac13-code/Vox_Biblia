@@ -751,6 +751,26 @@ def livros():
             
         return jsonify({'dados': nomes})
     
+
+@app.route('/api/carregar_capitulo', methods=['POST'])
+def capitulos():
+    if 'id_usuario' in session:
+        data = request.get_json()
+        
+        nome = data['nome']
+        
+        caps = []
+        
+        sql_capitulos = text('SELECT c.id, c.numero AS capitulo, l.nome AS livro FROM capitulo c JOIN livro l ON c.livro_id = l.id WHERE l.nome = :nome ORDER BY id DESC LIMIT 1')
+        capitulos = db.session.execute(sql_capitulos, {
+            "nome": nome
+        }).fetchone()
+        
+        caps.append({
+            "cap": capitulos.capitulo
+        })
+        
+        return jsonify({'dados': caps})        
     
     
 # Rotas de Renderização de Páginas
