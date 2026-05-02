@@ -171,8 +171,27 @@ $(document).ready(function () {
             $('#anotacaoText_preview').text("Coloque sua anotação aqui")
         }
     })
+    fetch('/api/carregar_livros')
+        .then(res => res.json())
+        .then(data => {
+            const l = document.getElementById('carregarLivros');
+
+            let livros = data.dados;
+
+            livros.forEach(livros => {
+                l.innerHTML += `
+                    <option value='${livros.nome}'>${livros.nome}</option>
+                `
+            });
+
+        })
 })
 
+function carregarCapitulo() {
+    let livro = $('#carregarLivros').val();
+
+    console.log(livro)
+}
 function salvarReflexao() {
     let titulo = document.getElementById('anotacaoTitulo').value;
     let descricao = document.getElementById('anotacaoText').value;

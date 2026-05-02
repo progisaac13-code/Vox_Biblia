@@ -703,7 +703,7 @@ def get_devocionar():
         dados = []
         
         
-        sql_capitulo = text(f"SELECT c.id, c.numero AS capitulo, l.nome AS livro FROM capitulo c JOIN livro l ON c.livro_id = l.id WHERE l.nome = 'Provérbios' ORDER BY RAND() LIMIT 1")
+        sql_capitulo = text(f"SELECT c.id, c.numero AS capitulo, l.nome AS livro FROM capitulo c JOIN livro l ON c.livro_id = l.id WHERE l.nome = 'Provérbios' AND c.numero = 31 ORDER BY RAND() LIMIT 1")
         capitulo = db.session.execute(sql_capitulo).fetchone()
         
         sql_quant = text(f"SELECT * FROM versiculos WHERE capitulo_id = {capitulo.id} order by numero_vers desc limit 1")
@@ -735,6 +735,23 @@ def get_devocionar():
         
         return jsonify({'status': 1, 'source': dados})
         
+    
+@app.route('/api/carregar_livros')
+def livros():
+    if 'id_usuario' in session:
+        nomes = []
+        
+        sql_livros = text("SELECT * FROM livro;");
+        livros = db.session.execute(sql_livros).fetchall();
+        
+        for n in livros:
+            nomes.append({
+                'nome': n.nome
+            })
+            
+        return jsonify({'dados': nomes})
+    
+    
     
 # Rotas de Renderização de Páginas
 @app.route('/')
