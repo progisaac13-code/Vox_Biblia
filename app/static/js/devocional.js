@@ -228,7 +228,7 @@ function carregarCapitulo() {
             element.innerHTML = '';
             for (var i = 1; i <= total; i += 1) {
                 element.innerHTML += `
-                    <div class='square_cap'>
+                    <div class='square_cap' id='list-cap${i}' onclick='showCap(${i})'>
                         ${i}
                     </div>
                 `
@@ -239,6 +239,14 @@ function carregarCapitulo() {
 
         })
 }
+
+function showCap(i) {
+    capitulo = i
+
+    devocional()
+}
+
+
 function salvarReflexao() {
     let titulo = document.getElementById('anotacaoTitulo').value;
     let descricao = document.getElementById('anotacaoText').value;

@@ -120,3 +120,10 @@ class Versiculos(db.Model):
     numero_vers = db.Column(db.Integer)
     texto = db.Column(db.Text)
     capitulo_id = db.Column(db.Integer, db.ForeignKey("capitulo.id"))
+    
+
+class Devocionais(db.Model):
+    id_devocionais = db.Column(db.Integer, primary_key=True)
+    id_usuario = db.Column(db.Integer)
+    referencia = db.Column(db.String(50))
+    data = db.Column(db.Date)

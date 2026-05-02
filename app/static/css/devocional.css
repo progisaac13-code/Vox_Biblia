@@ -13,6 +13,11 @@
     color: white;
 }
 
+.btn.btn-playlist.destaque {
+    background: #333;
+    color: white;
+}
+
 .player {
     position: sticky;
     top: 0;
