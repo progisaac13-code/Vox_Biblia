@@ -63,6 +63,9 @@
                 <a href="{{ url_for('notes') }}" class="btn btn-playlist mt-3 w-100" type="button" >
                     Ir para a Página de Anotações <i class="fa-solid fa-note-sticky"></i>
                 </a>
+                <button class="btn btn-playlist mt-3 w-100" type="button" onclick="$('#modalChangeBible').removeClass('hidden')">
+                    Trocar Livro ou Passagem <i class="fa-solid fa-cross"></i>
+                </button>
                 <a href="#" onclick="javascript:history.go(-1)" class="btn btn-playlist mt-3 w-100" type="button" >
                     Voltar <i class="fa-solid fa-angles-left"></i>
                 </a>
@@ -182,18 +185,18 @@
                                 title="Energia"></button>
                             <button class="picker-color-btn" data-cor="#9D4EDD" style="background:#9D4EDD"
                                 title="Energia"></button>
-                                <button class="picker-color-btn" data-cor="#4D96FF" style="background:#4D96FF"
-                                title="Energia"></button>
-                                <button class="picker-color-btn" data-cor="#FF8C42" style="background:#FF8C42"
-                                title="Energia"></button>
-                                <button class="picker-color-btn" data-cor="#2C2C54" style="background:#2C2C54"
-                                title="Energia"></button>
-                                <button class="picker-color-btn" data-cor="#1B4332" style="background:#1B4332"
-                                title="Energia"></button>
-                                <button class="picker-color-btn" data-cor="#3C096C" style="background:#3C096C"
-                                title="Energia"></button>
-                                <button class="picker-color-btn" data-cor="#343A40" style="background:#343A40"
-                                title="Energia"></button>
+                            <button class="picker-color-btn" data-cor="#4D96FF" style="background:#4D96FF"
+                            title="Energia"></button>
+                            <button class="picker-color-btn" data-cor="#FF8C42" style="background:#FF8C42"
+                            title="Energia"></button>
+                            <button class="picker-color-btn" data-cor="#2C2C54" style="background:#2C2C54"
+                            title="Energia"></button>
+                            <button class="picker-color-btn" data-cor="#1B4332" style="background:#1B4332"
+                            title="Energia"></button>
+                            <button class="picker-color-btn" data-cor="#3C096C" style="background:#3C096C"
+                            title="Energia"></button>
+                            <button class="picker-color-btn" data-cor="#343A40" style="background:#343A40"
+                            title="Energia"></button>
 
                             <input type="hidden" name="cor" id="corEscolhida" value="#EFE7FD">
                         </div>
@@ -213,6 +216,18 @@
                         </div>
                     </div>
                 </div>
+            </div>
+            <div class="modal-rodape">
+                <button class="btn" onclick="salvarReflexao()">Salvar Anotação</button>
+                <button class="btn" onclick="fecharModal('modalAnotacaoDevocional')">Fechar</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="modalChangeBible" class="modal hidden">
+        <div class="modal-content">
+            <div class="row">
+                Olá
             </div>
             <div class="modal-rodape">
                 <button class="btn" onclick="salvarReflexao()">Salvar Anotação</button>
