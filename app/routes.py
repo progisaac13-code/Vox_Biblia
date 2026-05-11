@@ -2,7 +2,7 @@ from app import app, db
 from flask import Response, render_template, url_for, request, jsonify, redirect, session
 from app import func
 from app.func import validar_cpf
-from app.models import CategoriaOracao, Desafios, Oracoes, ProgressoDesafio, Versiculo, FavoritarVersiculo, Usuarios, StatusOracao, Frases, Streak, AberturaIA, PedidosIA, FinaisIA, Anotacoes, Livro, Capitulo, Versiculos
+from app.models import CategoriaOracao, Desafios, Devocionais, Oracoes, ProgressoDesafio, Versiculo, FavoritarVersiculo, Usuarios, StatusOracao, Frases, Streak, AberturaIA, PedidosIA, FinaisIA, Anotacoes, Livro, Capitulo, Versiculos
 from datetime import date, datetime, timedelta
 from werkzeug.security import generate_password_hash, check_password_hash
 from sqlalchemy import or_, and_, text
@@ -782,6 +782,28 @@ def capitulos():
         return jsonify({'dados': caps})        
     
     
+@app.route('/api/concluir_devocional', methods=['POST'])
+def concluir_devocional():
+    if 'id_usuario' in session:
+        data = request.get_json()
+        
+        id_usuario = session['id_usuario']
+        referencia = data['referencia']
+        data = date.today()
+        
+        novo_devocional = Devocionais(
+            id_usuario=id_usuario,
+            referencia=referencia,
+            data=data
+        )
+        
+        db.session.add(novo_devocional)
+        db.session.commit()
+        
+        return jsonify({'status': 1, 'message': 'Devocional concluído com sucesso!'})
+    
+    return jsonify({'status': 0, 'message': 'Usuário não está logado.'})
+
 # Rotas de Renderização de Páginas
 @app.route('/')
 def index():  # put application's code here

@@ -9,6 +9,7 @@ const progressContainer = document.querySelector(".progress-container");
 const reflexao_ref = '';
 let livro = 'Gênesis';
 let capitulo = 1;
+let versiculo = 0;
 
 let isPlaying = false;
 
@@ -275,5 +276,31 @@ function salvarReflexao() {
                 document.querySelector('.text-toast').textContent = 'Faça Login Para Poder Salvar Suas Anotações 🙌';
                 document.getElementById('liveToastBtn').click();
             }
+        })
+}
+
+function concluir_devocional() {
+
+    referencia = livro + ' ' + capitulo
+
+    fetch('/api/concluir_devocional', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            referencia: referencia
+        })
+    })
+        .then(res => res.json())
+        .then(data => {
+            if (data.status == 1) {
+                document.querySelector('.text-toast').textContent = 'Devocional Concluído! Parabéns por mais um dia caminhando com o Senhor 🙌';
+                document.getElementById('liveToastBtn').click();
+            } else if (data.status == 2) {
+                document.querySelector('.text-toast').textContent = 'Devocional já Concluído! Continue firme em sua caminhada com o Senhor 🙌'
+                document.getElementById('liveToastBtn').click();
+            }
+            console.log(data)
         })
 }
