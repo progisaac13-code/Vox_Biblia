@@ -123,7 +123,7 @@ class Versiculos(db.Model):
     
 
 class Devocionais(db.Model):
-    id_devocionais = db.Column(db.Integer, primary_key=True)
+    id_devocional  = db.Column(db.Integer, primary_key=True)
     id_usuario = db.Column(db.Integer)
     referencia = db.Column(db.String(50))   
     data = db.Column(db.Date)

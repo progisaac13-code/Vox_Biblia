@@ -6,10 +6,10 @@ const audio = document.getElementById("audio");
 const playBtn = document.getElementById("play");
 const progress = document.querySelector(".progress");
 const progressContainer = document.querySelector(".progress-container");
-const reflexao_ref = '';
+let reflexao_ref = '';
 let livro = 'Gênesis';
 let capitulo = 1;
-let versiculo = 0;
+let versiculo = '';
 
 let isPlaying = false;
 
@@ -122,6 +122,14 @@ function devocional() {
 
             $('#anotacao_ref').text(`${source.nome_livro} ${source.capitulo} - ${source.versiculos_inicio}:${source.versiculos_fim}`)
             reflexao_ref = `${source.nome_livro} ${source.capitulo} - ${source.versiculos_inicio}:${source.versiculos_fim}`
+        } else if (data.status == 0) {
+            let titulo = document.getElementById('titulo_pag');
+            let livro = document.getElementById('livro');
+            
+            typingEffect(titulo, 'Devocional já concluído!')
+            typingEffect(livro, 'Parabéns por concluir o devocional de hoje! 🙌')
+            
+
         }
     })
 }
@@ -281,7 +289,7 @@ function salvarReflexao() {
 
 function concluir_devocional() {
 
-    referencia = livro + ' ' + capitulo
+    referencia = livro + ' ' + capitulo + ' - ' + versiculo
 
     fetch('/api/concluir_devocional', {
         method: 'POST',
@@ -289,7 +297,7 @@ function concluir_devocional() {
             'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-            referencia: referencia
+            referencia: reflexao_ref
         })
     })
         .then(res => res.json())
@@ -303,4 +311,19 @@ function concluir_devocional() {
             }
             console.log(data)
         })
+}
+
+function typingEffect(element, text, delay = 60) {
+    let i = 0;
+    element.textContent = '';
+
+    function digitar() {
+        if (i < text.length) {
+            element.textContent += text.charAt(i);
+            i++;
+            setTimeout(digitar, delay);
+        }
+    }
+
+    digitar();
 }

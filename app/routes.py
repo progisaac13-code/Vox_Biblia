@@ -681,6 +681,11 @@ def bgNote():
 @app.route("/api/devocional", methods=['POST'])
 def get_devocionar():
     if 'id_usuario' in session:
+        
+        ja_devocional = Devocionais.query.filter_by(id_usuario=session['id_usuario'], data=date.today()).first()
+        if ja_devocional:
+            return jsonify({'status': 0, 'message': 'Devocional do dia já concluído!'})
+        
         # sql_versiculos = text("SELECT * FROM versiculos limit 2;")
         # versiculo = db.session.execute(sql_versiculos).fetchone()
         # capitulo_id = versiculo.capitulo_id
