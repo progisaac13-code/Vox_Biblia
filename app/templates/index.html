@@ -238,16 +238,24 @@
         <!-- MODO DEVOCIONAL (CALL TO ACTION) -->
         <section id="devocional">
             <div class="two-columns">
-                <div class="call-to-action w-50">
-                    <h2>Reserve um Momento com Deus Hoje 🙏</h2>
-                    <hr style="width: 40%; margin: 40px 0;">
-                    <p>Um espaço silencioso para ler, refletir e escrever o que o Espírito ministrou ao seu coração.</p>
-                    {% if session['id_usuario'] %}
-                        <a href="{{ url_for('devocional') }}" class="btn btn-devocional">Fazer Devocional agora</a>
-                    {% else %}
-                        <a href="{{ url_for('login') }}" class="btn btn-devocional">Faça Login para Começar seu Devocional 🙏</a>
-                    {% endif %}
-                </div>
+                {% if context['devocional_concluido'] %}
+                    <div class="call-to-action w-50">
+                        <h2>Devocional já Concluído! 🙌</h2>
+                        <hr style="width: 40%; margin: 40px 0;">
+                        <p>Parabéns por concluir o devocional de hoje!</p>
+                    </div>
+                {% else %}
+                    <div class="call-to-action w-50">
+                        <h2>Reserve um Momento com Deus Hoje 🙏</h2>
+                        <hr style="width: 40%; margin: 40px 0;">
+                        <p>Um espaço silencioso para ler, refletir e escrever o que o Espírito ministrou ao seu coração.</p>
+                        {% if session['id_usuario'] %}
+                            <a href="{{ url_for('devocional') }}" class="btn btn-devocional">Fazer Devocional agora</a>
+                        {% else %}
+                            <a href="{{ url_for('login') }}" class="btn btn-devocional">Faça Login para Começar seu Devocional 🙏</a>
+                        {% endif %}
+                    </div>
+                {% endif %}
                 <div class="w-50 img">
                     <p>Comece seu devocional e registre o que Ele falou ao seu coração hoje.</p>
                 </div>

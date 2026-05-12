@@ -1,4 +1,4 @@
-$(document).ready(function() {
+$(document).ready(function () {
     devocional()
 })
 
@@ -102,36 +102,28 @@ function devocional() {
             capitulo: capitulo
         })
     })
-    .then(res => res.json())
-    .then(data => {
-        if (data.status == 1) {
+        .then(res => res.json())
+        .then(data => {
+            if (data.status == 1) {
 
-            const source = data.source[0]
-            const v = source.text
+                const source = data.source[0]
+                const v = source.text
 
-            $('#livro').text(`${source.nome_livro} ${source.capitulo}`)
+                $('#livro').text(`${source.nome_livro} ${source.capitulo}`)
 
-            const p = document.getElementById('text');
-            p.innerHTML = '';
-            v.forEach(v => {
-                let d = v.split('.')
-                p.innerHTML += `
+                const p = document.getElementById('text');
+                p.innerHTML = '';
+                v.forEach(v => {
+                    let d = v.split('.')
+                    p.innerHTML += `
                         <p id='versiculo'><small>${d[0]}</small>${d[1]}</p>
                         `
-            });
+                });
 
-            $('#anotacao_ref').text(`${source.nome_livro} ${source.capitulo} - ${source.versiculos_inicio}:${source.versiculos_fim}`)
-            reflexao_ref = `${source.nome_livro} ${source.capitulo} - ${source.versiculos_inicio}:${source.versiculos_fim}`
-        } else if (data.status == 0) {
-            let titulo = document.getElementById('titulo_pag');
-            let livro = document.getElementById('livro');
-            
-            typingEffect(titulo, 'Devocional já concluído!')
-            typingEffect(livro, 'Parabéns por concluir o devocional de hoje! 🙌')
-            
-
-        }
-    })
+                $('#anotacao_ref').text(`${source.nome_livro} ${source.capitulo} - ${source.versiculos_inicio}:${source.versiculos_fim}`)
+                reflexao_ref = `${source.nome_livro} ${source.capitulo} - ${source.versiculos_inicio}:${source.versiculos_fim}`
+            }
+        })
 }
 
 const toastTrigger = document.getElementById('liveToastBtn')
@@ -303,11 +295,12 @@ function concluir_devocional() {
         .then(res => res.json())
         .then(data => {
             if (data.status == 1) {
-                document.querySelector('.text-toast').textContent = 'Devocional Concluído! Parabéns por mais um dia caminhando com o Senhor 🙌';
-                document.getElementById('liveToastBtn').click();
+                $('.vt_pg').click();
             } else if (data.status == 2) {
-                document.querySelector('.text-toast').textContent = 'Devocional já Concluído! Continue firme em sua caminhada com o Senhor 🙌'
-                document.getElementById('liveToastBtn').click();
+                let titulo = document.getElementById('titulo_pag');
+                let livro = document.getElementById('livro');
+                typingEffect(titulo, 'Devocional já Concluído! 🙌')
+                typingEffect(livro, 'Continue firme em sua caminhada com o Senhor 🙌')
             }
             console.log(data)
         })

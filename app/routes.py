@@ -883,6 +883,12 @@ def index():  # put application's code here
     categoria_oracao = []
     categoria_oracao = CategoriaOracao.query.all()
     
+    devocional = Devocionais.query.filter_by(id_usuario=session['id_usuario'], data=date.today()).first()
+    if devocional:
+        context.update({'devocional_concluido': True})
+    else:
+        context.update({'devocional_concluido': False})
+    
     # Exibir a página inicial com o versículo selecionado
     return render_template('index.html', context=context, versiculo=versiculo, favoritos=favoritos, versiculos_favoritos=versiculos_favoritos,
     oracoes_usuario=oracoes_usuario, status_oracao=status_oracao, categoria_oracao=categoria_oracao)
