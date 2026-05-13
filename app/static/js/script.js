@@ -1,3 +1,18 @@
+$(document).ready(function() {
+    
+    
+    fetch('/api/picker_imagem')
+    .then(res => res.json())
+    .then(data => {
+        var session = document.getElementById('versiculo_dia');
+
+        console.log(data.url);
+
+        session.style.backgroundImage = `url(/static/imagens/${data.url})`;
+    })
+})
+
+
 function favoritar(id, id_usuario) {
     fetch('/api/favoritar', {
         method: 'POST',

@@ -127,3 +127,7 @@ class Devocionais(db.Model):
     id_usuario = db.Column(db.Integer)
     referencia = db.Column(db.String(50))   
     data = db.Column(db.Date)
+    
+class Backgrounds(db.Model):
+    id_img = db.Column(db.Integer, primary_key=True)
+    nome = db.Column(db.String(200), nullable=False)

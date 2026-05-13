@@ -2,7 +2,7 @@ from app import app, db
 from flask import Response, render_template, url_for, request, jsonify, redirect, session
 from app import func
 from app.func import validar_cpf
-from app.models import CategoriaOracao, Desafios, Devocionais, Oracoes, ProgressoDesafio, Versiculo, FavoritarVersiculo, Usuarios, StatusOracao, Frases, Streak, AberturaIA, PedidosIA, FinaisIA, Anotacoes, Livro, Capitulo, Versiculos
+from app.models import CategoriaOracao, Desafios, Devocionais, Oracoes, ProgressoDesafio, Versiculo, Backgrounds, FavoritarVersiculo, Usuarios, StatusOracao, Frases, Streak, AberturaIA, PedidosIA, FinaisIA, Anotacoes, Livro, Capitulo, Versiculos
 from datetime import date, datetime, timedelta
 from werkzeug.security import generate_password_hash, check_password_hash
 from sqlalchemy import or_, and_, text
@@ -809,6 +809,16 @@ def concluir_devocional():
     
     return jsonify({'status': 0, 'message': 'Usuário não está logado.'})
 
+
+@app.route('/api/picker_imagem')
+def picker_imagem():
+    imagens = Backgrounds.query.all()
+    
+    imagem = random.choice(imagens)
+    
+    return jsonify({'url': imagem.nome})
+    
+
 # Rotas de Renderização de Páginas
 @app.route('/')
 def index():  # put application's code here
@@ -883,7 +893,9 @@ def index():  # put application's code here
     categoria_oracao = []
     categoria_oracao = CategoriaOracao.query.all()
     
-    devocional = Devocionais.query.filter_by(id_usuario=session['id_usuario'], data=date.today()).first()
+    id_usuario = session['id_usuario'] if 'id_usuario' in session else None
+    
+    devocional = Devocionais.query.filter_by(id_usuario=id_usuario, data=date.today()).first()
     if devocional:
         context.update({'devocional_concluido': True})
     else:
