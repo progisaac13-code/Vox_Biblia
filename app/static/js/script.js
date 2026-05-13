@@ -8,7 +8,8 @@ $(document).ready(function() {
 
         console.log(data.url);
 
-        session.style.backgroundImage = `url(/static/imagens/${data.url})`;
+        session.style.background = `linear-gradient(to top, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0)), url(/static/imagens/${data.url}) no-repeat fixed`;
+        session.style.backgroundSize = 'cover';
     })
 })
 

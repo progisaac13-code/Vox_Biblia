@@ -165,11 +165,6 @@ header i {
     margin: auto 0;
 }
 
-#versiculo_dia {
-    background: linear-gradient(to top, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0)), url('../imagens/index.webp') no-repeat fixed;
-    background-size: cover;
-}
-
 main .versiculo_dia {
     padding: 10px 50px 250px 50px;
     height: 100%;

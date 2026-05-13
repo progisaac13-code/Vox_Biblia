@@ -816,7 +816,11 @@ def picker_imagem():
     
     imagem = random.choice(imagens)
     
-    return jsonify({'url': imagem.nome})
+    dados = [
+        {'url': imagem.nome}
+    ]
+    
+    return jsonify({'url': dados[0]['url']})
     
 
 # Rotas de Renderização de Páginas
