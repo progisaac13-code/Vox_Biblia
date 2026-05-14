@@ -295,7 +295,7 @@ function concluir_devocional() {
         .then(res => res.json())
         .then(data => {
             if (data.status == 1) {
-                $('.vt_pg').click();
+                location.href = '/#devocional';
             } else if (data.status == 2) {
                 let titulo = document.getElementById('titulo_pag');
                 let livro = document.getElementById('livro');

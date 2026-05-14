@@ -25,14 +25,9 @@
         <section id="versiculo_dia">
             <header class="home">
                 <div class="">
-                    <div class="d-flex flex-wrap align-items-center justify-content-between py-3">
-                        <div class="text-end">
-                            {% if context['Status'] == 'Logado!' %}
+                    <div class="py-3 mb-4 border-bottom">
+                        <div class="text-center mb-3">
                             <span class="streak-number"></span>
-                            {% else %}
-                            <a href="{{ url_for('login') }}"
-                                class="btn btn-primary me-2"><strong>Login/Cadastro</strong></a>
-                            {% endif %}
                         </div>
                         <ul class="nav col-12 col-lg-auto my-2 justify-content-center my-md-0 text-small gap-2">
                             <li>
@@ -41,14 +36,6 @@
                                         <i class="fa-regular fa-house icon-header"></i>
                                     </span>
                                     Home
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#" class="nav-link text-white">
-                                    <span class="bi d-block mx-auto mb-1 text-center" aria-hidden="true">
-                                        <i class="fa-solid fa-magnifying-glass icon-header"></i>
-                                    </span>
-                                    Buscar
                                 </a>
                             </li>
                             <li>
@@ -76,14 +63,24 @@
                                 </a>
                             </li>
                             <li>
-                                <a href="{{ url_for('logout') }}"
-                                    class="{{ context['btn_sair-class'] }} nav-link text-white">
+                                <a href="{{ url_for('notes') }}" class="nav-link text-white">
                                     <span class="bi d-block mx-auto mb-1 text-center" aria-hidden="true">
-                                        <i class="fa-solid fa-arrow-right-from-bracket icon-header"></i>
+                                        <i class="fa-regular fa-hourglass-half icon-header"></i>
                                     </span>
-                                    Sair
+                                    Modo Retiro
                                 </a>
                             </li>
+                            {% if context['Status'] == 'Logado!' %}
+                                <li>
+                                    <a href="{{ url_for('logout') }}"
+                                        class="{{ context['btn_sair-class'] }} nav-link text-white">
+                                        <span class="bi d-block mx-auto mb-1 text-center" aria-hidden="true">
+                                            <i class="fa-solid fa-arrow-right-from-bracket icon-header text-danger"></i>
+                                        </span>
+                                        Sair
+                                    </a>
+                                </li>
+                            {% endif %}
                         </ul>
                     </div>
                 </div>
@@ -240,9 +237,10 @@
             <div class="two-columns">
                 {% if context['devocional_concluido'] %}
                     <div class="call-to-action w-50">
+                        <span class="streak-number_dev"></span>
                         <h2>Devocional já Concluído! 🙌</h2>
                         <hr style="width: 40%; margin: 40px 0;">
-                        <p>Parabéns por concluir o devocional de hoje!</p>
+                        <p>Mais um dia de devoção concluído! 🙏</p>
                     </div>
                 {% else %}
                     <div class="call-to-action w-50">
@@ -338,6 +336,9 @@
             </div>
         </section>
     </main>
+    <footer>
+        <p>&copy; 2026 {{ context.title_site }}. Todos os direitos reservados.</p>
+    </footer>
 
     <!-- Toast -->
     <div class="toast-container position-fixed bottom-0 end-0 p-3">
@@ -603,10 +604,13 @@
             .then(res => res.json())
             .then(data => {
                 const streakNumberElement = document.querySelector('.streak-number');
+                const streakNumberDevElement = document.querySelector('.streak-number_dev');
                 if (data.streak == 0) {
                     typingEffect(streakNumberElement, 'Hoje é um novo começo 🙏');
+                    typingEffect(streakNumberDevElement, 'Hoje é um novo começo 🙏');
                 } else {
                     typingEffect(streakNumberElement, 'Há ' + data.streak + ' dia(s) com Deus! Continue Firme! 🙌');
+                    typingEffect(streakNumberDevElement, 'Há ' + data.streak + ' dia(s) com Deus! Continue Firme! 🙌');
                 }
             })
     }

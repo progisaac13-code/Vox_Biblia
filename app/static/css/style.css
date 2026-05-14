@@ -79,12 +79,20 @@ p {
     font-family: 'Inter', sans-serif;
 }
 
-.streak-number {
+.streak-number, .streak-number_dev {
     font-size: 24px;
     color: var(--details);
     font-family: 'Playfair Display', serif;
     font-weight: bold;
 }
+
+.streak-number_dev::after {
+    content: '|';
+    margin-left: 5px;
+    animation: blink 1s infinite;
+}
+
+
 
 .btn.btn-details {
     background-color: var(--details);
@@ -121,17 +129,11 @@ header .icon-header {
 }
 
 header a.active {
-    background: linear-gradient(rgba(0, 0, 0, .5), rgba(0, 0, 0, .5));
-    text-decoration: underline;
     color: white !important;
-    padding: 10px 50px;
-    text-transform: uppercase;
 }
 
-header a:hover {
-    background: linear-gradient(rgba(0, 0, 0, .5), rgba(0, 0, 0, .5));
-    text-decoration: underline;
-    color: white !important;
+header a:hover i {
+    color: var(--details) !important;
 }
 
 header a.active i {
@@ -618,3 +620,15 @@ section#after-desafio .anotacoes .submits button:hover {
     100% { transform: scale(1); }
 }
 
+footer {
+    background-color: var(--details);
+    color: var(--fundo);
+    text-align: center;
+    padding: 20px 0;
+}
+
+footer p {
+    font-family: 'Inter', serif;
+    font-size: 16px;
+    margin: auto 0;
+}

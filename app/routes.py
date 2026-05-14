@@ -804,7 +804,7 @@ def concluir_devocional():
         
         db.session.add(novo_devocional)
         db.session.commit()
-        
+        streak()
         return jsonify({'status': 1, 'message': 'Devocional concluído com sucesso!'})
     
     return jsonify({'status': 0, 'message': 'Usuário não está logado.'})
