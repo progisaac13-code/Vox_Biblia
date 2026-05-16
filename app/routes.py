@@ -910,6 +910,19 @@ def index():  # put application's code here
     oracoes_usuario=oracoes_usuario, status_oracao=status_oracao, categoria_oracao=categoria_oracao)
 
 
+@app.route('/modoretino')
+def retiro():
+    if 'id_usuario' in session:
+        context.update({'Status': 'Logado!', 'id_usuario': 'btn-usuario', 'class': 'btn-primary me-2', 'text_btn': 'Seja bem vindo(a), ' + session['nome_usuario'] + "!", 'link_usuario': url_for('index'), 'btn_sair-class': 'd-block'})
+    
+        context.update({
+            'id_usuario': session['id_usuario'] if 'id_usuario' in session else None,
+            'nome_usuario': session['nome_usuario'] if 'nome_usuario' in session else None,
+        })
+        return render_template('devocional/index.html', context=context)
+    else:
+        return render_template('permissao/404.html')
+
 
 @app.route('/devocional')
 def devocional():
