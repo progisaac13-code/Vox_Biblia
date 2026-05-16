@@ -921,7 +921,7 @@ def retiro():
         })
         return render_template('devocional/index.html', context=context)
     else:
-        return render_template('permissao/404.html')
+        return render_template('permissao/404.html', context=context)
 
 
 @app.route('/devocional')
