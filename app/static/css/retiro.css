@@ -1,5 +1,21 @@
 @charset "UTF-8";
 
+.btn {
+    background-color: #292414;
+    color: #fff;
+    padding: 13px 30px;
+    border: none;
+    border-radius: 0;
+    font-family: 'Inter', sans-serif;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.btn:hover {
+    background-color: #7B7065;
+}
+
 section#retiro {
     background: linear-gradient(rgba(0, 0, 0, .5), rgba(0, 0, 0, .5)), url('../imagens/fundo-modo-retiro.webp');
     background-position: center;
@@ -24,4 +40,58 @@ section#title-of-page p {
     font-size: 18px;
     max-width: 600px;
     margin: 0 auto;
+}
+
+main {
+    padding: 100px 20px;
+}
+
+main section#jejum {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    gap: 40px;
+}
+
+main section#jejum div.exp {
+    max-width: 1150px;
+    background-color: #1E293B;
+    padding: 30px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 20px;
+}
+
+main section#jejum div.exp h2 {
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    font-size: 32px;
+    color: #fff;
+    margin-bottom: 20px;
+}
+
+main section#jejum div.exp p {
+    font-family: 'Inter', sans-serif;
+    font-size: 18px;
+    color: #fff;
+    line-height: 1.6;
+}
+
+main section#jejum div.exp ul {
+    font-family: 'Inter', sans-serif;
+    font-size: 18px;
+    color: #fff;
+    line-height: 35px;
+    margin-left: 20px;
+} 
+
+main section#jejum div.exp ul li {
+    list-style-type: disc;
+    margin: 10px 0;
+}
+
+main section#jejum div.img img {
+    max-width: 400px;
+    width: 100%;
+    border-radius: 20px;
+    box-shadow: 30px -30px 0px rgb(0, 0, 0);
 }
