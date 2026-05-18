@@ -919,7 +919,7 @@ def retiro():
             'id_usuario': session['id_usuario'] if 'id_usuario' in session else None,
             'nome_usuario': session['nome_usuario'] if 'nome_usuario' in session else None,
         })
-        return render_template('devocional/index.html', context=context)
+        return render_template('retiro/index.html', context=context)
     else:
         return render_template('permissao/404.html', context=context)
 

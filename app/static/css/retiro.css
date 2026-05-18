@@ -1,0 +1,27 @@
+@charset "UTF-8";
+
+section#retiro {
+    background: linear-gradient(rgba(0, 0, 0, .5), rgba(0, 0, 0, .5)), url('../imagens/fundo-modo-retiro.webp');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+section#title-of-page {
+    padding: 120px 0;
+    backdrop-filter: blur(3px);
+}
+
+
+section#title-of-page h1 {
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    font-size: 60px;
+}
+
+section#title-of-page p {
+    font-family: 'Inter', sans-serif;
+    font-size: 18px;
+    max-width: 600px;
+    margin: 0 auto;
+}
