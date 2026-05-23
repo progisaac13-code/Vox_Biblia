@@ -129,13 +129,51 @@ main section#jejum div.img img {
 
 .fa-gripfire {
     color: var(--verde);
-    font-size: 24px;
+    font-size: 26px;
 }
 
 #tipos-jejum div.typesJejum .typeJejum {
     width: 600px;
-    background-color: rgb(21, 45, 66);
+    background-color: #201b0a;
     padding: 40px;
     margin: 20px 10px;
     text-align: center;
+    animation: fadeIn 1s ease-in-out;
+    transition: all 0.3s ease;
+}
+
+#tipos-jejum div.typesJejum .typeJejum:hover {
+    background-color: #7b706538;
+    transform: translateY(-5px);
+}
+
+#tipos-jejum div.typesJejum .typeJejum h3 {
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    font-size: 28px;
+    color: #5f501e;
+}
+
+#tipos-jejum div.typesJejum .typeJejum p {
+    font-family: 'Inter', sans-serif;
+    font-size: 16px;
+    color: #8a8a8a;
+    line-height: 1.6;
+}
+
+#tipos-jejum div.typesJejum .typeJejum ul {
+    font-family: 'Inter', sans-serif;
+    font-size: 15px;
+    color: #6e6969;
+    line-height: 35px;
+    margin-left: 20px;
+}
+
+#tipos-jejum div.typesJejum .typeJejum ul li {
+    list-style-type: square;
+}
+
+#columns {
+    display: flex;
+    flex-wrap: wrap;
 }
