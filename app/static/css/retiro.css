@@ -187,10 +187,6 @@ main section#jejum div.img img {
     padding: 20px;
 }
 
-#columns #renuncia .wished {
-    width: 1000px;
-}
-
 #columns #renuncia .img-r img {
     border-radius: 20px;
     box-shadow: 20px 15px 0px black;
@@ -204,26 +200,85 @@ main section#jejum div.img img {
 #columns #renuncia .wished h3 {
     font-family: 'Playfair Display', serif;
     font-weight: 700;
-    font-size: 32px;
+    font-size: 36px;
     color: #fff;
     margin-bottom: 20px;
+    text-align: left;
 }
 
 #columns #renuncia .wished ul {
     font-family: 'Inter', sans-serif;
-    font-size: 18px;
+    font-size: 19px;
     color: #fff;
     line-height: 35px;
     margin-left: 20px;
 } 
 
 #columns #renuncia .wished ul li {
-    list-style-type: square;
+    list-style-type: none;
     margin: 10px 0;
     padding: 10px 10px;
 }
 
 #columns #renuncia .wished ul li:hover {
+    background: linear-gradient(135deg,  #2b1605, white);
+    padding: 10px 10px;
+}
+
+#columns #renuncia .wished ul li:hover::before {
+    content: "✓";
+    color: white;
+    margin-right: 10px;
+}
+
+
+#columns #intimidade {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 50px 20px;
+}
+
+#columns #intimidade .img-i img {
+    border-radius: 20px;
+    box-shadow: -20px -15px 0px black;
+    transition: transform 0.3s ease;
+}
+
+#columns #intimidade .img-i img:hover {
+    transform: scale(1.05);
+}
+
+#columns #intimidade .intimi h3 {
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    font-size: 36px;
+    color: #fff;
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+#columns #intimidade .intimi p {
+    font-family: 'Inter', sans-serif;
+    font-size: 19px;
+    color: #fff;
+    line-height: 1.6;
+}
+
+#columns #intimidade .intimi ul {
+    font-family: 'Inter', sans-serif;
+    font-size: 19px;
+    color: #fff;
+    line-height: 35px;
+    margin-left: 20px;
+}
+
+#columns #intimidade .intimi ul li {
+    list-style-type: none;
+    margin: 10px 0;
+    padding: 10px 10px;
+}
+
+#columns #intimidade .intimi ul li:hover {
     background: linear-gradient(135deg,  #2b1605, white);
     padding: 10px 10px;
 }
