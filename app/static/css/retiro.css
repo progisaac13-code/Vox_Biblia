@@ -174,6 +174,56 @@ main section#jejum div.img img {
 }
 
 #columns {
+    background-color: var(--cards);
+    padding: 20px;
+}
+
+#columns #renuncia {
     display: flex;
     flex-wrap: wrap;
+}
+
+#columns #renuncia div {
+    padding: 20px;
+}
+
+#columns #renuncia .wished {
+    width: 1000px;
+}
+
+#columns #renuncia .img-r img {
+    border-radius: 20px;
+    box-shadow: 20px 15px 0px black;
+    transition: transform 0.3s ease;
+}
+
+#columns #renuncia .img-r img:hover {
+    transform: scale(1.05);
+}
+
+#columns #renuncia .wished h3 {
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    font-size: 32px;
+    color: #fff;
+    margin-bottom: 20px;
+}
+
+#columns #renuncia .wished ul {
+    font-family: 'Inter', sans-serif;
+    font-size: 18px;
+    color: #fff;
+    line-height: 35px;
+    margin-left: 20px;
+} 
+
+#columns #renuncia .wished ul li {
+    list-style-type: square;
+    margin: 10px 0;
+    padding: 10px 10px;
+}
+
+#columns #renuncia .wished ul li:hover {
+    background: linear-gradient(135deg,  #2b1605, white);
+    padding: 10px 10px;
 }
