@@ -283,8 +283,82 @@ main section#jejum div.img img {
     padding: 10px 10px;
 }
 
+#columns #intimidade .intimi ul li:hover::before {
+    content: "✓";
+    color: white;
+    margin-right: 10px;
+}
+
 #columns #sensibilidade .img-i img {
     border-radius: 20px;
     box-shadow: 20px -15px 0px black;
     transition: transform 0.3s ease;
+}
+
+#columns #sensibilidade .img-i img:hover {
+    transform: scale(1.05);
+}
+
+#columns #sensibilidade .sensibilidade h3 {
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    font-size: 36px;
+    color: #fff;
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+#columns #sensibilidade .sensibilidade ul {
+    font-family: 'Inter', sans-serif;
+    font-size: 19px;
+    color: #fff;
+    line-height: 35px;
+    margin-left: 20px;
+}
+
+#columns #sensibilidade .sensibilidade ul li {
+    list-style-type: none;
+    margin: 10px 0;
+    padding: 10px 10px;
+}
+
+#columns #sensibilidade .sensibilidade ul li:hover {
+    background: linear-gradient(135deg,  #2b1605, white);
+    padding: 10px 10px;
+}       
+
+#columns #sensibilidade .sensibilidade ul li:hover::before {
+    content: "✓";
+    color: white;
+    margin-right: 10px;
+}
+
+#modePrayer {
+    background: linear-gradient(135deg, #FCE7B2, #ffffff);
+    padding: 150px 20px;
+    margin: 20px 0;
+    text-align: center;
+}
+
+#modePrayer .overlay {
+    background: linear-gradient(135deg, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5));
+    padding: 50px 40px;
+    border-radius: 20px;
+    display: inline-block;
+}
+
+#modePrayer .overlay h3 {
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    font-style: italic;
+    font-size: 36px;
+    color: #fff;
+    margin-bottom: 20px;
+}
+
+#modePrayer .overlay p {
+    font-family: 'Inter', sans-serif;
+    font-size: 18px;
+    color: #fff;
+    line-height: 1.6;
 }
