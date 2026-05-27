@@ -175,7 +175,7 @@ main section#jejum div.img img {
 
 #columns {
     background-color: var(--cards);
-    padding: 20px;
+    padding: 20px 100px;
 }
 
 #columns #renuncia {
@@ -232,7 +232,7 @@ main section#jejum div.img img {
 }
 
 
-#columns #intimidade {
+#columns #intimidade, #columns #sensibilidade {
     display: flex;
     flex-wrap: wrap;
     padding: 50px 20px;
@@ -281,4 +281,10 @@ main section#jejum div.img img {
 #columns #intimidade .intimi ul li:hover {
     background: linear-gradient(135deg,  #2b1605, white);
     padding: 10px 10px;
+}
+
+#columns #sensibilidade .img-i img {
+    border-radius: 20px;
+    box-shadow: 20px -15px 0px black;
+    transition: transform 0.3s ease;
 }
