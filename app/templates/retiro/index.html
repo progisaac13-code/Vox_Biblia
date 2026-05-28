@@ -212,7 +212,8 @@
             </section>
             <section id="intimidade">
                 <div class="img-i w-50 text-center">
-                    <img src="../../static/imagens/retiro/intimidade-com-Deus.webp" alt="Intimidade com Deus" width="400px" class="mx-auto">
+                    <img src="../../static/imagens/retiro/intimidade-com-Deus.webp" alt="Intimidade com Deus"
+                        width="400px" class="mx-auto">
                 </div>
                 <div class="intimi w-50">
                     <h3>Aumente a sua <mark>Intimidade com Deus</mark></h3>
@@ -239,20 +240,35 @@
                     </ul>
                 </div>
                 <div class="img-i w-50 text-center">
-                    <img src="../../static/imagens/retiro/sensibilidade-espiritual.webp" alt="Sensibilidade Espiritual" width="400px" class="mx-auto">
+                    <img src="../../static/imagens/retiro/sensibilidade-espiritual.webp" alt="Sensibilidade Espiritual"
+                        width="400px" class="mx-auto">
                 </div>
             </section>
         </section>
         <section id="modePrayer">
             <div class="overlay">
-                <h3>Retire  um momento para conversar com Deus</h3>
-                <p>Encontre um local tranquilo, feche os olhos e abra seu coração para Deus. <br>Compartilhe suas alegrias,
+                <h3>Retire um momento para conversar com Deus</h3>
+                <p>Encontre um local tranquilo, feche os olhos e abra seu coração para Deus. <br>Compartilhe suas
+                    alegrias,
                     preocupações, agradecimentos e pedidos. <br>Lembre-se de que Deus está sempre ouvindo e pronto para
                     responder.</p>
-                <button class="btn">Iniciar Oração</button>
+                <button class="btn" onclick="startPrayer()">Iniciar Oração</button>
+            </div>
+            <div id="prayerMode">
+                <div class="content">
+                    <h1>Momento de Oração</h1>
+                    <p>Silencie o coração e busque a presença de Deus.</p>
+
+                    <div id="timer">05:00</div>
+
+                    <button onclick="endPrayer()">
+                        Encerrar
+                    </button>
+                </div>
             </div>
         </section>
     </main>
 </body>
+<script src="../../static/js/retiro.js"></script>
 
 </html>

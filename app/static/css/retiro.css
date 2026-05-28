@@ -1,5 +1,9 @@
 @charset "UTF-8";
 
+body.locked {
+    overflow: hidden;
+}
+
 .btn {
     background-color: #292414;
     color: #fff;
@@ -82,7 +86,7 @@ main section#jejum div.exp ul {
     color: #fff;
     line-height: 35px;
     margin-left: 20px;
-} 
+}
 
 main section#jejum div.exp ul li {
     list-style-type: disc;
@@ -100,7 +104,8 @@ main section#jejum div.img img {
     padding: 50px 0;
 }
 
-#tipos-jejum h2, #tipos-jejum p {
+#tipos-jejum h2,
+#tipos-jejum p {
     text-align: center;
 }
 
@@ -212,7 +217,7 @@ main section#jejum div.img img {
     color: #fff;
     line-height: 35px;
     margin-left: 20px;
-} 
+}
 
 #columns #renuncia .wished ul li {
     list-style-type: none;
@@ -221,7 +226,7 @@ main section#jejum div.img img {
 }
 
 #columns #renuncia .wished ul li:hover {
-    background: linear-gradient(135deg,  #2b1605, white);
+    background: linear-gradient(135deg, #2b1605, white);
     padding: 10px 10px;
 }
 
@@ -232,7 +237,8 @@ main section#jejum div.img img {
 }
 
 
-#columns #intimidade, #columns #sensibilidade {
+#columns #intimidade,
+#columns #sensibilidade {
     display: flex;
     flex-wrap: wrap;
     padding: 50px 20px;
@@ -279,7 +285,7 @@ main section#jejum div.img img {
 }
 
 #columns #intimidade .intimi ul li:hover {
-    background: linear-gradient(135deg,  #2b1605, white);
+    background: linear-gradient(135deg, #2b1605, white);
     padding: 10px 10px;
 }
 
@@ -323,9 +329,9 @@ main section#jejum div.img img {
 }
 
 #columns #sensibilidade .sensibilidade ul li:hover {
-    background: linear-gradient(135deg,  #2b1605, white);
+    background: linear-gradient(135deg, #2b1605, white);
     padding: 10px 10px;
-}       
+}
 
 #columns #sensibilidade .sensibilidade ul li:hover::before {
     content: "✓";
