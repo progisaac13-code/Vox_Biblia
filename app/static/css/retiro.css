@@ -368,3 +368,39 @@ main section#jejum div.img img {
     color: #fff;
     line-height: 1.6;
 }
+
+#modalPrayer {
+    display: flex;
+}
+
+.hidden {
+    display: none !important;
+}
+
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+
+    background: url('../imagens/retiro/momento-oracao.webp');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.modal-content {
+    background: transparent ;
+    padding: 120px 40px;
+    color: white;
+    width: 1200px;
+    text-align: center;
+
+    animation: fadeIn 1.0s ease;
+}

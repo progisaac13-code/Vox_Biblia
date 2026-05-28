@@ -57,7 +57,7 @@ body {
     color: var(--text);
 }
 
-#modal-oracao_personalizada.hidden {
+.hidden {
     display: none;
 }
 

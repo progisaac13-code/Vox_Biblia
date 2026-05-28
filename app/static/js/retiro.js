@@ -2,7 +2,7 @@ let interval;
 let time = 300; // 5 minutos
 
 function startPrayer() {
-  document.getElementById("prayerMode").style.display = "flex";
+  $("#modalPrayer").removeClass("hidden");
   document.body.classList.add("locked");
 
   interval = setInterval(() => {
@@ -24,8 +24,7 @@ function startPrayer() {
 function endPrayer() {
   clearInterval(interval);
 
-  document.getElementById("prayerMode").style.display = "none";
-
+  $("#modalPrayer").addClass("hidden");
   document.body.classList.remove("locked");
 
   time = 300;
