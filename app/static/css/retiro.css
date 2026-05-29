@@ -340,33 +340,33 @@ main section#jejum div.img img {
 }
 
 #modePrayer {
-    background: linear-gradient(135deg, #FCE7B2, #ffffff);
-    padding: 250px 20px;
-    margin: 20px 0;
-    text-align: center;
+    background: linear-gradient(135deg, #00000079, #00000033), url('../imagens/retiro/momento-oracao.webp');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+    padding: 350px 20px;
 }
 
-#modePrayer .overlay {
-    background: linear-gradient(135deg, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5));
-    padding: 50px 40px;
-    border-radius: 20px;
-    display: inline-block;
-}
-
-#modePrayer .overlay h3 {
+#modePrayer h2 {
     font-family: 'Playfair Display', serif;
     font-weight: 700;
-    font-style: italic;
-    font-size: 36px;
+    font-size: 52px;
     color: #fff;
     margin-bottom: 20px;
 }
 
-#modePrayer .overlay p {
+#modePrayer p {
     font-family: 'Inter', sans-serif;
     font-size: 18px;
     color: #fff;
-    line-height: 1.6;
+}
+
+#modePrayer .obs {
+    font-family: 'Inter', sans-serif;
+    font-size: 15px;
+    color: #fff;
+    margin-top: 20px;
 }
 
 #modalPrayer {
