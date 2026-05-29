@@ -98,6 +98,9 @@ def logar():
 
     email = data['email']
     senha = data['senha']
+    
+    
+    print(email, senha)
 
     usuario = Usuarios.query.filter_by(
         email=email

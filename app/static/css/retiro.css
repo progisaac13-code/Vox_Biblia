@@ -341,7 +341,7 @@ main section#jejum div.img img {
 
 #modePrayer {
     background: linear-gradient(135deg, #FCE7B2, #ffffff);
-    padding: 150px 20px;
+    padding: 250px 20px;
     margin: 20px 0;
     text-align: center;
 }
@@ -437,10 +437,9 @@ main section#jejum div.img img {
 }
 
 .modal-content #timer {
-    color: var(--details);
+    color: white;
     font-family: 'Inter', sans-serif;
     font-size: 150px;
     font-weight: bold;
-    font-style: italic;
     margin-top: 20px;
 }

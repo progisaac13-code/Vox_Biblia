@@ -3,10 +3,16 @@ let interval;
 let time = 300; // 5 minutos
 
 function startPrayer() {
+
+  let timeVal = $('#time_pray').val();
+  time = parseInt(timeVal);
+
   $("#modalPrayer").removeClass("hidden");
   audio.play();
-  audio.volume = 0.05;
+  audio.volume = 0.5;
   document.body.classList.add("locked");
+
+  $('#timer').text(`${String(Math.floor(time / 60)).padStart(2, '0')}:${String(time % 60).padStart(2, '0')}`);
 
   interval = setInterval(() => {
     time--;
