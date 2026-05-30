@@ -138,3 +138,14 @@ class RegistroOracao(db.Model):
     data_oracao = db.Column(db.Date)
     hora_oracao = db.Column(db.String(20))
     duracao = db.Column(db.String(50))
+    
+    
+class Jejuns(db.Model):
+    id_jejum = db.Column(db.Integer, primary_key=True)
+    id_usuario = db.Column(db.Integer)
+    identificador = db.Column(db.String(80))
+    proposito = db.Column(db.String(80))
+    tipo = db.Column(db.Integer)
+    tempo_oracao = db.Column(db.Integer)
+    leitura = db.Column(db.Integer)
+    tempo_jejum = db.Column(db.Integer)
