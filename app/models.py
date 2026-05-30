@@ -132,7 +132,7 @@ class Backgrounds(db.Model):
     id_img = db.Column(db.Integer, primary_key=True)
     nome = db.Column(db.String(200), nullable=False)
     
-class RegristroOracao(db.Model):
+class RegistroOracao(db.Model):
     id_registro = db.Column(db.Integer, primary_key=True)
     id_usuario = db.Column(db.Integer)
     data_oracao = db.Column(db.Date)

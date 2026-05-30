@@ -2,7 +2,7 @@ from app import app, db
 from flask import Response, render_template, url_for, request, jsonify, redirect, session
 from app import func
 from app.func import validar_cpf
-from app.models import CategoriaOracao, Desafios, Devocionais, Oracoes, ProgressoDesafio, Versiculo, Backgrounds, FavoritarVersiculo, Usuarios, StatusOracao, Frases, Streak, AberturaIA, PedidosIA, FinaisIA, Anotacoes, Livro, Capitulo, Versiculos
+from app.models import CategoriaOracao, Desafios, Devocionais, Oracoes, ProgressoDesafio, Versiculo, Backgrounds, FavoritarVersiculo, Usuarios, StatusOracao, Frases, Streak, AberturaIA, PedidosIA, FinaisIA, Anotacoes, Livro, Capitulo, Versiculos, RegistroOracao
 from datetime import date, datetime, timedelta
 from werkzeug.security import generate_password_hash, check_password_hash
 from sqlalchemy import or_, and_, text
@@ -824,7 +824,25 @@ def picker_imagem():
     ]
     
     return jsonify({'url': dados[0]['url']})
-    
+
+
+@app.route('/api/registrar_oracao', methods=['POST'])
+def registrar_oracao():
+    if 'id_usuario' in session:
+        data = request.get_json()
+        
+        id_usuario = session['id_usuario']
+        duracao = data['duracao']
+
+        registro = RegistroOracao(
+            id_usuario=id_usuario,
+            duracao=duracao,
+            data_oracao=datetime.now()
+        )
+        db.session.add(registro)
+        db.session.commit()
+
+        return jsonify({'status': 'Oração Registrada!'})
 
 # Rotas de Renderização de Páginas
 @app.route('/')
