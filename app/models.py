@@ -136,4 +136,5 @@ class RegistroOracao(db.Model):
     id_registro = db.Column(db.Integer, primary_key=True)
     id_usuario = db.Column(db.Integer)
     data_oracao = db.Column(db.Date)
+    hora_oracao = db.Column(db.String(20))
     duracao = db.Column(db.String(50))
