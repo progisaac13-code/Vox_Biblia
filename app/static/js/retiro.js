@@ -2,6 +2,7 @@ const audio = document.getElementById("audio");
 let interval;
 let time = 300; // 5 minutos
 let prayer_time = '';
+let envio = false;
 
 $('#time_pray').on('change', function () {
 	let timeVal = $(this).val();
@@ -49,35 +50,18 @@ function startPrayer() {
 			let minutes = Math.floor(time / 60);
 			let seconds = time % 60;
 
-			if ($(document).keypress(function () {
+			$(document).keypress(function () {
 				prayer_time = `${String(minutes).padStart(2, '0')}m:${String(seconds).padStart(2, '0')}s`;
-				registarOracao(prayer_time);
 				document.getElementById("timer").innerHTML =
-					`<p style="font-size: 36px;">Um tempo de oração de ${String(minutes).padStart(2, '0')} minutos e ${String(seconds).padStart(2, '0')} segundos! <br>✨ Continue buscando com Intensidade e Foco!</p>`;
+					`<p style="font-size: 36px;">Um tempo de oração de ${String(minutes).padStart(2, '0')}m e ${String(seconds).padStart(2, '0')}s ✨! <br>Continue buscando com Intensidade e Foco!</p>`;
 				audio.pause();
 				setTimeout(() => {
-					clearInterval(interval);
-
-
-					if (document.fullscreenElement) {
-
-						document.exitFullscreen()
-							.then(() => {
-
-								console.log("Saiu da tela cheia");
-
-							})
-							.catch(err => {
-
-								console.log(err);
-
-							});
+					if (!(envio)) {
+						endPrayer(prayer_time);
+						envio = true;
 					}
-
-					$("#modalPrayer").addClass("hidden");
-					document.body.classList.remove("locked");
 				}, 5000);
-			}));
+			});
 		}, 1000);
 
 
@@ -144,21 +128,7 @@ function registarOracao(duracao) {
 	})
 		.then(res => res.json())
 		.then(data => {
-			icone = document.getElementById('icone-fav' + id);
-
-
-			if (data.status === 'adicionado') {
-				icone.classList.remove('fa-regular');
-				icone.classList.add('fa-solid');
-				icone.style.color = '#ff0000';
-			} else if (data.status === 'removido') {
-				icone.classList.remove('fa-solid');
-				icone.classList.add('fa-regular');
-				icone.style.color = '#f8fafc';
-			} else if (data.status === 'Não Logado!') {
-				document.getElementById('liveToastBtn').click();
-				document.querySelector('.text-toast').textContent = 'Faça login para salvar versículos!';
-			}
+			console.log('Registro de oração salvo:', data);
 		})
 }
 

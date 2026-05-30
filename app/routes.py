@@ -833,20 +833,17 @@ def registrar_oracao():
         
         id_usuario = session['id_usuario']
         duracao = data['duracao']
+        
+        registro = RegistroOracao(
+            id_usuario=id_usuario,
+            duracao=duracao,
+            data_oracao=datetime.now(),
+            hora_oracao=datetime.now().time().strftime("%H:%M")
+        )
+        db.session.add(registro)
+        db.session.commit()
 
-        is_registro = RegistroOracao.query.filter_by(id_usuario=id_usuario, data_oracao=date.today(), hora_oracao=datetime.now().time().strftime("%H:%M")).first()
-
-        if not is_registro:
-            registro = RegistroOracao(
-                id_usuario=id_usuario,
-                duracao=duracao,
-                data_oracao=datetime.now(),
-                hora_oracao=datetime.now().time().strftime("%H:%M")
-            )
-            db.session.add(registro)
-            db.session.commit()
-
-            return jsonify({'status': 'Oração Registrada!'})
+        return jsonify({'status': 'Oração Registrada!'})
 
 # Rotas de Renderização de Páginas
 @app.route('/')
