@@ -50,22 +50,37 @@ function startPrayer() {
 
       if ($(document).keypress(function () {
         document.getElementById("timer").innerHTML =
-          `<p style="font-size: 18px;">Um tempo de oração de ${String(minutes).padStart(2, '0')} minutos e ${String(seconds).padStart(2, '0')} segundos! ✨ Continue buscando com Intensidade e Foco!</p>`;
+          `<p style="font-size: 36px;">Um tempo de oração de ${String(minutes).padStart(2, '0')} minutos e ${String(seconds).padStart(2, '0')} segundos! <br>✨ Continue buscando com Intensidade e Foco!</p>`;
         audio.pause();
+        setTimeout(() => {
+
+          if (document.fullscreenElement) {
+
+            document.exitFullscreen()
+              .then(() => {
+
+                console.log("Saiu da tela cheia");
+
+              })
+              .catch(err => {
+
+                console.log(err);
+
+              });
+          }
+
+          $("#modalPrayer").addClass("hidden");
+          document.body.classList.remove("locked");
+        }, 5000);
       }));
-      
+
     }, 1000);
-    
+
 
     $('#timer').html('<i class="fa-solid fa-infinity" style="font-size: 200px; font-style: italic"></i><p style="font-size: 24px; font-weight: bold; text-align: center;">Seu tempo de oração será revelado quando terminar! <br> <p style="font-size: 18px;">(Aperte Qualquer Tecla Para Encerrar ✨)</p></p>');
-  } else {
+  } else if (timeVal != "0") {
     time = parseInt(timeVal);
     $('#timer').text(`${String(Math.floor(time / 60)).padStart(2, '0')}m:${String(time % 60).padStart(2, '0')}s`);
-
-
-
-
-
 
     interval = setInterval(() => {
       time--;
@@ -86,7 +101,7 @@ function startPrayer() {
 
 function endPrayer() {
   clearInterval(interval);
-
+  $('#timer').text('')
   if (document.fullscreenElement) {
 
     document.exitFullscreen()
