@@ -132,3 +132,6 @@ function registarOracao(duracao) {
 		})
 }
 
+function formulariojs() {
+	$("#modalJejum").removeClass("hidden");
+}

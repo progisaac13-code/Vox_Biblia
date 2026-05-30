@@ -407,7 +407,7 @@ main section#jejum div.img img {
 
 
 .modal-content {
-        background: transparent;
+    background: transparent;
     border: none;
     padding: 120px 40px;
     color: white;
@@ -442,4 +442,44 @@ main section#jejum div.img img {
     font-size: 150px;
     font-weight: bold;
     margin-top: 20px;
+}
+
+#chamada_jejum {
+    background: linear-gradient(135deg, #00000079, #00000033), url('../imagens/retiro/chamada-jejum.webp');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+    padding: 250px 20px;
+}
+
+#chamada_jejum h2 {
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    font-size: 52px;
+    color: #fff;
+    margin-bottom: 20px;
+}
+
+#chamada_jejum p {
+    font-family: 'Inter', sans-serif;
+    font-size: 18px;
+    color: #fff;
+}
+
+#modalJejum .modal-content {
+    background: rgba(255, 255, 255, 0.416);
+    border: 3px solid var(--details);
+    padding: 120px 40px;
+    text-align: left;
+    color: white;
+    width: 1200px;
+
+    z-index: 3;
+}
+
+.ex {
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    color: #fff;
 }

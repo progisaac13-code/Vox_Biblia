@@ -278,7 +278,13 @@
                 <button class="btn" onclick="startPrayer()">Iniciar Oração</button>
                 <p class="obs hidden">Sinta-se livre para orar e conversar com Deus o tempo que for nessesário</p>
             </div>
-            </div>
+        </section>
+        <section id="chamada_jejum">
+            <h2>Fique mais íntimo e sensível ao <mark>Espírito Santo</mark><br> através do <mark>Jejum</mark></h2>
+            <p>O jejum é uma prática poderosa que nos permite nos aproximar mais de Deus e estar mais abertos ao Seu
+                Espírito. Ao praticar o jejum, buscamos humildade, discernimento e uma conexão mais profunda com o
+                divino.</p>
+            <button class="btn" onclick="formulariojs()">Começar Meu Jejum Agora</button>
         </section>
     </main>
     <div id="modalPrayer" class="modal hidden">
@@ -291,6 +297,101 @@
                 <div class="content">
                     <audio id="audio" src="../../static/audio/devocional/ambiente/fundo-oracao.wav" loop></audio>
                     <div id="timer"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="modalJejum" class="modal hidden">
+        <div class="modal-content">
+            <h1>Jejum!</h1>
+            <p>Preencha corretamente as informações abaixo para registrar seu jejum:</p>
+            <hr>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <div class="form-floating">
+                            <input type="text" class="form-control" placeholder="Nome de Identificação..."
+                                name="identicador" id="identificador">
+                            <label for="identificador">Nome de Identificação</label>
+                        </div>
+                        <p class="ex">EX: Jejum para Sabedoria do Alto </p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <div class="form-floating">
+                            <input type="text" class="form-control" placeholder="Propósito" name="proposito"
+                                id="proposito">
+                            <label for="proposito">Propósito</label>
+                        </div>
+                        <p class="ex">EX: Sabedoria</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <div class="form-floating">
+                            <input type="text" placeholder="Seu Nome" class="form-control" name="usuario" id="usuario"
+                                value="{{ context['nome_usuario'] }}" readonly disabled>
+                            <label for="usuario">Seu Nome</label>
+                        </div>
+                        <p class="ex">EX: Mateus</p>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <div class="form-floating">
+                            <select name="tipo_jejum" id="tipo_jejum" class="form-select">
+                                <option value="1">Jejum de Daniel</option>
+                                <option value="2">Jejum Completo</option>
+                                <option value="3">Jejum Parcial</option>
+                                <option value="4">Jejum Total</option>
+                            </select>
+                            <label for="tipo_jejum">Tipo de Jejum</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <div class="form-floating">
+                            <select name="time_for_pray" id="time_for_pray" class="form-select">
+                                <option value="0">Tempo Indefinido</option>
+                                <option value="300" selected>5 minutos</option>
+                                <option value="600">10 minutos</option>
+                                <option value="900">15 minutos</option>
+                                <option value="1200">20 minutos</option>
+                                <option value="1500">25 minutos</option>
+                                <option value="1800">30 minutos</option>
+                                <option value="2100">35 minutos</option>
+                                <option value="2400">40 minutos</option>
+                                <option value="2700">45 minutos</option>
+                                <option value="3000">50 minutos</option>
+                                <option value="3300">55 minutos</option>
+                                <option value="3600">60 minutos (1 hora)</option>
+                                <option value="7200">120 minutos (2 horas)</option>
+                                <option value="10800">180 minutos (3 horas)</option>
+                                <option value="14400">240 minutos (4 horas)</option>
+                            </select>
+                            <label for="time_for_pray">Tempo de Oração</label>
+                        </div>
+                        <p class="ex">(TEMPO INDEFINIDO) Ore o tempo que desejar</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <div class="form-floating">
+                            <select name="time_for_bible" class="form-select" id="time_for_bible">
+                                <option value="1">1 Capitulo Por Dia</option>
+                                <option value="2">2 Capitulos Por Dia</option>
+                                <option value="4">4 Capitulos Por Dia</option>
+                                <option value="6">6 Capitulos Por Dia</option>
+                                <option value="8">8 Capitulos Por Dia</option>
+                                <option value="10">10 Capitulos Por Dia</option>
+                            </select>
+                            <label for="time_for_bible">Leitura Bíblica</label>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
