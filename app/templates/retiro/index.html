@@ -303,7 +303,7 @@
     </div>
     <div id="modalJejum" class="modal hidden">
         <div class="modal-content">
-            <h1>Jejum!</h1>
+            <h1>Registrar Jejum</h1>
             <p>Preencha corretamente as informações abaixo para registrar seu jejum:</p>
             <hr>
             <div class="row">
@@ -312,7 +312,7 @@
                         <div class="form-floating">
                             <input type="text" class="form-control" placeholder="Nome de Identificação..."
                                 name="identicador" id="identificador">
-                            <label for="identificador">Nome de Identificação</label>
+                            <label for="identificador" style="color: #ccc">Nome de Identificação</label>
                         </div>
                         <p class="ex">EX: Jejum para Sabedoria do Alto </p>
                     </div>
@@ -322,7 +322,7 @@
                         <div class="form-floating">
                             <input type="text" class="form-control" placeholder="Propósito" name="proposito"
                                 id="proposito">
-                            <label for="proposito">Propósito</label>
+                            <label for="proposito" style="color: #ccc">Propósito</label>
                         </div>
                         <p class="ex">EX: Sabedoria</p>
                     </div>
@@ -331,8 +331,8 @@
                     <div class="form-group">
                         <div class="form-floating">
                             <input type="text" placeholder="Seu Nome" class="form-control" name="usuario" id="usuario"
-                                value="{{ context['nome_usuario'] }}" readonly disabled>
-                            <label for="usuario">Seu Nome</label>
+                                value="{{ context['nome_usuario'] }}" disabled style="background: transparent; border: 1px solid white; outline: none; color: white;">
+                            <label for="usuario" style="color: #ccc">Seu Nome</label>
                         </div>
                         <p class="ex">EX: Mateus</p>
                     </div>
@@ -348,7 +348,7 @@
                                 <option value="3">Jejum Parcial</option>
                                 <option value="4">Jejum Total</option>
                             </select>
-                            <label for="tipo_jejum">Tipo de Jejum</label>
+                            <label for="tipo_jejum" style="color: #ccc">Tipo de Jejum</label>
                         </div>
                     </div>
                 </div>
@@ -373,7 +373,7 @@
                                 <option value="10800">180 minutos (3 horas)</option>
                                 <option value="14400">240 minutos (4 horas)</option>
                             </select>
-                            <label for="time_for_pray">Tempo de Oração</label>
+                            <label for="time_for_pray"style="color: #ccc">Tempo de Oração</label>
                         </div>
                         <p class="ex">(TEMPO INDEFINIDO) Ore o tempo que desejar</p>
                     </div>
@@ -389,7 +389,7 @@
                                 <option value="8">8 Capitulos Por Dia</option>
                                 <option value="10">10 Capitulos Por Dia</option>
                             </select>
-                            <label for="chapter_per_day">Leitura Bíblica</label>
+                            <label for="chapter_per_day" style="color: #ccc">Leitura Bíblica</label>
                         </div>
                     </div>
                 </div>
@@ -420,9 +420,15 @@
                                 <option value="31536000">8.760 Horas (365 Dias - 1 Ano)</option>
 
                             </select>
-                            <label for="time_jejum">Tempo de Jejum</label>
+                            <label for="time_jejum" style="color: #ccc">Tempo de Jejum</label>
                         </div>
                     </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <button class="btn" onclick="registerJejum()">Registrar Jejum</button>
+                    <button class="btn" onclick="fecharModal()">Fechar</button>
                 </div>
             </div>
         </div>

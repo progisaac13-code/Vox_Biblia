@@ -2,7 +2,7 @@ from app import app, db
 from flask import Response, render_template, url_for, request, jsonify, redirect, session
 from app import func
 from app.func import validar_cpf
-from app.models import CategoriaOracao, Desafios, Devocionais, Oracoes, ProgressoDesafio, Versiculo, Backgrounds, FavoritarVersiculo, Usuarios, StatusOracao, Frases, Streak, AberturaIA, PedidosIA, FinaisIA, Anotacoes, Livro, Capitulo, Versiculos, RegistroOracao
+from app.models import CategoriaOracao, Desafios, Devocionais, Oracoes, ProgressoDesafio, Versiculo, Backgrounds, FavoritarVersiculo, Usuarios, StatusOracao, Frases, Streak, AberturaIA, PedidosIA, FinaisIA, Anotacoes, Livro, Capitulo, Versiculos, RegistroOracao, Jejuns
 from datetime import date, datetime, timedelta
 from werkzeug.security import generate_password_hash, check_password_hash
 from sqlalchemy import or_, and_, text
@@ -844,6 +844,15 @@ def registrar_oracao():
         db.session.commit()
 
         return jsonify({'status': 'Oração Registrada!'})
+
+
+@app.route('/api/registrar_jejum', methods=['POST'])
+def registrar_jejum():
+    if 'id_usuario' in session:
+        data = request.get_json()
+        id_usuario = session['id_usuario']
+        
+         
 
 # Rotas de Renderização de Páginas
 @app.route('/')

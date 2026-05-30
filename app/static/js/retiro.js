@@ -135,3 +135,7 @@ function registarOracao(duracao) {
 function formulariojs() {
 	$("#modalJejum").removeClass("hidden");
 }
+
+function fecharModal() {
+	$("#modalJejum").addClass("hidden");
+}

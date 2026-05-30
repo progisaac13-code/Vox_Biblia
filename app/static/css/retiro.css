@@ -467,10 +467,23 @@ main section#jejum div.img img {
     color: #fff;
 }
 
+.modal {
+    background: rgba(0, 0, 0, 0);
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 #modalJejum .modal-content {
-    background: rgba(255, 255, 255, 0.416);
+    background: var(--cards);
     border: 3px solid var(--details);
-    padding: 120px 40px;
+    padding: 50px 40px;
     text-align: left;
     color: white;
     width: 1200px;
@@ -481,5 +494,30 @@ main section#jejum div.img img {
 .ex {
     font-family: 'Inter', sans-serif;
     font-size: 14px;
-    color: #fff;
+}
+
+input.form-control, select.form-select {
+    border-radius: 0;
+    outline: none;
+    border: 1px solid white;
+    background-color: transparent;
+    color: white;
+}
+
+input.form-control:focus, select.form-select:focus {
+    border-radius: 0;
+    outline: none;
+    border: 2px solid var(--details);
+    background-color: transparent;
+    color: white;
+}
+
+label {
+    font-family: 'Inter', sans-serif;
+    font-size: 16px;
+    color: white;
+}
+
+.form-group {
+    margin-bottom: 30px;
 }
