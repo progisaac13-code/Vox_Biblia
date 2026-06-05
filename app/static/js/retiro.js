@@ -139,3 +139,22 @@ function formulariojs() {
 function fecharModal() {
 	$("#modalJejum").addClass("hidden");
 }
+
+function registerJejum() {
+	let duracao = $('#duracao_jejum').val();
+
+	fetch('/api/registrar_jejum', {
+		method: 'POST',
+		headers: {
+			'Content-Type': 'application/json'
+		},
+		body: JSON.stringify({
+			duracao: duracao
+		})
+	})
+		.then(res => res.json())
+		.then(data => {
+			console.log('Registro de jejum salvo:', data);
+			fecharModal();
+		}
+}
