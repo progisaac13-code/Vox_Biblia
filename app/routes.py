@@ -868,8 +868,11 @@ def registrar_jejum():
             tempo_jejum = tempo_jejum
         )
         
-         
-
+        db.session.add(NovoJejum)
+        db.session.commit()
+        return jsonify({'status': 'Jejum Registrado!'})
+    
+    
 # Rotas de Renderização de Páginas
 @app.route('/')
 def index():  # put application's code here
