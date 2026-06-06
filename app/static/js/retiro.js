@@ -141,7 +141,12 @@ function fecharModal() {
 }
 
 function registerJejum() {
-	let duracao = $('#duracao_jejum').val();
+	let identificador = $('#identificador').val();
+	let proposito = $('#proposito').val();
+	let tipo_jejum = $('#tipo_jejum').val();
+	let tempo_oracao = $('#tempo_oracao').val();
+	let chapter_per_day = $('#chapter_per_day').val();
+	let tempo_jejum = $('#tempo_jejum').val();
 
 	fetch('/api/registrar_jejum', {
 		method: 'POST',
@@ -149,12 +154,17 @@ function registerJejum() {
 			'Content-Type': 'application/json'
 		},
 		body: JSON.stringify({
-			duracao: duracao
+			identificador: identificador,
+			proposito: proposito,
+			tipo_jejum: tipo_jejum,
+			tempo_oracao: tempo_oracao,
+			chapter_per_day: chapter_per_day,
+			tempo_jejum: tempo_jejum
 		})
 	})
 		.then(res => res.json())
 		.then(data => {
 			console.log('Registro de jejum salvo:', data);
 			fecharModal();
-		}
+		});
 }

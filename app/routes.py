@@ -2,7 +2,7 @@ from app import app, db
 from flask import Response, render_template, url_for, request, jsonify, redirect, session
 from app import func
 from app.func import validar_cpf
-from app.models import CategoriaOracao, Desafios, Devocionais, Oracoes, ProgressoDesafio, Versiculo, Backgrounds, FavoritarVersiculo, Usuarios, StatusOracao, Frases, Streak, AberturaIA, PedidosIA, FinaisIA, Anotacoes, Livro, Capitulo, Versiculos, RegistroOracao, Jejuns
+from app.models import CategoriaOracao, Desafios, Devocionais, Oracoes, ProgressoDesafio, Versiculo, Backgrounds, FavoritarVersiculo, Usuarios, StatusOracao, Frases, Streak, AberturaIA, PedidosIA, FinaisIA, Anotacoes, Livro, Capitulo, Versiculos, RegistroOracao, Jejuns, TiposJejum
 from datetime import date, datetime, timedelta
 from werkzeug.security import generate_password_hash, check_password_hash
 from sqlalchemy import or_, and_, text
@@ -850,7 +850,23 @@ def registrar_oracao():
 def registrar_jejum():
     if 'id_usuario' in session:
         data = request.get_json()
-        id_usuario = session['id_usuario']
+        
+        nome_usuario = session['nome_usuario']
+        identificador = data['identificador']
+        proposito = data['proposito']
+        tipo_jejum = data['tipo_jejum']
+        tempo_oracao = data['tempo_oracao']
+        chapter_per_day = data['chapter_per_day']
+        tempo_jejum = data['tempo_jejum']
+        
+        NovoJejum = Jejuns(
+            identiicador = identificador,
+            proposito = proposito,
+            tipo = tipo_jejum,
+            tempo_oracao = tempo_oracao,
+            leitura = chapter_per_day,
+            tempo_jejum = tempo_jejum
+        )
         
          
 

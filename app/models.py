@@ -149,3 +149,8 @@ class Jejuns(db.Model):
     tempo_oracao = db.Column(db.Integer)
     leitura = db.Column(db.Integer)
     tempo_jejum = db.Column(db.Integer)
+    
+
+class TiposJejum(db.Model):
+    id_tj = db.Column(db.Integer, primary_key=True)
+    tipo = db.Column(db.String(30))
