@@ -851,7 +851,6 @@ def registrar_jejum():
     if 'id_usuario' in session:
         data = request.get_json()
         
-        nome_usuario = session['nome_usuario']
         identificador = data['identificador']
         proposito = data['proposito']
         tipo_jejum = data['tipo_jejum']
@@ -860,17 +859,23 @@ def registrar_jejum():
         tempo_jejum = data['tempo_jejum']
         
         NovoJejum = Jejuns(
-            identiicador = identificador,
+            identificador = identificador,
+            id_usuario = session['id_usuario'],
             proposito = proposito,
             tipo = tipo_jejum,
             tempo_oracao = tempo_oracao,
             leitura = chapter_per_day,
             tempo_jejum = tempo_jejum
         )
+
+        ja_jejum = Jejuns.query.filter_by(id_usuario=session['id_usuario'], identificador=identificador).first()
         
-        db.session.add(NovoJejum)
-        db.session.commit()
-        return jsonify({'status': 'Jejum Registrado!'})
+        if ja_jejum:
+            return jsonify({'status': '1'})
+        else:
+            db.session.add(NovoJejum)
+            db.session.commit()
+            return jsonify({'status': '2'})
     
     
 # Rotas de Renderização de Páginas

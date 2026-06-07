@@ -164,7 +164,15 @@ function registerJejum() {
 	})
 		.then(res => res.json())
 		.then(data => {
-			console.log('Registro de jejum salvo:', data);
-			fecharModal();
+			if (data.status === '1') {
+				document.getElementById('liveToastBtn').click();
+				document.querySelector('.text-toast').textContent = 'Você já tem um jejum registrado com esse identificador! Por favor, escolha outro nome ou aguarde o término do jejum atual.';
+				fecharModal();
+				return;
+			} else if (data.status === '2') {
+				document.getElementById('liveToastBtn').click();
+				document.querySelector('.text-toast').textContent = 'Jejum Registrado com Sucesso! ✨';
+				fecharModal();
+			}
 		});
 }
