@@ -165,14 +165,12 @@ function registerJejum() {
 		.then(res => res.json())
 		.then(data => {
 			if (data.status === '1') {
-				document.getElementById('liveToastBtn').click();
-				document.querySelector('.text-toast').textContent = 'Você já tem um jejum registrado com esse identificador! Por favor, escolha outro nome ou aguarde o término do jejum atual.';
-				fecharModal();
+				$('.text-msg').removeClass('text-success').addClass('text-danger');
+				document.querySelector('.text-msg').textContent = 'Você já tem um jejum registrado com esse identificador! Por favor, escolha outro nome ou aguarde o término do jejum atual.';
 				return;
 			} else if (data.status === '2') {
-				document.getElementById('liveToastBtn').click();
-				document.querySelector('.text-toast').textContent = 'Jejum Registrado com Sucesso! ✨';
-				fecharModal();
+				$('.text-msg').removeClass('text-danger').addClass('text-success');
+				document.querySelector('.text-msg').textContent = 'Jejum Registrado com Sucesso! ✨';
 			}
 		});
 }
