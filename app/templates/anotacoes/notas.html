@@ -24,14 +24,9 @@
     <section id="entrada">
         <header class="home">
             <div class="">
-                <div class="d-flex flex-wrap align-items-center justify-content-between py-3">
-                    <div class="text-end">
-                        {% if context['Status'] == 'Logado!' %}
+                <div class="py-3 mb-4 border-bottom">
+                    <div class="text-center mb-3">
                         <span class="streak-number"></span>
-                        {% else %}
-                        <a href="{{ url_for('login') }}"
-                            class="btn btn-primary me-2"><strong>Login/Cadastro</strong></a>
-                        {% endif %}
                     </div>
                     <ul class="nav col-12 col-lg-auto my-2 justify-content-center my-md-0 text-small gap-2">
                         <li>
@@ -43,14 +38,6 @@
                             </a>
                         </li>
                         <li>
-                            <a href="#" class="nav-link text-white">
-                                <span class="bi d-block mx-auto mb-1 text-center" aria-hidden="true">
-                                    <i class="fa-solid fa-magnifying-glass icon-header"></i>
-                                </span>
-                                Buscar
-                            </a>
-                        </li>
-                        <li>
                             <a href="{{ url_for('versiculos_tema', tema='todos') }}" class="nav-link text-white">
                                 <span class="bi d-block mx-auto mb-1 text-center" aria-hidden="true">
                                     <i class="fa-solid fa-book-bible icon-header"></i>
@@ -59,8 +46,7 @@
                             </a>
                         </li>
                         <li>
-                            <a href="{{ url_for('oracoes') }}"
-                                class="{{ context['btn_sair-class'] }} nav-link text-white">
+                            <a href="{{ url_for('oracoes') }}" class="nav-link text-white">
                                 <span class="bi d-block mx-auto mb-1 text-center" aria-hidden="true">
                                     <i class="fa-solid fa-hands-praying icon-header"></i>
                                 </span>
@@ -68,8 +54,7 @@
                             </a>
                         </li>
                         <li>
-                            <a href="{{ url_for('notes') }}"
-                                class="{{ context['btn_sair-class'] }} nav-link text-white active">
+                            <a href="{{ url_for('notes') }}" class="nav-link text-white active">
                                 <span class="bi d-block mx-auto mb-1 text-center" aria-hidden="true">
                                     <i class="fa-solid fa-note-sticky icon-header"></i>
                                 </span>
@@ -77,21 +62,32 @@
                             </a>
                         </li>
                         <li>
+                            <a href="{{ url_for('retiro') }}" class="nav-link text-white">
+                                <span class="bi d-block mx-auto mb-1 text-center" aria-hidden="true">
+                                    <i class="fa-regular fa-hourglass-half icon-header"></i>
+                                </span>
+                                Modo Retiro
+                            </a>
+                        </li>
+                        {% if context['Status'] == 'Logado!' %}
+                        <li>
                             <a href="{{ url_for('logout') }}"
                                 class="{{ context['btn_sair-class'] }} nav-link text-white">
                                 <span class="bi d-block mx-auto mb-1 text-center" aria-hidden="true">
-                                    <i class="fa-solid fa-arrow-right-from-bracket icon-header"></i>
+                                    <i class="fa-solid fa-arrow-right-from-bracket icon-header text-danger"></i>
                                 </span>
                                 Sair
                             </a>
                         </li>
+                        {% endif %}
                     </ul>
                 </div>
             </div>
         </header>
         <section id="welcome">
             <h1>Anotações</h1>
-            <a href="/#criar_anotacao" style="color: white;">Deixe Deus falar com você, anote tudo. Crie uma anotação para não se esquecer</a>
+            <a href="/#criar_anotacao" style="color: white;">Deixe Deus falar com você, anote tudo. Crie uma anotação
+                para não se esquecer</a>
         </section>
     </section>
     <main id="content-main">
@@ -99,7 +95,8 @@
             <div class="col-md-2">
                 <div class="form-group">
                     <div class="form-floating">
-                        <input type="text" name="search_title" id="search_title" class="form-control" placeholder="Pesquise..." oninput="search_title()">
+                        <input type="text" name="search_title" id="search_title" class="form-control"
+                            placeholder="Pesquise..." oninput="search_title()">
                         <label for="">Procure uma anotação...</label>
                     </div>
                 </div>
@@ -202,26 +199,33 @@
                     <input type="color" name="cor_escolhida-lyrics" id="cor_escolhida-lyrics" style="width: 150px;">
                 </div>
                 <div>
-                    <button class="btn btn-actions" onclick="disable_background()">Voltar as Opções <i class="fa-solid fa-right-long"></i></button>
+                    <button class="btn btn-actions" onclick="disable_background()">Voltar as Opções <i
+                            class="fa-solid fa-right-long"></i></button>
                 </div>
             </div>
             <div class="actions d-flex flex-wrap gap-3" id="notes_actions">
                 <div class="">
                     <input type="hidden" name="id_anotacao" id="id_anotacao">
-                    <button class="btn btn-actions eye-disable" onclick="disible_able_Eye()">Desabilitar Visibilidade <i class="fa-regular fa-eye-slash"></i></button>
-                    <button class="btn btn-actions eye-able" onclick="disible_able_Eye()">Habilitar Visibilidade <i class="fa-regular fa-eye"></i></button>
+                    <button class="btn btn-actions eye-disable" onclick="disible_able_Eye()">Desabilitar Visibilidade <i
+                            class="fa-regular fa-eye-slash"></i></button>
+                    <button class="btn btn-actions eye-able" onclick="disible_able_Eye()">Habilitar Visibilidade <i
+                            class="fa-regular fa-eye"></i></button>
                 </div>
                 <div>
-                    <button class="btn btn-actions" id="hab_edit" onclick="hab_edit_all()">Habilitar Edição <i class="fa-solid fa-file-pen"></i></button>
-                    <button class="btn btn-actions" id="desa_edit" onclick="hab_edit_all()">Desabilitar Edição <i class="fa-solid fa-file-pen"></i></button>
+                    <button class="btn btn-actions" id="hab_edit" onclick="hab_edit_all()">Habilitar Edição <i
+                            class="fa-solid fa-file-pen"></i></button>
+                    <button class="btn btn-actions" id="desa_edit" onclick="hab_edit_all()">Desabilitar Edição <i
+                            class="fa-solid fa-file-pen"></i></button>
                 </div>
                 <div>
-                    <button class="btn btn-actions" onclick="del()">Excluir <i class="fa-regular fa-trash-can"></i></button>
+                    <button class="btn btn-actions" onclick="del()">Excluir <i
+                            class="fa-regular fa-trash-can"></i></button>
                 </div>
                 <div>
-                    <button class="btn btn-actions" onclick="background()">Alterar Cor <i class="fa-solid fa-brush"></i></button>
+                    <button class="btn btn-actions" onclick="background()">Alterar Cor <i
+                            class="fa-solid fa-brush"></i></button>
                 </div>
-                
+
             </div>
         </div>
     </div>
@@ -523,7 +527,7 @@
                                 const lista = document.getElementById("widgets");
                                 lista.innerHTML = '';
                                 const linhas = document.getElementById("linhas");
-                                linhas.innerHTML = '';  
+                                linhas.innerHTML = '';
                                 notes()
                             } else {
                                 if (data.status == 'Não Logado!') {
@@ -680,11 +684,11 @@
                             </div>
                         </div>
                         `
-                        });
+                    });
                 } else {
                     const linhas = document.getElementById('linhas');
                     data.anotacoes.forEach(a => {
-                    linhas.innerHTML += `
+                        linhas.innerHTML += `
                         <div class='linhas_note' style='background: ${a.cor_escolhida}; box-shadow: 10px 10px 10px ${a.cor_escolhida}; color: ${a.cor_escolhida_lyrics}'>
                             <div class="options">
                                 <small>Criado(a) por {{ session['nome_usuario'] }} via VOX BÍBLIA no dia ${a.data_anotacao}</small>

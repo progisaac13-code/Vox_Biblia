@@ -1,3 +1,7 @@
+.oracao-header {
+    padding: 20px 0;
+}
+
 #Praycontent {
     background-color: var(--fundo);
     padding: 100px 20px;
