@@ -4,6 +4,10 @@ body.locked {
     overflow: hidden;
 }
 
+.text-dourado {
+    color: var(--details);
+}
+
 .btn {
     background-color: #292414;
     color: #fff;
@@ -47,7 +51,7 @@ section#title-of-page p {
 }
 
 main {
-    padding: 100px 20px;
+    padding-top: 100px;
 }
 
 main section#jejum {
@@ -55,6 +59,7 @@ main section#jejum {
     flex-wrap: wrap;
     flex-direction: row;
     gap: 40px;
+    padding: 0 20px 0px 20px;
 }
 
 main section#jejum div.exp {
