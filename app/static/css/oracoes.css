@@ -1,5 +1,22 @@
 .oracao-header {
-    padding: 20px 0;
+    background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, .6)),url('../imagens/oracao/oracoes.webp') no-repeat;
+    background-position: center;
+    background-size: cover;
+}
+
+.oracao-header .content-header {
+    padding: 150px 20px;
+}
+
+.oracao-header .content-header h1 {
+    font-size: 60px;
+    font-weight: 800;
+}
+
+.oracao-header .content-header p {
+    font-family: 'Inter', sans-serif;
+    font-size: 16px;
+    font-weight: 500;
 }
 
 #Praycontent {
